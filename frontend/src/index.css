@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 213 70% 40%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 213 70% 96%;
+    --accent-foreground: 213 70% 28%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 213 70% 40%;
+    --radius: 0.5rem;
+
+    /* Marinho palette CSS vars */
+    --marinho-800: #092D56;
+    --marinho-700: #0E3E73;
+    --marinho-600: #155491;
+    --marinho-500: #1F6AAD;
+    --marinho-400: #4285C1;
+    --marinho-100: #C8DDEF;
+    --marinho-50:  #EBF2FA;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(214.3 31.8% 91.4%);
+  }
+  body {
+    @apply bg-gray-50 text-gray-900 font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Scrollbar customizada */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+}
+
+@layer components {
+  /* Badge de status das solicitações */
+  .badge-status {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-aberta                { @apply bg-gray-100 text-gray-700; }
+  .badge-em_separacao          { @apply bg-yellow-100 text-yellow-800; }
+  .badge-aguardando_atribuicao { @apply bg-red-100 text-red-800 animate-pulse-slow; }
+  .badge-material_separado     { @apply bg-green-100 text-green-800; }
+  .badge-agendamento_realizado { @apply bg-marinho-100 text-marinho-800; }
+  .badge-rota_enviada          { @apply bg-purple-100 text-purple-800; }
+  .badge-entregue              { @apply bg-emerald-100 text-emerald-800; }
+
+  /* Card padrão */
+  .card-base {
+    @apply bg-white rounded-xl border border-gray-200 shadow-sm;
+  }
+
+  /* Botão de ação primário — azul marinho */
+  .btn-primario {
+    @apply inline-flex items-center gap-2 px-4 py-2
+           bg-marinho-700 text-white
+           rounded-lg font-medium text-sm
+           hover:bg-marinho-800
+           focus:outline-none focus:ring-2 focus:ring-marinho-500 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed transition-colors;
+  }
+
+  /* Botão secundário */
+  .btn-secundario {
+    @apply inline-flex items-center gap-2 px-4 py-2
+           bg-white text-marinho-700 border border-marinho-300
+           rounded-lg font-medium text-sm
+           hover:bg-marinho-50
+           focus:outline-none focus:ring-2 focus:ring-marinho-500 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed transition-colors;
+  }
+
+  /* Input padrão */
+  .input-base {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg text-sm
+           focus:outline-none focus:ring-2 focus:ring-marinho-500 focus:border-marinho-500
+           placeholder:text-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed
+           transition-colors;
+  }
+
+  /* Item ativo de navegação */
+  .nav-ativo {
+    @apply bg-marinho-800 text-white font-semibold;
+  }
+  .nav-inativo {
+    @apply text-marinho-100 hover:bg-marinho-800 hover:text-white;
+  }
+}
+
+/* Animação de entrada suave nas páginas */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-enter {
+  animation: fadeIn 0.25s ease-out;
+}

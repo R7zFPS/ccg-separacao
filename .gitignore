@@ -1,0 +1,37 @@
+# Dependências
+node_modules/
+*/node_modules/
+
+# Ambiente
+.env
+*/.env
+!.env.example
+!*/.env.example
+
+# Banco de dados SQLite
+*.db
+*.db-shm
+*.db-wal
+
+# Uploads locais (não versionar arquivos de usuários)
+backend/src/uploads/
+
+# Build do frontend
+frontend/dist/
+frontend/.vite/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+*.swp
+*.swo
+
+# Coverage
+coverage/
