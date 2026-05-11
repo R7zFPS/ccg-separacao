@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: ccg-separacao-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node src/database/migrations.js && node src/database/seeds.js && node src/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 22.6.0
+      - key: PORT
+        value: 10000
+      - key: FRONTEND_URL
+        value: "*"
+      - key: JWT_SECRET
+        generateValue: false
+        value: CCG_Separacao_2024_SecretKey_XK9mP3z
+    plan: free
+    region: ohio

@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
+    "start": "node src/database/migrations.js && node src/database/seeds.js && node src/index.js",
     "migrate": "node src/database/migrations.js",
     "seed": "node src/database/seeds.js",
     "setup": "npm run migrate && npm run seed",
@@ -31,6 +31,6 @@
     "nodemon": "^3.1.0"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.5.0"
   }
 }
