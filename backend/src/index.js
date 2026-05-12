@@ -20,6 +20,7 @@ const compression = require('compression');
 
 // ─── Banco de dados ─────────────────────────────────
 const { executarMigrations } = require('./database/migrations');
+const { executarSeeds }      = require('./database/seeds');
 
 // ─── Serviços ────────────────────────────────────────
 const notificacaoService = require('./services/notificacao.service');
@@ -217,10 +218,11 @@ app.use((err, req, res, _next) => {
 });
 
 // ─── Inicialização ───────────────────────────────────
-function iniciar() {
+async function iniciar() {
   try {
-    // Garante que as tabelas existem antes de aceitar requisições
+    // Garante que as tabelas existem e dados iniciais estão presentes
     executarMigrations();
+    await executarSeeds();
 
     server.listen(PORT, '0.0.0.0', () => {
       console.log('\n═══════════════════════════════════════════════════');
