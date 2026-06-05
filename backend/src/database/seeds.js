@@ -202,6 +202,12 @@ async function executarSeeds() {
     },
   ];
 
+  // Pré-computa o hash ANTES de abrir a transação (node:sqlite é síncrono;
+  // await dentro de BEGIN causa problemas — hash é idêntico para todos os usuários)
+  console.log('🔐 Gerando hash de senha...');
+  const senha_hash = await bcrypt.hash(SENHA_PADRAO, SALT_ROUNDS);
+
+  // Transação 100% síncrona — sem await dentro do BEGIN/COMMIT
   db.exec('BEGIN');
   try {
     const stmt = db.prepare(`
@@ -210,7 +216,6 @@ async function executarSeeds() {
     `);
 
     for (const u of usuarios) {
-      const senha_hash  = await bcrypt.hash(SENHA_PADRAO, SALT_ROUNDS);
       const roles_extra = JSON.stringify(Array.isArray(u.roles_extra) ? u.roles_extra : []);
       stmt.run(u.id, u.nome, u.usuario_login, u.email, senha_hash, u.role, roles_extra, u.setor, u.primeiro_acesso);
       console.log(`✅ ${u.role.padEnd(14)} → login: ${u.usuario_login.padEnd(14)} (${u.nome})`);

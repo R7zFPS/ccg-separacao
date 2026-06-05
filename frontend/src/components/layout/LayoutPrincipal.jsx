@@ -34,11 +34,15 @@ export function LayoutPrincipal() {
   }, []);
 
   return (
-    <div className={`min-h-screen bg-gray-50 ${bannerVisivel ? 'pt-10' : ''}`}>
-      {/* Header fixo no topo — sobe 40px quando o OfflineBanner está visível */}
-      <Header onToggleSidebar={() => setSidebarAberta(!sidebarAberta)} />
+    <div style={{
+      minHeight: '100vh',
+      background: 'var(--bg-app)',
+      paddingTop: bannerVisivel ? 40 : 0,
+    }}>
+      {/* Header */}
+      <Header onToggleSidebar={() => setSidebarAberta(v => !v)} />
 
-      <div className="flex h-[calc(100vh-4rem)]">
+      <div style={{ display: 'flex', height: 'calc(100vh - 64px)' }}>
         {/* Sidebar */}
         <Sidebar
           aberta={sidebarAberta}
@@ -46,8 +50,16 @@ export function LayoutPrincipal() {
         />
 
         {/* Conteúdo principal */}
-        <main className="flex-1 overflow-y-auto">
-          <div className="p-4 md:p-6 max-w-7xl mx-auto page-enter">
+        <main style={{
+          flex: 1,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+        }}>
+          <div style={{
+            padding: '1.5rem',
+            maxWidth: 1280,
+            margin: '0 auto',
+          }} className="page-enter">
             <Outlet />
           </div>
         </main>
