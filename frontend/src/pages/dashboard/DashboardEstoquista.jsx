@@ -31,10 +31,10 @@ function BarraMeta({ pct }) {
   const cor = pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-yellow-400' : 'bg-red-400';
   return (
     <div className="flex items-center gap-2 flex-1">
-      <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+      <div className="flex-1 h-1.5 bg-marinho-50 rounded-full overflow-hidden">
         <div className={`h-full rounded-full ${cor}`} style={{ width: `${Math.min(pct, 100)}%` }} />
       </div>
-      <span className="text-xs text-gray-400 w-8 text-right">{pct}%</span>
+      <span className="text-xs text-marinho-300 w-8 text-right">{pct}%</span>
     </div>
   );
 }
@@ -85,11 +85,11 @@ export default function DashboardEstoquista() {
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-marinho-900">
           Olá, {usuario?.nome?.split(' ')[0]}!
         </h1>
-        <p className="text-gray-500 mt-0.5">
-          Setor: <span className="font-semibold text-blue-600">
+        <p className="text-marinho-400 mt-0.5">
+          Setor: <span className="font-semibold text-marinho-600">
             {LABELS_SETOR[usuario?.setor] || usuario?.setor}
           </span>
         </p>
@@ -97,20 +97,20 @@ export default function DashboardEstoquista() {
 
       {/* Contadores da fila geral */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="card-base p-4 border-l-4 border-gray-400">
-          <Package className="w-5 h-5 text-gray-500 mb-1" />
-          <p className="text-xl font-bold text-gray-900">{carregando ? '·' : naFila}</p>
-          <p className="text-xs text-gray-500">Na fila</p>
+        <div className="card-base p-4 border-l-4 border-marinho-300">
+          <Package className="w-5 h-5 text-marinho-400 mb-1" />
+          <p className="text-xl font-bold text-marinho-900">{carregando ? '·' : naFila}</p>
+          <p className="text-xs text-marinho-400">Na fila</p>
         </div>
         <div className="card-base p-4 border-l-4 border-yellow-400">
           <Clock className="w-5 h-5 text-yellow-600 mb-1" />
-          <p className="text-xl font-bold text-gray-900">{carregando ? '·' : emSep}</p>
-          <p className="text-xs text-gray-500">Em separação</p>
+          <p className="text-xl font-bold text-marinho-900">{carregando ? '·' : emSep}</p>
+          <p className="text-xs text-marinho-400">Em separação</p>
         </div>
         <div className="card-base p-4 border-l-4 border-green-400">
           <CheckCircle className="w-5 h-5 text-green-600 mb-1" />
-          <p className="text-xl font-bold text-gray-900">{carregando ? '·' : separadas}</p>
-          <p className="text-xs text-gray-500">Separados</p>
+          <p className="text-xl font-bold text-marinho-900">{carregando ? '·' : separadas}</p>
+          <p className="text-xs text-marinho-400">Separados</p>
         </div>
       </div>
 
@@ -119,13 +119,13 @@ export default function DashboardEstoquista() {
         <div className="card-base p-4">
           <div className="flex items-center gap-2 mb-3">
             <Activity className="w-4 h-4 text-marinho-600" />
-            <h2 className="font-semibold text-gray-900 text-sm">Minha Performance</h2>
+            <h2 className="font-semibold text-marinho-900 text-sm">Minha Performance</h2>
           </div>
 
           <div className="grid grid-cols-2 gap-3 mb-3">
-            <div className="bg-gray-50 rounded-lg p-3 text-center">
-              <p className="text-xl font-bold text-gray-900">{e.total_atribuidos}</p>
-              <p className="text-xs text-gray-500">Atribuídos</p>
+            <div className="bg-marinho-50 rounded-lg p-3 text-center">
+              <p className="text-xl font-bold text-marinho-900">{e.total_atribuidos}</p>
+              <p className="text-xs text-marinho-400">Atribuídos</p>
             </div>
             <div className="bg-emerald-50 rounded-lg p-3 text-center">
               <p className="text-xl font-bold text-emerald-700">{e.concluidos}</p>
@@ -136,18 +136,18 @@ export default function DashboardEstoquista() {
           <div className="space-y-2">
             {e.avg_segundos != null && (
               <div className="flex items-center justify-between text-sm">
-                <span className="flex items-center gap-1.5 text-gray-600 text-xs">
-                  <Clock className="w-3.5 h-3.5 text-blue-500" />
+                <span className="flex items-center gap-1.5 text-marinho-600 text-xs">
+                  <Clock className="w-3.5 h-3.5 text-marinho-500" />
                   Tempo médio
                 </span>
-                <span className="font-semibold text-gray-900 text-sm">
+                <span className="font-semibold text-marinho-900 text-sm">
                   {formatarTempo(e.avg_segundos)}
                 </span>
               </div>
             )}
             {e.min_segundos != null && (
               <div className="flex items-center justify-between text-sm">
-                <span className="flex items-center gap-1.5 text-gray-600 text-xs">
+                <span className="flex items-center gap-1.5 text-marinho-600 text-xs">
                   <TrendingUp className="w-3.5 h-3.5 text-emerald-500" />
                   Melhor tempo
                 </span>
@@ -158,7 +158,7 @@ export default function DashboardEstoquista() {
             )}
             {e.pct_dentro_meta != null && (
               <div>
-                <div className="flex justify-between text-xs text-gray-500 mb-1">
+                <div className="flex justify-between text-xs text-marinho-400 mb-1">
                   <span className="flex items-center gap-1">
                     <Award className="w-3 h-3 text-yellow-500" />
                     Dentro da meta (≤ 30 min)
@@ -174,10 +174,10 @@ export default function DashboardEstoquista() {
       {/* Próximos da fila */}
       <div className="card-base p-4">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-semibold text-gray-900">Próximos na Fila</h2>
+          <h2 className="font-semibold text-marinho-900">Próximos na Fila</h2>
           <button
             onClick={() => navigate('/solicitacoes')}
-            className="flex items-center gap-1 text-sm text-blue-600"
+            className="flex items-center gap-1 text-sm text-marinho-600"
           >
             Ver fila completa <ArrowRight className="w-3 h-3" />
           </button>
@@ -193,7 +193,7 @@ export default function DashboardEstoquista() {
         ) : proximas.length === 0 ? (
           <div className="text-center py-8">
             <CheckCircle className="w-10 h-10 text-green-200 mx-auto mb-2" />
-            <p className="text-gray-400 text-sm">Fila vazia! Tudo em dia.</p>
+            <p className="text-marinho-300 text-sm">Fila vazia! Tudo em dia.</p>
           </div>
         ) : (
           <div className="space-y-2">

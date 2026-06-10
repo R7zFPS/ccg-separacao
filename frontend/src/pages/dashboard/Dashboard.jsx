@@ -33,7 +33,7 @@ export default function Dashboard() {
   if (!DashboardDoRole) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-gray-500">
+        <p className="text-marinho-400">
           Perfil não reconhecido: {usuario?.role}
         </p>
       </div>

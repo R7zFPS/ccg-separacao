@@ -111,16 +111,16 @@ export default function NovaSolicitacao() {
       <div className="flex items-center gap-3">
         <button
           onClick={() => navigate('/solicitacoes')}
-          className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          className="p-2 rounded-lg hover:bg-marinho-50 transition-colors"
         >
-          <ArrowLeft className="w-5 h-5 text-gray-500" />
+          <ArrowLeft className="w-5 h-5 text-marinho-400" />
         </button>
         <div>
-          <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="text-xl font-bold text-marinho-900 flex items-center gap-2">
             <FileText className="w-5 h-5 text-marinho-600" />
             Nova Solicitação
           </h1>
-          <p className="text-sm text-gray-500">Preencha os dados do pedido de separação</p>
+          <p className="text-sm text-marinho-400">Preencha os dados do pedido de separação</p>
         </div>
       </div>
 
@@ -128,7 +128,7 @@ export default function NovaSolicitacao() {
 
         {/* ── PASSO 1: Tipo de documento ───────────────── */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
+          <label className="block text-sm font-semibold text-marinho-700 mb-2">
             Tipo de Documento <span className="text-red-500">*</span>
           </label>
           <div className="grid grid-cols-2 gap-3">
@@ -155,14 +155,14 @@ export default function NovaSolicitacao() {
                              transition-all duration-200
                              ${tipo === value
                                ? 'border-marinho-600 bg-marinho-50 shadow-md'
-                               : 'border-gray-200 hover:border-marinho-300 bg-white hover:shadow-sm'
+                               : 'border-marinho-100 hover:border-marinho-300 bg-white hover:shadow-sm'
                              }`}
               >
                 <span className="text-xl mb-1">{icone}</span>
-                <span className={`font-semibold text-sm ${tipo === value ? 'text-marinho-700' : 'text-gray-800'}`}>
+                <span className={`font-semibold text-sm ${tipo === value ? 'text-marinho-700' : 'text-marinho-800'}`}>
                   {label}
                 </span>
-                <span className="text-xs text-gray-500 mt-0.5">{desc}</span>
+                <span className="text-xs text-marinho-400 mt-0.5">{desc}</span>
               </button>
             ))}
           </div>
@@ -170,7 +170,7 @@ export default function NovaSolicitacao() {
 
         {/* ── PASSO 2: Número ──────────────────────────── */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+          <label className="block text-sm font-semibold text-marinho-700 mb-1.5">
             {ehOrcamento ? 'Número da Proposta' : 'Número da Nota Fiscal'}{' '}
             <span className="text-red-500">*</span>
           </label>
@@ -188,7 +188,7 @@ export default function NovaSolicitacao() {
 
         {/* ── PASSO 3: Local do Material ────────────────── */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+          <label className="block text-sm font-semibold text-marinho-700 mb-1.5">
             Local do Material <span className="text-red-500">*</span>
           </label>
           <div className="grid grid-cols-3 gap-2">
@@ -201,7 +201,7 @@ export default function NovaSolicitacao() {
                 className={`py-2.5 px-3 rounded-lg border-2 text-sm font-medium transition-all duration-200
                   ${form.setor_destino === value
                     ? 'border-marinho-600 bg-marinho-600 text-white shadow-md'
-                    : 'border-gray-200 text-gray-700 hover:border-marinho-300 hover:bg-marinho-50'
+                    : 'border-marinho-100 text-marinho-700 hover:border-marinho-300 hover:bg-marinho-50'
                   }`}
               >
                 {label}
@@ -212,16 +212,16 @@ export default function NovaSolicitacao() {
 
         {/* ── Upload de documento ───────────────────────── */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+          <label className="block text-sm font-semibold text-marinho-700 mb-1.5">
             {ehOrcamento ? 'Orçamento em PDF' : 'Nota Fiscal em PDF'}{' '}
-            <span className="text-gray-400 text-xs font-normal">(opcional — máx. 10 MB)</span>
+            <span className="text-marinho-300 text-xs font-normal">(opcional — máx. 10 MB)</span>
           </label>
           <label className={`
             flex flex-col items-center justify-center w-full h-28 border-2 border-dashed
             rounded-xl cursor-pointer transition-all duration-200
             ${arquivo
               ? 'border-green-400 bg-green-50'
-              : 'border-gray-300 bg-gray-50 hover:bg-marinho-50 hover:border-marinho-400'
+              : 'border-marinho-200 bg-marinho-50 hover:bg-marinho-50 hover:border-marinho-400'
             }
             ${carregando ? 'pointer-events-none opacity-50' : ''}
           `}>
@@ -235,8 +235,8 @@ export default function NovaSolicitacao() {
               </div>
             ) : (
               <div className="text-center">
-                <Upload className="w-7 h-7 text-gray-400 mx-auto mb-1" />
-                <p className="text-sm text-gray-500">Clique para selecionar ou arraste o PDF</p>
+                <Upload className="w-7 h-7 text-marinho-300 mx-auto mb-1" />
+                <p className="text-sm text-marinho-400">Clique para selecionar ou arraste o PDF</p>
               </div>
             )}
             <input
@@ -260,9 +260,9 @@ export default function NovaSolicitacao() {
 
         {/* ── Observações ───────────────────────────────── */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+          <label className="block text-sm font-semibold text-marinho-700 mb-1.5">
             Observações{' '}
-            <span className="text-gray-400 text-xs font-normal">(opcional)</span>
+            <span className="text-marinho-300 text-xs font-normal">(opcional)</span>
           </label>
           <textarea
             name="observacoes"
@@ -285,13 +285,13 @@ export default function NovaSolicitacao() {
         )}
 
         {/* Botões */}
-        <div className="flex items-center justify-end gap-3 pt-2 border-t border-gray-100">
+        <div className="flex items-center justify-end gap-3 pt-2 border-t border-marinho-100/60">
           <button
             type="button"
             onClick={() => navigate('/solicitacoes')}
             disabled={carregando}
-            className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100
-                        rounded-lg hover:bg-gray-200 transition-colors"
+            className="px-4 py-2 text-sm font-medium text-marinho-700 bg-marinho-50
+                        rounded-lg hover:bg-marinho-100 transition-colors"
           >
             Cancelar
           </button>

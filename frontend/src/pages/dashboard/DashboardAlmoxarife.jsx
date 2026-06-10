@@ -32,10 +32,10 @@ function BarraMeta({ pct }) {
   const cor = pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-yellow-400' : 'bg-red-400';
   return (
     <div className="flex items-center gap-2 flex-1">
-      <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+      <div className="flex-1 h-1.5 bg-marinho-50 rounded-full overflow-hidden">
         <div className={`h-full rounded-full ${cor}`} style={{ width: `${Math.min(pct, 100)}%` }} />
       </div>
-      <span className="text-xs text-gray-400 w-8 text-right">{pct}%</span>
+      <span className="text-xs text-marinho-300 w-8 text-right">{pct}%</span>
     </div>
   );
 }
@@ -87,16 +87,16 @@ export default function DashboardAlmoxarife() {
       {/* Cabeçalho */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-marinho-900">
             Olá, {usuario?.nome?.split(' ')[0]}!
           </h1>
-          <p className="text-gray-500 mt-0.5 text-sm">
+          <p className="text-marinho-400 mt-0.5 text-sm">
             Fila de separação — {usuario?.setor !== 'ambos' ? usuario?.setor : 'todos os setores'}
           </p>
         </div>
         <button
           onClick={carregar}
-          className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors"
+          className="p-2 rounded-lg text-marinho-400 hover:bg-marinho-50 transition-colors"
           title="Atualizar"
         >
           <RefreshCw className={`w-4 h-4 ${carregando ? 'animate-spin' : ''}`} />
@@ -133,18 +133,18 @@ export default function DashboardAlmoxarife() {
         <div className="grid grid-cols-3 gap-3">
           <div className="card-base p-4 border-l-4 border-yellow-400">
             <Clock className="w-5 h-5 text-yellow-500 mb-1" />
-            <p className="text-2xl font-bold text-gray-900">{naFila}</p>
-            <p className="text-xs text-gray-500">Na fila</p>
+            <p className="text-2xl font-bold text-marinho-900">{naFila}</p>
+            <p className="text-xs text-marinho-400">Na fila</p>
           </div>
-          <div className="card-base p-4 border-l-4 border-blue-400">
-            <Package className="w-5 h-5 text-blue-500 mb-1" />
-            <p className="text-2xl font-bold text-gray-900">{emSep}</p>
-            <p className="text-xs text-gray-500">Em separação</p>
+          <div className="card-base p-4 border-l-4 border-marinho-300">
+            <Package className="w-5 h-5 text-marinho-500 mb-1" />
+            <p className="text-2xl font-bold text-marinho-900">{emSep}</p>
+            <p className="text-xs text-marinho-400">Em separação</p>
           </div>
           <div className="card-base p-4 border-l-4 border-green-400">
             <CheckCircle className="w-5 h-5 text-green-500 mb-1" />
-            <p className="text-2xl font-bold text-gray-900">{separados}</p>
-            <p className="text-xs text-gray-500">Separados</p>
+            <p className="text-2xl font-bold text-marinho-900">{separados}</p>
+            <p className="text-xs text-marinho-400">Separados</p>
           </div>
         </div>
       ))}
@@ -154,12 +154,12 @@ export default function DashboardAlmoxarife() {
         <div className="card-base p-4">
           <div className="flex items-center gap-2 mb-3">
             <Activity className="w-4 h-4 text-marinho-600" />
-            <h2 className="font-semibold text-gray-900 text-sm">Minha Performance</h2>
+            <h2 className="font-semibold text-marinho-900 text-sm">Minha Performance</h2>
           </div>
           <div className="grid grid-cols-2 gap-3 mb-3">
-            <div className="bg-gray-50 rounded-lg p-3 text-center">
-              <p className="text-xl font-bold text-gray-900">{e.total_atribuidos}</p>
-              <p className="text-xs text-gray-500">Atribuídos</p>
+            <div className="bg-marinho-50 rounded-lg p-3 text-center">
+              <p className="text-xl font-bold text-marinho-900">{e.total_atribuidos}</p>
+              <p className="text-xs text-marinho-400">Atribuídos</p>
             </div>
             <div className="bg-emerald-50 rounded-lg p-3 text-center">
               <p className="text-xl font-bold text-emerald-700">{e.concluidos}</p>
@@ -169,15 +169,15 @@ export default function DashboardAlmoxarife() {
           <div className="space-y-2">
             {e.avg_segundos != null && (
               <div className="flex items-center justify-between text-sm">
-                <span className="flex items-center gap-1.5 text-gray-600 text-xs">
-                  <Clock className="w-3.5 h-3.5 text-blue-500" /> Tempo médio
+                <span className="flex items-center gap-1.5 text-marinho-600 text-xs">
+                  <Clock className="w-3.5 h-3.5 text-marinho-500" /> Tempo médio
                 </span>
-                <span className="font-semibold text-gray-900">{formatarTempo(e.avg_segundos)}</span>
+                <span className="font-semibold text-marinho-900">{formatarTempo(e.avg_segundos)}</span>
               </div>
             )}
             {e.min_segundos != null && (
               <div className="flex items-center justify-between text-sm">
-                <span className="flex items-center gap-1.5 text-gray-600 text-xs">
+                <span className="flex items-center gap-1.5 text-marinho-600 text-xs">
                   <TrendingUp className="w-3.5 h-3.5 text-emerald-500" /> Melhor tempo
                 </span>
                 <span className="font-semibold text-emerald-700">{formatarTempo(e.min_segundos)}</span>
@@ -185,7 +185,7 @@ export default function DashboardAlmoxarife() {
             )}
             {e.pct_dentro_meta != null && (
               <div>
-                <div className="flex justify-between text-xs text-gray-500 mb-1">
+                <div className="flex justify-between text-xs text-marinho-400 mb-1">
                   <span className="flex items-center gap-1">
                     <Award className="w-3 h-3 text-yellow-500" /> Dentro da meta (≤ 30 min)
                   </span>
@@ -205,10 +205,10 @@ export default function DashboardAlmoxarife() {
                       transition-shadow group text-left"
         >
           <div>
-            <p className="font-semibold text-gray-900">Fila de Separação</p>
-            <p className="text-sm text-gray-500 mt-0.5">Puxe um pedido para iniciar</p>
+            <p className="font-semibold text-marinho-900">Fila de Separação</p>
+            <p className="text-sm text-marinho-400 mt-0.5">Puxe um pedido para iniciar</p>
           </div>
-          <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-marinho-600 transition-colors" />
+          <ArrowRight className="w-5 h-5 text-marinho-300 group-hover:text-marinho-600 transition-colors" />
         </button>
         <button
           onClick={() => navigate('/historico')}
@@ -216,36 +216,36 @@ export default function DashboardAlmoxarife() {
                       transition-shadow group text-left"
         >
           <div>
-            <p className="font-semibold text-gray-900">Meu Histórico</p>
-            <p className="text-sm text-gray-500 mt-0.5">Separações realizadas</p>
+            <p className="font-semibold text-marinho-900">Meu Histórico</p>
+            <p className="text-sm text-marinho-400 mt-0.5">Separações realizadas</p>
           </div>
-          <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-marinho-600 transition-colors" />
+          <ArrowRight className="w-5 h-5 text-marinho-300 group-hover:text-marinho-600 transition-colors" />
         </button>
       </div>
 
       {/* Em separação agora */}
       {recentes.length > 0 && (
         <div className="card-base p-5">
-          <h2 className="text-sm font-semibold text-gray-700 mb-3">Em Separação Agora</h2>
+          <h2 className="text-sm font-semibold text-marinho-700 mb-3">Em Separação Agora</h2>
           <div className="space-y-2">
             {recentes.map((sol) => (
               <button
                 key={sol.id}
                 onClick={() => navigate(`/solicitacoes/${sol.id}`)}
-                className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50
+                className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-marinho-50
                             transition-colors text-left group"
               >
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-semibold text-sm text-gray-900">
+                    <span className="font-semibold text-sm text-marinho-900">
                       #{sol.numero_proposta}
                     </span>
                     <BadgeStatus status={sol.status} />
                     {sol.prioridade && <BadgePrioridade prioridade={sol.prioridade} />}
                   </div>
-                  <p className="text-xs text-gray-400 mt-0.5">{tempoRelativo(sol.created_at)}</p>
+                  <p className="text-xs text-marinho-300 mt-0.5">{tempoRelativo(sol.created_at)}</p>
                 </div>
-                <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-marinho-600
+                <ArrowRight className="w-4 h-4 text-marinho-200 group-hover:text-marinho-600
                                         flex-shrink-0 transition-colors" />
               </button>
             ))}

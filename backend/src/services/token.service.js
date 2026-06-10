@@ -71,8 +71,8 @@ function validarRefreshToken(token) {
   const db = getDb();
 
   const registro = db.prepare(`
-    SELECT rt.*, u.id as usuario_id, u.nome, u.email,
-           u.role, u.roles_extra, u.setor, u.ativo
+    SELECT rt.*, u.id as usuario_id, u.nome, u.usuario_login, u.email,
+           u.role, u.roles_extra, u.setor, u.ativo, u.primeiro_acesso
     FROM refresh_tokens rt
     JOIN users u ON rt.usuario_id = u.id
     WHERE rt.token = ? AND rt.revogado = 0

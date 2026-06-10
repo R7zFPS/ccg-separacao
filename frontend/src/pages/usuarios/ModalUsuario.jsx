@@ -95,16 +95,16 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
         {/* Header do modal */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 sticky top-0 bg-white z-10">
-          <h2 className="text-lg font-semibold text-gray-900">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-marinho-100/60 sticky top-0 bg-white z-10">
+          <h2 className="text-lg font-semibold text-marinho-900">
             {ehEdicao ? 'Editar Usuário' : 'Novo Usuário'}
           </h2>
           <button
             onClick={onFechar}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-lg hover:bg-marinho-50 transition-colors"
             aria-label="Fechar"
           >
-            <X className="w-4 h-4 text-gray-500" />
+            <X className="w-4 h-4 text-marinho-400" />
           </button>
         </div>
 
@@ -112,7 +112,7 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {/* Nome */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-marinho-700 mb-1.5">
               Nome completo
             </label>
             <input
@@ -128,7 +128,7 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
 
           {/* Login */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-marinho-700 mb-1.5">
               Nome de usuário <span className="text-marinho-600 text-xs">(para login)</span>
             </label>
             <input
@@ -146,8 +146,8 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Email <span className="text-gray-400 text-xs">(opcional)</span>
+            <label className="block text-sm font-medium text-marinho-700 mb-1.5">
+              Email <span className="text-marinho-300 text-xs">(opcional)</span>
             </label>
             <input
               type="email"
@@ -162,7 +162,7 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
 
           {/* Senha */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-marinho-700 mb-1.5">
               {ehEdicao ? 'Nova senha (deixe em branco para não alterar)' : 'Senha inicial'}
             </label>
             {!ehEdicao && (
@@ -184,7 +184,7 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
               <button
                 type="button"
                 onClick={() => setMostrarSenha(!mostrarSenha)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-marinho-300"
                 tabIndex={-1}
               >
                 {mostrarSenha ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -195,7 +195,7 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
           {/* Perfil Principal + Setor */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-marinho-700 mb-1.5">
                 Perfil Principal
               </label>
               <select
@@ -211,7 +211,7 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-marinho-700 mb-1.5">
                 Setor
               </label>
               <select
@@ -231,13 +231,13 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
           {/* Perfis Adicionais */}
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-marinho-700">
                 Perfis Adicionais
               </label>
               <span className="group relative">
-                <Info className="w-3.5 h-3.5 text-gray-400 cursor-help" />
+                <Info className="w-3.5 h-3.5 text-marinho-300 cursor-help" />
                 <span className="hidden group-hover:block absolute left-5 -top-1 z-10 w-56
-                                  text-xs bg-gray-800 text-white rounded-lg px-3 py-2 shadow-xl">
+                                  text-xs bg-marinho-800 text-white rounded-lg px-3 py-2 shadow-xl">
                   Permissões extras além do perfil principal. Ex: Matheus pode ser
                   Logística + Vendedor.
                 </span>
@@ -245,7 +245,7 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
             </div>
 
             {rolesParaExtras.length === 0 ? (
-              <p className="text-xs text-gray-400 italic">
+              <p className="text-xs text-marinho-300 italic">
                 Nenhum perfil adicional disponível para este tipo.
               </p>
             ) : (
@@ -260,7 +260,7 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
                         text-sm transition-colors select-none
                         ${selecionado
                           ? 'bg-marinho-50 border-marinho-400 text-marinho-800 font-medium'
-                          : 'bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100'
+                          : 'bg-marinho-50 border-marinho-100 text-marinho-600 hover:bg-marinho-50'
                         }
                         ${carregando ? 'opacity-50 cursor-not-allowed' : ''}
                       `}
@@ -269,8 +269,8 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
                         type="checkbox"
                         checked={selecionado}
                         onChange={() => !carregando && toggleRoleExtra(role)}
-                        className="rounded border-gray-300 text-marinho-600
-                                    focus:ring-marinho-500 w-4 h-4"
+                        className="rounded border-marinho-200 text-marinho-600
+                                    focus:ring-marinho-400 w-4 h-4"
                       />
                       {LABELS_ROLE[role]}
                     </label>
@@ -303,8 +303,8 @@ export default function ModalUsuario({ usuario, onFechar, onSalvo }) {
               type="button"
               onClick={onFechar}
               disabled={carregando}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100
-                          rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-sm font-medium text-marinho-700 bg-marinho-50
+                          rounded-lg hover:bg-marinho-100 transition-colors disabled:opacity-50"
             >
               Cancelar
             </button>

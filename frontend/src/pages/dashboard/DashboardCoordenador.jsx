@@ -17,11 +17,11 @@ import { ErroCarregamento } from '../../components/ui/ErroCarregamento';
 
 // ── Constantes ────────────────────────────────────────────
 const CARDS_STATUS = [
-  { label: 'Abertas',            cor: 'border-gray-400    bg-gray-50',     icone: Package,       status: 'aberta' },
+  { label: 'Abertas',            cor: 'border-marinho-300    bg-marinho-50',     icone: Package,       status: 'aberta' },
   { label: 'Aguard. Atribuição', cor: 'border-red-400     bg-red-50',      icone: AlertTriangle, status: 'aguardando_atribuicao' },
   { label: 'Em Separação',       cor: 'border-yellow-400  bg-yellow-50',   icone: Clock,         status: 'em_separacao' },
   { label: 'Mat. Separado',      cor: 'border-green-400   bg-green-50',    icone: CheckCircle,   status: 'material_separado' },
-  { label: 'Agendado',           cor: 'border-blue-400    bg-blue-50',     icone: Calendar,      status: 'agendamento_realizado' },
+  { label: 'Agendado',           cor: 'border-marinho-300    bg-marinho-50',     icone: Calendar,      status: 'agendamento_realizado' },
   { label: 'Rota Enviada',       cor: 'border-purple-400  bg-purple-50',   icone: Truck,         status: 'rota_enviada' },
   { label: 'Entregues',          cor: 'border-emerald-400 bg-emerald-50',  icone: PackageCheck,  status: 'entregue' },
 ];
@@ -38,7 +38,7 @@ function fmtTempo(seg) {
 // ── Gráfico de barras SVG inline ─────────────────────────
 function GraficoEvolucao({ dados }) {
   if (!dados || dados.length === 0) {
-    return <p className="text-gray-400 text-sm text-center py-6">Sem dados de evolução.</p>;
+    return <p className="text-marinho-300 text-sm text-center py-6">Sem dados de evolução.</p>;
   }
 
   const W = 600; const H = 120; const PAD = 8;
@@ -120,10 +120,10 @@ function GraficoEvolucao({ dados }) {
 
       {/* Legenda */}
       <div className="flex items-center gap-4 justify-center mt-1">
-        <span className="flex items-center gap-1.5 text-xs text-gray-500">
-          <span className="w-3 h-3 rounded bg-blue-400 inline-block" /> Criadas
+        <span className="flex items-center gap-1.5 text-xs text-marinho-400">
+          <span className="w-3 h-3 rounded bg-marinho-300 inline-block" /> Criadas
         </span>
-        <span className="flex items-center gap-1.5 text-xs text-gray-500">
+        <span className="flex items-center gap-1.5 text-xs text-marinho-400">
           <span className="w-3 h-3 rounded bg-emerald-400 inline-block" /> Entregues
         </span>
       </div>
@@ -183,11 +183,11 @@ export default function DashboardCoordenador() {
       {/* Cabeçalho */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-marinho-900 flex items-center gap-2">
             <LayoutDashboard className="w-6 h-6 text-marinho-600" />
             Painel Geral
           </h1>
-          <p className="text-gray-500 text-sm mt-0.5">
+          <p className="text-marinho-400 text-sm mt-0.5">
             {totalAtivos} pedido{totalAtivos !== 1 ? 's' : ''} em aberto agora
           </p>
         </div>
@@ -235,11 +235,11 @@ export default function DashboardCoordenador() {
             className={`card-base p-4 text-left border-l-4 ${cor}
                          hover:shadow-md transition-shadow cursor-pointer`}
           >
-            <Icone className="w-5 h-5 text-gray-600 mb-2" />
-            <p className="text-xl font-bold text-gray-900">
+            <Icone className="w-5 h-5 text-marinho-600 mb-2" />
+            <p className="text-xl font-bold text-marinho-900">
               {carregando ? '—' : (contadores[status] || 0)}
             </p>
-            <p className="text-xs text-gray-500 leading-tight mt-0.5">{label}</p>
+            <p className="text-xs text-marinho-400 leading-tight mt-0.5">{label}</p>
           </button>
         ))}
       </div>
@@ -250,7 +250,7 @@ export default function DashboardCoordenador() {
         {/* Gráfico — ocupa 2/3 */}
         <div className="lg:col-span-2 card-base p-5">
           <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-            <h2 className="text-base font-semibold text-gray-900 flex items-center gap-2">
+            <h2 className="text-base font-semibold text-marinho-900 flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-marinho-600" />
               Evolução de Pedidos
             </h2>
@@ -262,7 +262,7 @@ export default function DashboardCoordenador() {
                   className={`text-xs px-2.5 py-1 rounded-full border transition-colors
                     ${periodoGraf === d
                       ? 'bg-marinho-600 text-white border-marinho-600'
-                      : 'border-gray-200 text-gray-500 hover:border-marinho-300'}`}
+                      : 'border-marinho-100 text-marinho-400 hover:border-marinho-300'}`}
                 >
                   {d}d
                 </button>
@@ -277,7 +277,7 @@ export default function DashboardCoordenador() {
 
         {/* Ranking de estoquistas — ocupa 1/3 */}
         <div className="card-base p-5">
-          <h2 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <h2 className="text-base font-semibold text-marinho-900 mb-4 flex items-center gap-2">
             <Clock className="w-4 h-4 text-purple-600" />
             Top Estoquistas
           </h2>
@@ -289,7 +289,7 @@ export default function DashboardCoordenador() {
       {!erro && (carregando ? (
             <div className="flex justify-center py-8"><Spinner /></div>
           ) : ranking.length === 0 ? (
-            <p className="text-sm text-gray-400 text-center py-4">
+            <p className="text-sm text-marinho-300 text-center py-4">
               Nenhuma separação concluída ainda.
             </p>
           ) : (
@@ -298,7 +298,7 @@ export default function DashboardCoordenador() {
                 const corPos = idx === 0 ? 'bg-purple-600 text-white'
                              : idx === 1 ? 'bg-purple-200 text-purple-800'
                              : idx === 2 ? 'bg-purple-100 text-purple-700'
-                             :             'bg-gray-100 text-gray-500';
+                             :             'bg-marinho-50 text-marinho-400';
                 const dentroMeta = r.media_segundos <= 1800;
                 return (
                   <div key={r.id} className="flex items-center gap-3">
@@ -307,14 +307,14 @@ export default function DashboardCoordenador() {
                       {idx + 1}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">{r.nome}</p>
-                      <p className="text-xs text-gray-400">{r.total_pedidos} pedido{r.total_pedidos !== 1 ? 's' : ''}</p>
+                      <p className="text-sm font-medium text-marinho-900 truncate">{r.nome}</p>
+                      <p className="text-xs text-marinho-300">{r.total_pedidos} pedido{r.total_pedidos !== 1 ? 's' : ''}</p>
                     </div>
                     <div className="text-right">
                       <p className={`text-sm font-bold ${dentroMeta ? 'text-green-700' : 'text-orange-600'}`}>
                         {fmtTempo(r.media_segundos)}
                       </p>
-                      <p className="text-xs text-gray-400">{r.pct_meta}% na meta</p>
+                      <p className="text-xs text-marinho-300">{r.pct_meta}% na meta</p>
                     </div>
                   </div>
                 );
@@ -335,8 +335,8 @@ export default function DashboardCoordenador() {
       {/* Atalho rápido */}
       <div className="card-base p-5 flex items-center justify-between">
         <div>
-          <h2 className="font-semibold text-gray-900">Todas as Solicitações</h2>
-          <p className="text-sm text-gray-500 mt-0.5">
+          <h2 className="font-semibold text-marinho-900">Todas as Solicitações</h2>
+          <p className="text-sm text-marinho-400 mt-0.5">
             Gerencie prioridades, atribua estoquistas e acompanhe o fluxo completo
           </p>
         </div>
@@ -358,30 +358,30 @@ export default function DashboardCoordenador() {
           <div className="card-base p-5">
             <div className="flex items-center gap-2 mb-4">
               <FileText className="w-5 h-5 text-marinho-600" />
-              <h2 className="text-sm font-semibold text-gray-800">
+              <h2 className="text-sm font-semibold text-marinho-800">
                 Minha Performance como Solicitante
               </h2>
             </div>
             <div className="grid grid-cols-3 gap-3 mb-4">
-              <div className="text-center p-3 bg-gray-50 rounded-xl">
-                <p className="text-xl font-bold text-gray-900">{v.total_criadas}</p>
-                <p className="text-xs text-gray-500 mt-0.5">Criadas</p>
+              <div className="text-center p-3 bg-marinho-50 rounded-xl">
+                <p className="text-xl font-bold text-marinho-900">{v.total_criadas}</p>
+                <p className="text-xs text-marinho-400 mt-0.5">Criadas</p>
               </div>
               <div className="text-center p-3 bg-emerald-50 rounded-xl">
                 <p className="text-xl font-bold text-emerald-700">{v.entregues}</p>
                 <p className="text-xs text-emerald-600 mt-0.5">Entregues</p>
               </div>
-              <div className="text-center p-3 bg-blue-50 rounded-xl">
-                <p className="text-xl font-bold text-blue-700">{v.em_andamento}</p>
-                <p className="text-xs text-blue-600 mt-0.5">Em Andamento</p>
+              <div className="text-center p-3 bg-marinho-50 rounded-xl">
+                <p className="text-xl font-bold text-marinho-700">{v.em_andamento}</p>
+                <p className="text-xs text-marinho-600 mt-0.5">Em Andamento</p>
               </div>
             </div>
             <div className="space-y-1">
-              <div className="flex justify-between text-xs text-gray-500">
+              <div className="flex justify-between text-xs text-marinho-400">
                 <span>Taxa de conclusão</span>
                 <span className="font-semibold">{taxa}%</span>
               </div>
-              <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div className="h-2 bg-marinho-50 rounded-full overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all ${corTaxa}`}
                   style={{ width: `${Math.min(taxa, 100)}%` }}

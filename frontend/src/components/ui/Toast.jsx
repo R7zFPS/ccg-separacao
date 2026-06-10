@@ -9,14 +9,14 @@ const ICONES = {
   sucesso: <CheckCircle className="w-5 h-5 text-green-500" />,
   erro:    <XCircle    className="w-5 h-5 text-red-500" />,
   alerta:  <AlertTriangle className="w-5 h-5 text-yellow-500" />,
-  info:    <Info       className="w-5 h-5 text-blue-500" />,
+  info:    <Info       className="w-5 h-5 text-marinho-500" />,
 };
 
 const ESTILOS = {
   sucesso: 'border-l-4 border-green-500',
   erro:    'border-l-4 border-red-500',
   alerta:  'border-l-4 border-yellow-500',
-  info:    'border-l-4 border-blue-500',
+  info:    'border-l-4 border-marinho-500',
 };
 
 function ToastItem({ toast, onRemover }) {
@@ -34,15 +34,15 @@ function ToastItem({ toast, onRemover }) {
       </div>
       <div className="flex-1 min-w-0">
         {toast.titulo && (
-          <p className="text-sm font-semibold text-gray-900">{toast.titulo}</p>
+          <p className="text-sm font-semibold text-marinho-900">{toast.titulo}</p>
         )}
         {toast.descricao && (
-          <p className="text-sm text-gray-600 mt-0.5">{toast.descricao}</p>
+          <p className="text-sm text-marinho-600 mt-0.5">{toast.descricao}</p>
         )}
       </div>
       <button
         onClick={() => onRemover(toast.id)}
-        className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors p-1"
+        className="flex-shrink-0 text-marinho-300 hover:text-marinho-600 transition-colors p-1"
         aria-label="Fechar"
       >
         <X className="w-4 h-4" />

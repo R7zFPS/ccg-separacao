@@ -40,10 +40,10 @@ function BarraMeta({ pct }) {
   const cor = pct >= 80 ? 'bg-emerald-500' : pct >= 50 ? 'bg-yellow-400' : 'bg-red-400';
   return (
     <div className="flex items-center gap-2">
-      <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+      <div className="flex-1 h-2 bg-marinho-50 rounded-full overflow-hidden">
         <div className={`h-full rounded-full ${cor}`} style={{ width: `${Math.min(pct, 100)}%` }} />
       </div>
-      <span className="text-xs text-gray-500 w-10 text-right">{pct}%</span>
+      <span className="text-xs text-marinho-400 w-10 text-right">{pct}%</span>
     </div>
   );
 }
@@ -68,7 +68,7 @@ function EstatisticasPessoais({ role }) {
 
   return (
     <div className="card-base p-6 space-y-5">
-      <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+      <h3 className="text-lg font-semibold text-marinho-900 flex items-center gap-2">
         <Activity className="w-5 h-5 text-marinho-600" />
         Minha Performance
       </h3>
@@ -76,31 +76,31 @@ function EstatisticasPessoais({ role }) {
       {/* Vendedor / Gerência */}
       {v && (
         <div>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+          <p className="text-xs font-semibold text-marinho-300 uppercase tracking-wider mb-3">
             Como Solicitante
           </p>
           <div className="grid grid-cols-3 gap-3">
-            <div className="bg-gray-50 rounded-xl p-3 text-center">
-              <p className="text-2xl font-bold text-gray-900">{v.total_criadas}</p>
-              <p className="text-xs text-gray-500 mt-0.5">Criadas</p>
+            <div className="bg-marinho-50 rounded-xl p-3 text-center">
+              <p className="text-2xl font-bold text-marinho-900">{v.total_criadas}</p>
+              <p className="text-xs text-marinho-400 mt-0.5">Criadas</p>
             </div>
             <div className="bg-emerald-50 rounded-xl p-3 text-center">
               <p className="text-2xl font-bold text-emerald-700">{v.entregues}</p>
               <p className="text-xs text-emerald-600 mt-0.5">Entregues</p>
             </div>
-            <div className="bg-blue-50 rounded-xl p-3 text-center">
-              <p className="text-2xl font-bold text-blue-700">{v.em_andamento}</p>
-              <p className="text-xs text-blue-600 mt-0.5">Em andamento</p>
+            <div className="bg-marinho-50 rounded-xl p-3 text-center">
+              <p className="text-2xl font-bold text-marinho-700">{v.em_andamento}</p>
+              <p className="text-xs text-marinho-600 mt-0.5">Em andamento</p>
             </div>
           </div>
 
           {v.total_criadas > 0 && (
             <div className="mt-3">
-              <div className="flex justify-between text-xs text-gray-500 mb-1">
+              <div className="flex justify-between text-xs text-marinho-400 mb-1">
                 <span>Taxa de conclusão</span>
                 <span>{Math.round((v.entregues / v.total_criadas) * 100)}%</span>
               </div>
-              <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div className="h-2 bg-marinho-50 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-emerald-500 rounded-full"
                   style={{ width: `${Math.min(100, Math.round((v.entregues / v.total_criadas) * 100))}%` }}
@@ -113,14 +113,14 @@ function EstatisticasPessoais({ role }) {
 
       {/* Estoquista / Almoxarife */}
       {e && e.total_atribuidos > 0 && (
-        <div className={v ? 'pt-4 border-t border-gray-100' : ''}>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+        <div className={v ? 'pt-4 border-t border-marinho-100/60' : ''}>
+          <p className="text-xs font-semibold text-marinho-300 uppercase tracking-wider mb-3">
             Como Separador
           </p>
           <div className="grid grid-cols-2 gap-3 mb-3">
-            <div className="bg-gray-50 rounded-xl p-3 text-center">
-              <p className="text-2xl font-bold text-gray-900">{e.total_atribuidos}</p>
-              <p className="text-xs text-gray-500 mt-0.5">Atribuídos</p>
+            <div className="bg-marinho-50 rounded-xl p-3 text-center">
+              <p className="text-2xl font-bold text-marinho-900">{e.total_atribuidos}</p>
+              <p className="text-xs text-marinho-400 mt-0.5">Atribuídos</p>
             </div>
             <div className="bg-emerald-50 rounded-xl p-3 text-center">
               <p className="text-2xl font-bold text-emerald-700">{e.concluidos}</p>
@@ -131,15 +131,15 @@ function EstatisticasPessoais({ role }) {
           <div className="space-y-2">
             {e.avg_segundos != null && (
               <div className="flex items-center justify-between text-sm">
-                <span className="flex items-center gap-1.5 text-gray-600">
-                  <Clock className="w-3.5 h-3.5 text-blue-500" /> Tempo médio
+                <span className="flex items-center gap-1.5 text-marinho-600">
+                  <Clock className="w-3.5 h-3.5 text-marinho-500" /> Tempo médio
                 </span>
-                <span className="font-semibold text-gray-900">{formatarTempo(e.avg_segundos)}</span>
+                <span className="font-semibold text-marinho-900">{formatarTempo(e.avg_segundos)}</span>
               </div>
             )}
             {e.min_segundos != null && (
               <div className="flex items-center justify-between text-sm">
-                <span className="flex items-center gap-1.5 text-gray-600">
+                <span className="flex items-center gap-1.5 text-marinho-600">
                   <TrendingUp className="w-3.5 h-3.5 text-emerald-500" /> Melhor tempo
                 </span>
                 <span className="font-semibold text-emerald-700">{formatarTempo(e.min_segundos)}</span>
@@ -147,15 +147,15 @@ function EstatisticasPessoais({ role }) {
             )}
             {e.max_segundos != null && (
               <div className="flex items-center justify-between text-sm">
-                <span className="flex items-center gap-1.5 text-gray-600">
+                <span className="flex items-center gap-1.5 text-marinho-600">
                   <Clock className="w-3.5 h-3.5 text-orange-400" /> Maior tempo
                 </span>
-                <span className="font-semibold text-gray-600">{formatarTempo(e.max_segundos)}</span>
+                <span className="font-semibold text-marinho-600">{formatarTempo(e.max_segundos)}</span>
               </div>
             )}
             {e.pct_dentro_meta != null && (
               <div>
-                <div className="flex justify-between text-xs text-gray-500 mb-1">
+                <div className="flex justify-between text-xs text-marinho-400 mb-1">
                   <span className="flex items-center gap-1">
                     <Award className="w-3 h-3 text-yellow-500" /> Dentro da meta (≤ 30 min)
                   </span>
@@ -169,14 +169,14 @@ function EstatisticasPessoais({ role }) {
 
       {/* Última atividade */}
       {stats.ultima_atividade && (
-        <p className="text-xs text-gray-400 pt-2 border-t border-gray-50">
+        <p className="text-xs text-marinho-300 pt-2 border-t border-gray-50">
           Última atividade: {formatarDataHora(stats.ultima_atividade)}
         </p>
       )}
 
       {/* Sem dados */}
       {!v && (!e || e.total_atribuidos === 0) && (
-        <p className="text-sm text-gray-400 text-center py-4">
+        <p className="text-sm text-marinho-300 text-center py-4">
           Nenhuma estatística disponível ainda.
         </p>
       )}
@@ -279,11 +279,11 @@ export default function Perfil() {
     <div className="max-w-2xl mx-auto space-y-6">
       {/* Cabeçalho */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+        <h1 className="text-2xl font-bold text-marinho-900 flex items-center gap-2">
           <User className="w-6 h-6 text-marinho-600" />
           Meu Perfil
         </h1>
-        <p className="text-sm text-gray-500 mt-0.5">Suas informações de acesso ao sistema</p>
+        <p className="text-sm text-marinho-400 mt-0.5">Suas informações de acesso ao sistema</p>
       </div>
 
       {/* Card de informações */}
@@ -335,10 +335,10 @@ export default function Perfil() {
           </div>
 
           <div>
-            <h2 className="text-xl font-bold text-gray-900">{usuario?.nome}</h2>
-            <p className="text-sm text-gray-500 font-mono">{usuario?.usuario_login}</p>
+            <h2 className="text-xl font-bold text-marinho-900">{usuario?.nome}</h2>
+            <p className="text-sm text-marinho-400 font-mono">{usuario?.usuario_login}</p>
             {usuario?.email && (
-              <p className="text-sm text-gray-500">{usuario.email}</p>
+              <p className="text-sm text-marinho-400">{usuario.email}</p>
             )}
             {/* Feedback de foto */}
             {okFoto && (
@@ -364,8 +364,8 @@ export default function Perfil() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Perfil(s) */}
-          <div className="bg-gray-50 rounded-xl p-4">
-            <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-2 flex items-center gap-1">
+          <div className="bg-marinho-50 rounded-xl p-4">
+            <p className="text-xs text-marinho-300 uppercase tracking-wider font-semibold mb-2 flex items-center gap-1">
               <Shield className="w-3.5 h-3.5" /> Perfis de acesso
             </p>
             <div className="flex flex-wrap gap-1.5">
@@ -385,28 +385,28 @@ export default function Perfil() {
           </div>
 
           {/* Setor */}
-          <div className="bg-gray-50 rounded-xl p-4">
-            <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-2">
+          <div className="bg-marinho-50 rounded-xl p-4">
+            <p className="text-xs text-marinho-300 uppercase tracking-wider font-semibold mb-2">
               Setor
             </p>
-            <p className="text-gray-900 font-medium">
+            <p className="text-marinho-900 font-medium">
               {LABELS_SETOR[usuario?.setor] || usuario?.setor || '—'}
             </p>
           </div>
 
           {/* Membro desde */}
           {usuario?.created_at && (
-            <div className="bg-gray-50 rounded-xl p-4">
-              <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-2">
+            <div className="bg-marinho-50 rounded-xl p-4">
+              <p className="text-xs text-marinho-300 uppercase tracking-wider font-semibold mb-2">
                 Membro desde
               </p>
-              <p className="text-gray-900 font-medium">{formatarData(usuario.created_at)}</p>
+              <p className="text-marinho-900 font-medium">{formatarData(usuario.created_at)}</p>
             </div>
           )}
 
           {/* Status */}
-          <div className="bg-gray-50 rounded-xl p-4">
-            <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-2">
+          <div className="bg-marinho-50 rounded-xl p-4">
+            <p className="text-xs text-marinho-300 uppercase tracking-wider font-semibold mb-2">
               Status da conta
             </p>
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full
@@ -423,7 +423,7 @@ export default function Perfil() {
 
       {/* Card de troca de senha */}
       <div className="card-base p-6">
-        <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2 mb-5">
+        <h3 className="text-lg font-semibold text-marinho-900 flex items-center gap-2 mb-5">
           <Lock className="w-5 h-5 text-marinho-600" />
           Alterar Senha
         </h3>
@@ -431,7 +431,7 @@ export default function Perfil() {
         <form onSubmit={handleTrocarSenha} className="space-y-4">
           {/* Senha atual */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-marinho-700 mb-1.5">
               Senha atual
             </label>
             <div className="relative">
@@ -448,7 +448,7 @@ export default function Perfil() {
                 type="button"
                 tabIndex={-1}
                 onClick={() => setMostrarAtual(!mostrarAtual)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-marinho-300"
               >
                 {mostrarAtual ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -457,7 +457,7 @@ export default function Perfil() {
 
           {/* Nova senha */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-marinho-700 mb-1.5">
               Nova senha
             </label>
             <div className="relative">
@@ -475,7 +475,7 @@ export default function Perfil() {
                 type="button"
                 tabIndex={-1}
                 onClick={() => setMostrarNova(!mostrarNova)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-marinho-300"
               >
                 {mostrarNova ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -484,7 +484,7 @@ export default function Perfil() {
 
           {/* Confirmar nova senha */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-marinho-700 mb-1.5">
               Confirmar nova senha
             </label>
             <input

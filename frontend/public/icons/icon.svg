@@ -1,8 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-  <rect width="192" height="192" rx="32" fill="#092D56"/>
-  <svg x="20" y="60" width="152" height="72" viewBox="0 0 80 48">
-    <rect x="2" y="4" width="38" height="40" rx="19" stroke="white" stroke-width="6" fill="none"/>
-    <rect x="40" y="4" width="38" height="40" rx="19" stroke="white" stroke-width="6" fill="none"/>
-    <rect x="39" y="14" width="3" height="20" fill="#092D56"/>
-  </svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Logo oficial Casa das Correntes Guanabara: losango navy + 3 elos de corrente -->
+  <rect width="512" height="512" rx="96" fill="#092D56"/>
+  <g transform="translate(69.6, 76.4) scale(1.7)">
+    <!-- Losango -->
+    <path d="M 110 8 L 208 106 L 110 204 L 12 106 Z" stroke="#FFFFFF" stroke-width="9" fill="none" stroke-linejoin="miter"/>
+    <!-- 3 elos de corrente -->
+    <rect x="30"  y="93" width="58" height="26" rx="13" stroke="#FFFFFF" stroke-width="8" fill="none"/>
+    <rect x="81"  y="93" width="58" height="26" rx="13" stroke="#FFFFFF" stroke-width="8" fill="none"/>
+    <rect x="132" y="93" width="58" height="26" rx="13" stroke="#FFFFFF" stroke-width="8" fill="none"/>
+  </g>
 </svg>

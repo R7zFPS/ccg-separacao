@@ -548,15 +548,15 @@ export default function DetalheSolicitacao() {
       <div className="flex items-center gap-3">
         <button
           onClick={() => navigate('/solicitacoes')}
-          className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          className="p-2 rounded-lg hover:bg-marinho-50 transition-colors"
         >
-          <ArrowLeft className="w-5 h-5 text-gray-500" />
+          <ArrowLeft className="w-5 h-5 text-marinho-400" />
         </button>
         <div className="flex-1 min-w-0">
-          <h1 className="text-xl font-bold text-gray-900 truncate">
+          <h1 className="text-xl font-bold text-marinho-900 truncate">
             Proposta #{solicitacao.numero_proposta}
           </h1>
-          <p className="text-sm text-gray-400">{tempoRelativo(solicitacao.created_at)}</p>
+          <p className="text-sm text-marinho-300">{tempoRelativo(solicitacao.created_at)}</p>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
           {solicitacao.prioridade && (
@@ -580,50 +580,50 @@ export default function DetalheSolicitacao() {
         <div className="lg:col-span-2 space-y-5">
           {/* Dados da solicitação */}
           <div className="card-base p-5 space-y-4">
-            <h2 className="text-base font-semibold text-gray-900 flex items-center gap-2">
-              <FileText className="w-4 h-4 text-blue-600" />
+            <h2 className="text-base font-semibold text-marinho-900 flex items-center gap-2">
+              <FileText className="w-4 h-4 text-marinho-600" />
               Dados da Solicitação
             </h2>
 
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <p className="text-gray-400 mb-0.5">Nº Proposta</p>
-                <p className="font-medium text-gray-900">{solicitacao.numero_proposta}</p>
+                <p className="text-marinho-300 mb-0.5">Nº Proposta</p>
+                <p className="font-medium text-marinho-900">{solicitacao.numero_proposta}</p>
               </div>
               {solicitacao.numero_orcamento && (
                 <div>
-                  <p className="text-gray-400 mb-0.5">Nº Orçamento</p>
-                  <p className="font-medium text-gray-900">{solicitacao.numero_orcamento}</p>
+                  <p className="text-marinho-300 mb-0.5">Nº Orçamento</p>
+                  <p className="font-medium text-marinho-900">{solicitacao.numero_orcamento}</p>
                 </div>
               )}
               <div>
-                <p className="text-gray-400 mb-0.5">Tipo de Documento</p>
-                <p className="font-medium text-gray-900 capitalize">
+                <p className="text-marinho-300 mb-0.5">Tipo de Documento</p>
+                <p className="font-medium text-marinho-900 capitalize">
                   {solicitacao.tipo_documento === 'orcamento' ? 'Orçamento' : 'Nota Fiscal'}
                 </p>
               </div>
               <div>
-                <p className="text-gray-400 mb-0.5">Setor de Destino</p>
-                <p className="font-medium text-gray-900">
+                <p className="text-marinho-300 mb-0.5">Setor de Destino</p>
+                <p className="font-medium text-marinho-900">
                   {LABELS_SETOR[solicitacao.setor_destino]}
                 </p>
               </div>
               <div>
-                <p className="text-gray-400 mb-0.5">Vendedor</p>
-                <p className="font-medium text-gray-900">{solicitacao.vendedor_nome}</p>
+                <p className="text-marinho-300 mb-0.5">Vendedor</p>
+                <p className="font-medium text-marinho-900">{solicitacao.vendedor_nome}</p>
               </div>
               {solicitacao.estoquista_nome && (
                 <div>
-                  <p className="text-gray-400 mb-0.5">Separando</p>
-                  <p className="font-medium text-gray-900">{solicitacao.estoquista_nome}</p>
+                  <p className="text-marinho-300 mb-0.5">Separando</p>
+                  <p className="font-medium text-marinho-900">{solicitacao.estoquista_nome}</p>
                 </div>
               )}
             </div>
 
             {solicitacao.observacoes && (
-              <div className="pt-3 border-t border-gray-100">
-                <p className="text-gray-400 text-sm mb-1">Observações</p>
-                <p className="text-sm text-gray-700 whitespace-pre-wrap">
+              <div className="pt-3 border-t border-marinho-100/60">
+                <p className="text-marinho-300 text-sm mb-1">Observações</p>
+                <p className="text-sm text-marinho-700 whitespace-pre-wrap">
                   {solicitacao.observacoes}
                 </p>
               </div>
@@ -631,12 +631,12 @@ export default function DetalheSolicitacao() {
 
             {/* Documento */}
             {solicitacao.url_documento && (
-              <div className="pt-3 border-t border-gray-100">
+              <div className="pt-3 border-t border-marinho-100/60">
                 <a
                   href={resolveFileUrl(solicitacao.url_documento)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800"
+                  className="flex items-center gap-2 text-sm text-marinho-600 hover:text-marinho-800"
                 >
                   <FileText className="w-4 h-4" />
                   {solicitacao.nome_arquivo || 'Ver documento'}
@@ -647,7 +647,7 @@ export default function DetalheSolicitacao() {
 
             {/* Nota Fiscal anexada */}
             {solicitacao.url_nota_fiscal && (
-              <div className="pt-3 border-t border-gray-100">
+              <div className="pt-3 border-t border-marinho-100/60">
                 <a
                   href={resolveFileUrl(solicitacao.url_nota_fiscal)}
                   target="_blank"
@@ -663,8 +663,8 @@ export default function DetalheSolicitacao() {
 
             {/* Foto de separação */}
             {solicitacao.url_foto_separacao && (
-              <div className="pt-3 border-t border-gray-100">
-                <p className="text-gray-400 text-sm mb-2 flex items-center gap-1.5">
+              <div className="pt-3 border-t border-marinho-100/60">
+                <p className="text-marinho-300 text-sm mb-2 flex items-center gap-1.5">
                   <Camera className="w-3.5 h-3.5" /> Foto da separação
                 </p>
                 <img
@@ -677,15 +677,15 @@ export default function DetalheSolicitacao() {
 
             {/* Métricas de separação */}
             {(solicitacao.timestamp_inicio_separacao || solicitacao.tempo_separacao_segundos) && (
-              <div className="pt-3 border-t border-gray-100">
-                <p className="text-gray-400 text-sm mb-2 flex items-center gap-1.5">
+              <div className="pt-3 border-t border-marinho-100/60">
+                <p className="text-marinho-300 text-sm mb-2 flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5" /> Métricas de Separação
                 </p>
                 <div className="grid grid-cols-3 gap-3">
                   {solicitacao.timestamp_inicio_separacao && (
-                    <div className="bg-blue-50 rounded-lg p-2.5 text-center">
-                      <p className="text-xs text-blue-500 mb-0.5">Início</p>
-                      <p className="text-xs font-semibold text-blue-800">
+                    <div className="bg-marinho-50 rounded-lg p-2.5 text-center">
+                      <p className="text-xs text-marinho-500 mb-0.5">Início</p>
+                      <p className="text-xs font-semibold text-marinho-800">
                         {formatarDataHora(solicitacao.timestamp_inicio_separacao)}
                       </p>
                     </div>
@@ -714,14 +714,14 @@ export default function DetalheSolicitacao() {
           {/* Ações disponíveis */}
           {acoes.length > 0 && (
             <div className="card-base p-5 space-y-4">
-              <h2 className="text-base font-semibold text-gray-900">Ações</h2>
+              <h2 className="text-base font-semibold text-marinho-900">Ações</h2>
 
               <div className="space-y-3">
                 {acoes.map((acao) => (
                   <div key={acao.valor}>
                     {acaoStatus === acao.valor ? (
-                      <div className="space-y-3 p-4 bg-gray-50 rounded-xl">
-                        <p className="text-sm font-medium text-gray-700">{acao.label}</p>
+                      <div className="space-y-3 p-4 bg-marinho-50 rounded-xl">
+                        <p className="text-sm font-medium text-marinho-700">{acao.label}</p>
                         <textarea
                           rows={2}
                           placeholder="Observação (opcional)..."
@@ -800,8 +800,8 @@ export default function DetalheSolicitacao() {
                               setFotoFile(null);
                               setNfFile(null);
                             }}
-                            className="px-4 py-2 text-sm text-gray-600 bg-gray-200
-                                        rounded-lg hover:bg-gray-300 transition-colors"
+                            className="px-4 py-2 text-sm text-marinho-600 bg-marinho-100
+                                        rounded-lg hover:bg-marinho-100 transition-colors"
                           >
                             Cancelar
                           </button>
@@ -832,14 +832,14 @@ export default function DetalheSolicitacao() {
 
           {/* Timeline */}
           <div className="card-base p-5">
-            <h2 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Clock className="w-4 h-4 text-blue-600" />
+            <h2 className="text-base font-semibold text-marinho-900 mb-4 flex items-center gap-2">
+              <Clock className="w-4 h-4 text-marinho-600" />
               Histórico
             </h2>
             {historico.length === 0 ? (
-              <p className="text-sm text-gray-400">Nenhum registro ainda.</p>
+              <p className="text-sm text-marinho-300">Nenhum registro ainda.</p>
             ) : (
-              <ol className="relative border-l-2 border-gray-100 space-y-0 ml-3">
+              <ol className="relative border-l-2 border-marinho-100/60 space-y-0 ml-3">
                 {historico.map((h, i) => {
                   const ehUltimo = i === historico.length - 1;
                   const proxTs   = historico[i + 1]?.created_at;
@@ -853,8 +853,8 @@ export default function DetalheSolicitacao() {
                   const ehFinal    = ['entregue', 'cancelada'].includes(h.status_novo);
                   const corDot     = ehFinal    ? 'bg-emerald-500'
                                    : ehProblema ? 'bg-red-400'
-                                   : ehUltimo   ? 'bg-blue-600'
-                                   :              'bg-gray-300';
+                                   : ehUltimo   ? 'bg-marinho-600'
+                                   :              'bg-marinho-200';
 
                   return (
                     <li key={h.id} className="ml-6 pb-5">
@@ -869,26 +869,26 @@ export default function DetalheSolicitacao() {
                       <div className="pl-1">
                         <div className="flex items-center gap-2 flex-wrap">
                           <p className={`text-sm font-semibold
-                            ${ehProblema ? 'text-red-700' : ehFinal ? 'text-emerald-700' : 'text-gray-900'}`}>
+                            ${ehProblema ? 'text-red-700' : ehFinal ? 'text-emerald-700' : 'text-marinho-900'}`}>
                             {LABELS_STATUS[h.status_novo] || h.status_novo}
                           </p>
                           {ehUltimo && (
-                            <span className="text-xs bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full font-medium">
+                            <span className="text-xs bg-marinho-100 text-marinho-700 px-1.5 py-0.5 rounded-full font-medium">
                               atual
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-gray-400 mt-0.5">
+                        <p className="text-xs text-marinho-300 mt-0.5">
                           {h.alterado_por_nome} · {formatarDataHora(h.created_at)}
                         </p>
                         {h.observacao && (
-                          <p className="text-xs text-gray-600 mt-0.5 italic bg-gray-50 rounded px-2 py-1">
+                          <p className="text-xs text-marinho-600 mt-0.5 italic bg-marinho-50 rounded px-2 py-1">
                             "{h.observacao}"
                           </p>
                         )}
                         {/* Duração até próximo evento */}
                         {deltaSeg != null && (
-                          <p className="text-xs text-gray-300 mt-1 flex items-center gap-1">
+                          <p className="text-xs text-marinho-200 mt-1 flex items-center gap-1">
                             <Clock className="w-3 h-3" />
                             {formatarDuracaoSep(deltaSeg)} neste status
                           </p>
@@ -907,20 +907,20 @@ export default function DetalheSolicitacao() {
           {/* Ações de gestão — admins + almoxarife */}
           {(ehAdmin || role === 'almoxarife') && (
             <div className="card-base p-4 space-y-3">
-              <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-marinho-700 flex items-center gap-2">
                 <Flag className="w-4 h-4 text-orange-500" />
                 Gestão
               </h3>
 
               {/* Prioridade — layout em duas linhas para evitar overflow */}
-              <div className="rounded-lg border border-gray-200 overflow-hidden">
+              <div className="rounded-lg border border-marinho-100 overflow-hidden">
                 <button
                   onClick={() => { setNovaPrior(solicitacao.prioridade || ''); setModalPrior(true); }}
                   className="w-full flex items-center justify-between px-3 py-2
-                              hover:bg-gray-50 text-sm transition-colors"
+                              hover:bg-marinho-50 text-sm transition-colors"
                 >
-                  <span className="text-gray-700 font-medium">Prioridade</span>
-                  <span className="text-gray-400 text-xs">
+                  <span className="text-marinho-700 font-medium">Prioridade</span>
+                  <span className="text-marinho-300 text-xs">
                     {solicitacao.prioridade ? 'Alterar' : 'Definir'}
                   </span>
                 </button>
@@ -936,9 +936,9 @@ export default function DetalheSolicitacao() {
                 <button
                   onClick={abrirModalAtribuicao}
                   className="w-full flex items-center gap-2 px-3 py-2 rounded-lg
-                              border border-gray-200 hover:bg-gray-50 text-sm text-gray-700 transition-colors"
+                              border border-marinho-100 hover:bg-marinho-50 text-sm text-marinho-700 transition-colors"
                 >
-                  <UserCheck className="w-4 h-4 text-blue-500" />
+                  <UserCheck className="w-4 h-4 text-marinho-500" />
                   Atribuir separador
                 </button>
               )}
@@ -961,8 +961,8 @@ export default function DetalheSolicitacao() {
           )}
 
           {/* Criado em */}
-          <div className="card-base p-4 text-sm text-gray-500 space-y-1">
-            <p className="text-xs text-gray-400 font-medium uppercase tracking-wide">Info</p>
+          <div className="card-base p-4 text-sm text-marinho-400 space-y-1">
+            <p className="text-xs text-marinho-300 font-medium uppercase tracking-wide">Info</p>
             <p>Criado em {formatarDataHora(solicitacao.created_at)}</p>
             {solicitacao.updated_at !== solicitacao.created_at && (
               <p>Atualizado {tempoRelativo(solicitacao.updated_at)}</p>
@@ -975,7 +975,7 @@ export default function DetalheSolicitacao() {
       {modalPrior && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900">Definir Prioridade</h3>
+            <h3 className="text-lg font-semibold text-marinho-900">Definir Prioridade</h3>
             <div className="relative">
               <select
                 value={novaPrior}
@@ -988,12 +988,12 @@ export default function DetalheSolicitacao() {
                 ))}
               </select>
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4
-                                       text-gray-400 pointer-events-none" />
+                                       text-marinho-300 pointer-events-none" />
             </div>
             <div className="flex gap-3 justify-end">
               <button
                 onClick={() => setModalPrior(false)}
-                className="px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200"
+                className="px-4 py-2 text-sm text-marinho-600 bg-marinho-50 rounded-lg hover:bg-marinho-100"
               >
                 Cancelar
               </button>
@@ -1013,9 +1013,9 @@ export default function DetalheSolicitacao() {
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 space-y-4">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900">Atribuir Estoquista</h3>
+              <h3 className="text-lg font-semibold text-marinho-900">Atribuir Estoquista</h3>
               {solicitacao?.setor_destino && solicitacao.setor_destino !== 'ambos' && (
-                <p className="text-xs text-blue-600 mt-0.5 flex items-center gap-1">
+                <p className="text-xs text-marinho-600 mt-0.5 flex items-center gap-1">
                   <Package className="w-3 h-3" />
                   Setor: <span className="font-semibold capitalize">{solicitacao.setor_destino}</span>
                   {' '}— exibindo apenas colaboradores deste setor
@@ -1023,7 +1023,7 @@ export default function DetalheSolicitacao() {
               )}
             </div>
             {estoquistas.length === 0 ? (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-marinho-400">
                 Nenhum estoquista disponível para o setor "{solicitacao?.setor_destino}".
               </p>
             ) : (
@@ -1031,10 +1031,10 @@ export default function DetalheSolicitacao() {
                 {estoquistas.map((e) => {
                   const selecionado = estoquistaId === e.id;
                   const corSetor = e.setor === 'galpao'
-                    ? 'bg-blue-50 text-blue-600'
+                    ? 'bg-marinho-50 text-marinho-600'
                     : e.setor === 'loja'
                     ? 'bg-purple-50 text-purple-600'
-                    : 'bg-gray-50 text-gray-500';
+                    : 'bg-marinho-50 text-marinho-400';
                   return (
                     <button
                       key={e.id}
@@ -1042,10 +1042,10 @@ export default function DetalheSolicitacao() {
                       className={`w-full flex items-center justify-between px-3 py-2.5
                         rounded-xl border-2 text-sm transition-all
                         ${selecionado
-                          ? 'border-blue-500 bg-blue-50'
-                          : 'border-gray-200 hover:border-gray-300 bg-white'}`}
+                          ? 'border-marinho-500 bg-marinho-50'
+                          : 'border-marinho-100 hover:border-marinho-200 bg-white'}`}
                     >
-                      <span className={`font-medium ${selecionado ? 'text-blue-800' : 'text-gray-800'}`}>
+                      <span className={`font-medium ${selecionado ? 'text-marinho-800' : 'text-marinho-800'}`}>
                         {e.nome}
                       </span>
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${corSetor}`}>
@@ -1059,7 +1059,7 @@ export default function DetalheSolicitacao() {
             <div className="flex gap-3 justify-end">
               <button
                 onClick={() => setModalAtrib(false)}
-                className="px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200"
+                className="px-4 py-2 text-sm text-marinho-600 bg-marinho-50 rounded-lg hover:bg-marinho-100"
               >
                 Cancelar
               </button>
@@ -1079,8 +1079,8 @@ export default function DetalheSolicitacao() {
       {modalAgend && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 space-y-4 max-h-[90vh] overflow-y-auto">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-blue-600" />
+            <h3 className="text-lg font-semibold text-marinho-900 flex items-center gap-2">
+              <Clock className="w-5 h-5 text-marinho-600" />
               Confirmar Agendamento
             </h3>
 
@@ -1094,7 +1094,7 @@ export default function DetalheSolicitacao() {
 
             <div className="space-y-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-marinho-700 mb-1">
                   Data de Entrega <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -1107,7 +1107,7 @@ export default function DetalheSolicitacao() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-marinho-700 mb-1">
                   Endereço de Entrega <span className="text-red-500">*</span>
                 </label>
                 <textarea
@@ -1120,7 +1120,7 @@ export default function DetalheSolicitacao() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-marinho-700 mb-1">
                   Observações
                 </label>
                 <textarea
@@ -1134,7 +1134,7 @@ export default function DetalheSolicitacao() {
 
               {/* Upload de documentos */}
               <div className="space-y-2 pt-1">
-                <p className="text-sm font-medium text-gray-700">Documentos (opcional)</p>
+                <p className="text-sm font-medium text-marinho-700">Documentos (opcional)</p>
                 {[
                   { key: 'nota_fiscal',    label: 'Nota Fiscal (PDF)' },
                   { key: 'boleto',         label: 'Boleto (PDF)' },
@@ -1143,14 +1143,14 @@ export default function DetalheSolicitacao() {
                   { key: 'ordem_de_compra',label: 'Ordem de Compra (PDF)' },
                 ].map(({ key, label }) => (
                   <label key={key}
-                    className="flex items-center gap-2 cursor-pointer text-sm text-gray-600
-                                hover:text-blue-600 bg-gray-50 border border-dashed border-gray-200
+                    className="flex items-center gap-2 cursor-pointer text-sm text-marinho-600
+                                hover:text-marinho-600 bg-marinho-50 border border-dashed border-marinho-100
                                 rounded-lg px-3 py-2 transition-colors">
                     <FileText className="w-4 h-4 flex-shrink-0" />
                     {agendFiles[key] ? (
                       <span className="text-green-600 truncate">{agendFiles[key].name}</span>
                     ) : (
-                      <span className="text-gray-400">{label}</span>
+                      <span className="text-marinho-300">{label}</span>
                     )}
                     <input
                       type="file"
@@ -1163,10 +1163,10 @@ export default function DetalheSolicitacao() {
               </div>
             </div>
 
-            <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
+            <div className="flex gap-3 justify-end pt-2 border-t border-marinho-100/60">
               <button
                 onClick={() => { setModalAgend(false); setErroAcao(''); }}
-                className="px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200"
+                className="px-4 py-2 text-sm text-marinho-600 bg-marinho-50 rounded-lg hover:bg-marinho-100"
               >
                 Cancelar
               </button>
@@ -1187,11 +1187,11 @@ export default function DetalheSolicitacao() {
       {modalProposta && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <h3 className="text-lg font-semibold text-marinho-900 flex items-center gap-2">
               <Clock className="w-5 h-5 text-sky-600" />
               Propor Data de Entrega
             </h3>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-marinho-400">
               Sua sugestão será enviada para aprovação do gerente antes de ser confirmada.
             </p>
 
@@ -1204,7 +1204,7 @@ export default function DetalheSolicitacao() {
 
             <div className="space-y-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-marinho-700 mb-1">
                   Data Sugerida <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -1216,8 +1216,8 @@ export default function DetalheSolicitacao() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Observações <span className="text-gray-400 text-xs">(opcional)</span>
+                <label className="block text-sm font-medium text-marinho-700 mb-1">
+                  Observações <span className="text-marinho-300 text-xs">(opcional)</span>
                 </label>
                 <textarea
                   rows={2}
@@ -1229,10 +1229,10 @@ export default function DetalheSolicitacao() {
               </div>
             </div>
 
-            <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
+            <div className="flex gap-3 justify-end pt-2 border-t border-marinho-100/60">
               <button
                 onClick={() => { setModalProposta(false); setErroAcao(''); }}
-                className="px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200"
+                className="px-4 py-2 text-sm text-marinho-600 bg-marinho-50 rounded-lg hover:bg-marinho-100"
               >
                 Cancelar
               </button>
@@ -1286,7 +1286,7 @@ export default function DetalheSolicitacao() {
 
             {respostaDecisao === 'aprovada' && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-marinho-700 mb-1">
                   Endereço de Entrega <span className="text-red-500">*</span>
                 </label>
                 <textarea
@@ -1300,9 +1300,9 @@ export default function DetalheSolicitacao() {
             )}
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-marinho-700 mb-1">
                 {respostaDecisao === 'aprovada' ? 'Observações' : 'Motivo da recusa'}{' '}
-                <span className="text-gray-400 text-xs">(opcional)</span>
+                <span className="text-marinho-300 text-xs">(opcional)</span>
               </label>
               <textarea
                 rows={2}
@@ -1315,10 +1315,10 @@ export default function DetalheSolicitacao() {
               />
             </div>
 
-            <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
+            <div className="flex gap-3 justify-end pt-2 border-t border-marinho-100/60">
               <button
                 onClick={() => { setModalResposta(false); setErroAcao(''); }}
-                className="px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200"
+                className="px-4 py-2 text-sm text-marinho-600 bg-marinho-50 rounded-lg hover:bg-marinho-100"
               >
                 Cancelar
               </button>
@@ -1348,7 +1348,7 @@ export default function DetalheSolicitacao() {
       {modalRota && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <h3 className="text-lg font-semibold text-marinho-900 flex items-center gap-2">
               <Flag className="w-5 h-5 text-purple-600" />
               Enviar Rota ao Motorista
             </h3>
@@ -1362,10 +1362,10 @@ export default function DetalheSolicitacao() {
             )}
 
             {motoristas.length === 0 ? (
-              <p className="text-sm text-gray-500">Nenhum motorista disponível.</p>
+              <p className="text-sm text-marinho-400">Nenhum motorista disponível.</p>
             ) : (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-marinho-700 mb-1">
                   Selecionar Motorista <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
@@ -1380,18 +1380,18 @@ export default function DetalheSolicitacao() {
                     ))}
                   </select>
                   <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4
-                                           text-gray-400 pointer-events-none" />
+                                           text-marinho-300 pointer-events-none" />
                 </div>
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs text-marinho-300 mt-1">
                   O motorista receberá uma notificação com o endereço de entrega.
                 </p>
               </div>
             )}
 
-            <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
+            <div className="flex gap-3 justify-end pt-2 border-t border-marinho-100/60">
               <button
                 onClick={() => { setModalRota(false); setErroAcao(''); }}
-                className="px-4 py-2 text-sm text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200"
+                className="px-4 py-2 text-sm text-marinho-600 bg-marinho-50 rounded-lg hover:bg-marinho-100"
               >
                 Cancelar
               </button>

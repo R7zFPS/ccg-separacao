@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import { desbloquearAudio }    from '../../utils/somCorrente';
@@ -13,6 +13,8 @@ import { useNetworkError }     from '../../context/NetworkErrorContext';
 
 export function LayoutPrincipal() {
   const [sidebarAberta, setSidebarAberta] = useState(false);
+  // key por rota → reanima o pageEnter a cada troca de página
+  const { pathname } = useLocation();
   const { online }       = useNetworkStatus();
   const { networkError } = useNetworkError();
   // Quando o OfflineBanner (fixed, ~40px) está visível, empurra o layout para baixo
@@ -55,7 +57,7 @@ export function LayoutPrincipal() {
           overflowY: 'auto',
           overflowX: 'hidden',
         }}>
-          <div style={{
+          <div key={pathname} style={{
             padding: '1.5rem',
             maxWidth: 1280,
             margin: '0 auto',

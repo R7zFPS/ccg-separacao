@@ -58,16 +58,16 @@ export default function DashboardGerenteVendas() {
       {/* Cabeçalho */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-marinho-900">
             Olá, {usuario?.nome?.split(' ')[0]}!
           </h1>
-          <p className="text-gray-500 mt-1 text-sm">
+          <p className="text-marinho-400 mt-1 text-sm">
             Gerencie agendamentos e acompanhe as entregas.
           </p>
         </div>
         <button
           onClick={buscar}
-          className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors"
+          className="p-2 rounded-lg text-marinho-400 hover:bg-marinho-50 transition-colors"
         >
           <RefreshCw className={`w-4 h-4 ${carregando ? 'animate-spin' : ''}`} />
         </button>
@@ -77,17 +77,17 @@ export default function DashboardGerenteVendas() {
       {!carregando && prontos > 0 && (
         <button
           onClick={() => navigate('/agendamentos')}
-          className="w-full flex items-center gap-3 p-4 bg-blue-50 border border-blue-200
-                      rounded-xl text-left hover:bg-blue-100 transition-colors"
+          className="w-full flex items-center gap-3 p-4 bg-marinho-50 border border-marinho-100
+                      rounded-xl text-left hover:bg-marinho-100 transition-colors"
         >
-          <AlertTriangle className="w-5 h-5 text-blue-600 flex-shrink-0" />
+          <AlertTriangle className="w-5 h-5 text-marinho-600 flex-shrink-0" />
           <div className="flex-1">
-            <p className="font-semibold text-blue-800">
+            <p className="font-semibold text-marinho-800">
               {prontos} {prontos === 1 ? 'pedido pronto' : 'pedidos prontos'} para agendar
             </p>
-            <p className="text-sm text-blue-600">Clique para confirmar os agendamentos</p>
+            <p className="text-sm text-marinho-600">Clique para confirmar os agendamentos</p>
           </div>
-          <ArrowRight className="w-4 h-4 text-blue-600 flex-shrink-0" />
+          <ArrowRight className="w-4 h-4 text-marinho-600 flex-shrink-0" />
         </button>
       )}
 
@@ -103,11 +103,11 @@ export default function DashboardGerenteVendas() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <button
             onClick={() => navigate('/agendamentos')}
-            className="card-base p-5 border-l-4 border-blue-400 text-left hover:shadow-md transition-shadow"
+            className="card-base p-5 border-l-4 border-marinho-300 text-left hover:shadow-md transition-shadow"
           >
-            <Clock className="w-5 h-5 text-blue-500 mb-2" />
-            <p className="text-2xl font-bold text-gray-900">{prontos}</p>
-            <p className="text-xs text-gray-500 mt-0.5">Para Agendar</p>
+            <Clock className="w-5 h-5 text-marinho-500 mb-2" />
+            <p className="text-2xl font-bold text-marinho-900">{prontos}</p>
+            <p className="text-xs text-marinho-400 mt-0.5">Para Agendar</p>
           </button>
 
           <button
@@ -115,8 +115,8 @@ export default function DashboardGerenteVendas() {
             className="card-base p-5 border-l-4 border-green-400 text-left hover:shadow-md transition-shadow"
           >
             <Calendar className="w-5 h-5 text-green-500 mb-2" />
-            <p className="text-2xl font-bold text-gray-900">{confirmados}</p>
-            <p className="text-xs text-gray-500 mt-0.5">Agendados</p>
+            <p className="text-2xl font-bold text-marinho-900">{confirmados}</p>
+            <p className="text-xs text-marinho-400 mt-0.5">Agendados</p>
           </button>
 
           <button
@@ -124,14 +124,14 @@ export default function DashboardGerenteVendas() {
             className="card-base p-5 border-l-4 border-purple-400 text-left hover:shadow-md transition-shadow"
           >
             <Truck className="w-5 h-5 text-purple-500 mb-2" />
-            <p className="text-2xl font-bold text-gray-900">{emRota}</p>
-            <p className="text-xs text-gray-500 mt-0.5">Em Rota</p>
+            <p className="text-2xl font-bold text-marinho-900">{emRota}</p>
+            <p className="text-xs text-marinho-400 mt-0.5">Em Rota</p>
           </button>
 
           <div className="card-base p-5 border-l-4 border-emerald-400">
             <CheckCircle className="w-5 h-5 text-emerald-500 mb-2" />
-            <p className="text-2xl font-bold text-gray-900">{entregues}</p>
-            <p className="text-xs text-gray-500 mt-0.5">Entregues</p>
+            <p className="text-2xl font-bold text-marinho-900">{entregues}</p>
+            <p className="text-xs text-marinho-400 mt-0.5">Entregues</p>
           </div>
         </div>
       ))}
@@ -143,12 +143,12 @@ export default function DashboardGerenteVendas() {
           className="card-base p-5 flex items-center justify-between hover:shadow-md transition-shadow group"
         >
           <div className="text-left">
-            <p className="font-semibold text-gray-900">Gerenciar Agendamentos</p>
-            <p className="text-sm text-gray-500 mt-0.5">
+            <p className="font-semibold text-marinho-900">Gerenciar Agendamentos</p>
+            <p className="text-sm text-marinho-400 mt-0.5">
               Confirmar datas e enviar rotas
             </p>
           </div>
-          <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
+          <ArrowRight className="w-5 h-5 text-marinho-300 group-hover:text-marinho-600 transition-colors" />
         </button>
 
         <button
@@ -156,12 +156,12 @@ export default function DashboardGerenteVendas() {
           className="card-base p-5 flex items-center justify-between hover:shadow-md transition-shadow group"
         >
           <div className="text-left">
-            <p className="font-semibold text-gray-900">Ver Todas as Solicitações</p>
-            <p className="text-sm text-gray-500 mt-0.5">
+            <p className="font-semibold text-marinho-900">Ver Todas as Solicitações</p>
+            <p className="text-sm text-marinho-400 mt-0.5">
               {totalAbertos} solicitação{totalAbertos !== 1 ? 'ões' : ''} em andamento
             </p>
           </div>
-          <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
+          <ArrowRight className="w-5 h-5 text-marinho-300 group-hover:text-marinho-600 transition-colors" />
         </button>
       </div>
     </div>

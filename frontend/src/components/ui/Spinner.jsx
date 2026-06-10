@@ -13,7 +13,7 @@ export function Spinner({ tamanho = 'md', className = '' }) {
     <div
       className={`
         ${tamanhos[tamanho]}
-        rounded-full border-gray-200 border-t-blue-600
+        rounded-full border-marinho-100 border-t-marinho-600
         animate-spin ${className}
       `}
       role="status"
@@ -27,9 +27,9 @@ export function Spinner({ tamanho = 'md', className = '' }) {
  */
 export function CarregandoTela({ mensagem = 'Carregando...' }) {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 gap-4">
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4">
       <Spinner tamanho="lg" />
-      <p className="text-gray-500 text-sm">{mensagem}</p>
+      <p className="text-marinho-400 text-sm">{mensagem}</p>
     </div>
   );
 }

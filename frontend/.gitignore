@@ -1,0 +1,4 @@
+.vercel
+
+# Arquivos temporários do Vite
+vite.config.js.timestamp-*.mjs

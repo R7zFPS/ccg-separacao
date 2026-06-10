@@ -68,8 +68,8 @@ export default function PrimeiroAcesso() {
                            justify-center mx-auto mb-4">
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Senha definida!</h2>
-          <p className="text-gray-500 text-sm">Redirecionando para o sistema...</p>
+          <h2 className="text-xl font-bold text-marinho-900 mb-2">Senha definida!</h2>
+          <p className="text-marinho-400 text-sm">Redirecionando para o sistema...</p>
           <Spinner tamanho="sm" className="mx-auto mt-4" />
         </div>
       </div>
@@ -77,7 +77,7 @@ export default function PrimeiroAcesso() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100
+    <div className="min-h-screen bg-gradient-to-br from-marinho-50 to-indigo-100
                     flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         <div className="bg-white rounded-2xl shadow-xl p-8">
@@ -87,16 +87,16 @@ export default function PrimeiroAcesso() {
                              justify-center mx-auto mb-3">
               <KeyRound className="w-7 h-7 text-yellow-600" />
             </div>
-            <h1 className="text-xl font-bold text-gray-900">Defina sua senha</h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <h1 className="text-xl font-bold text-marinho-900">Defina sua senha</h1>
+            <p className="text-sm text-marinho-400 mt-1">
               Olá, <strong>{usuario?.nome}</strong>! Este é seu primeiro acesso.
               <br />Crie uma senha pessoal para continuar.
             </p>
           </div>
 
           {/* Requisitos */}
-          <div className="bg-gray-50 rounded-lg p-3 text-xs text-gray-500 mb-5 space-y-1">
-            <p className="font-medium text-gray-600 mb-1">Requisitos da senha:</p>
+          <div className="bg-marinho-50 rounded-lg p-3 text-xs text-marinho-400 mb-5 space-y-1">
+            <p className="font-medium text-marinho-600 mb-1">Requisitos da senha:</p>
             <p className={form.novaSenha.length >= 8 ? 'text-green-600' : ''}>
               {form.novaSenha.length >= 8 ? '✓' : '·'} Mínimo 8 caracteres
             </p>
@@ -111,7 +111,7 @@ export default function PrimeiroAcesso() {
           <form onSubmit={handleSubmit} noValidate className="space-y-4">
             {/* Nova senha */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-marinho-700 mb-1.5">
                 Nova senha
               </label>
               <div className="relative">
@@ -127,7 +127,7 @@ export default function PrimeiroAcesso() {
                 />
                 <button type="button" tabIndex={-1}
                   onClick={() => setMostrar((p) => ({ ...p, nova: !p.nova }))}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-marinho-300">
                   {mostrar.nova ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
@@ -135,7 +135,7 @@ export default function PrimeiroAcesso() {
 
             {/* Confirmar */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-marinho-700 mb-1.5">
                 Confirmar senha
               </label>
               <div className="relative">
@@ -151,7 +151,7 @@ export default function PrimeiroAcesso() {
                 />
                 <button type="button" tabIndex={-1}
                   onClick={() => setMostrar((p) => ({ ...p, confirmar: !p.confirmar }))}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-marinho-300">
                   {mostrar.confirmar ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
@@ -176,7 +176,7 @@ export default function PrimeiroAcesso() {
           </form>
 
           <button onClick={logout}
-                  className="w-full mt-3 text-xs text-gray-400 hover:text-gray-600
+                  className="w-full mt-3 text-xs text-marinho-300 hover:text-marinho-600
                               text-center transition-colors">
             Sair e entrar com outra conta
           </button>

@@ -509,7 +509,10 @@ async function atualizarStatus(req, res) {
         mensagem: `Não é possível ir de "${solicitacao.status}" para "${novoStatus}".`,
       });
     }
-    if (!regra.quem.includes(role)) {
+    // CORREÇÃO: considera TODOS os perfis do usuário (principal + extras),
+    // senão usuários multi-perfil eram bloqueados em transições do perfil extra
+    const rolesUsuario = Array.isArray(req.usuario.roles) ? req.usuario.roles : [role];
+    if (!regra.quem.some((r) => rolesUsuario.includes(r))) {
       return res.status(403).json({
         sucesso: false,
         mensagem: 'Seu perfil não pode executar esta transição.',

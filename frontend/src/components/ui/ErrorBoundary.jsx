@@ -40,7 +40,7 @@ export class ErrorBoundary extends Component {
     const msgErro = this.state.erro?.message || 'Erro desconhecido';
 
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+      <div className="min-h-screen bg-marinho-50 flex items-center justify-center p-6">
         <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center space-y-5">
           {/* Ícone */}
           <div className="flex justify-center">
@@ -51,10 +51,10 @@ export class ErrorBoundary extends Component {
 
           {/* Mensagem */}
           <div>
-            <h1 className="text-xl font-bold text-gray-900 mb-2">
+            <h1 className="text-xl font-bold text-marinho-900 mb-2">
               Algo deu errado
             </h1>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-marinho-400">
               O app encontrou um problema inesperado. Recarregue a página para continuar.
             </p>
           </div>

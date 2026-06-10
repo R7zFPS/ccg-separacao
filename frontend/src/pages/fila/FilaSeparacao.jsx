@@ -231,24 +231,24 @@ export default function FilaSeparacao() {
       {/* Cabeçalho */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-marinho-900 flex items-center gap-2">
             <Package className="w-6 h-6 text-marinho-600" />
             Fila de Separação
           </h1>
-          <p className="text-sm text-gray-500 mt-0.5">
+          <p className="text-sm text-marinho-400 mt-0.5">
             Olá, {usuario?.nome?.split(' ')[0]}! — pedidos em ordem de prioridade
           </p>
         </div>
         <div className="flex flex-col items-end gap-1">
           <button
             onClick={buscar}
-            className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-lg text-marinho-400 hover:bg-marinho-50 transition-colors"
             title="Atualizar agora"
           >
             <RefreshCw className={`w-4 h-4 ${carregando ? 'animate-spin' : ''}`} />
           </button>
           {ultimaAtualizacao && (
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-marinho-300">
               Atualizado {ultimaAtualizacao.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
               {' · '}auto em 30s
             </p>
@@ -266,7 +266,7 @@ export default function FilaSeparacao() {
       )}
 
       {/* Abas */}
-      <div className="flex border-b border-gray-200">
+      <div className="flex border-b border-marinho-100">
         {[
           { key: ABA_MINHA, label: 'Minha Fila',   icone: User,  count: minha.length },
           { key: ABA_FILA,  label: 'Aguardando',   icone: Clock, count: fila.length  },
@@ -276,13 +276,13 @@ export default function FilaSeparacao() {
                          border-b-2 transition-colors -mb-px
                          ${aba === key
                            ? 'border-marinho-600 text-marinho-700'
-                           : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                           : 'border-transparent text-marinho-400 hover:text-marinho-700'}`}
           >
             <Icone className="w-4 h-4" />
             {label}
             {count > 0 && (
               <span className={`ml-1 px-1.5 py-0.5 text-xs rounded-full font-bold
-                ${aba === key ? 'bg-marinho-600 text-white' : 'bg-gray-200 text-gray-600'}`}>
+                ${aba === key ? 'bg-marinho-600 text-white' : 'bg-marinho-100 text-marinho-600'}`}>
                 {count}
               </span>
             )}
@@ -305,12 +305,12 @@ export default function FilaSeparacao() {
       ) : !erroLoad && lista.length === 0 ? (
         <div className="card-base p-14 text-center">
           <CheckCircle className="w-14 h-14 text-green-200 mx-auto mb-3" />
-          <p className="font-medium text-gray-600">
+          <p className="font-medium text-marinho-600">
             {aba === ABA_MINHA
               ? 'Nenhum pedido atribuído a você no momento.'
               : 'Nenhum pedido aguardando na fila.'}
           </p>
-          <p className="text-sm text-gray-400 mt-1">
+          <p className="text-sm text-marinho-300 mt-1">
             {aba === ABA_MINHA
               ? 'Pegue um pedido na aba "Aguardando".'
               : 'Todos os pedidos foram atribuídos. ✓'}
@@ -365,20 +365,20 @@ function CardSeparacao({ sol, idx, aba, onVerDetalhes, onPegar, onIniciar, onCon
                           text-sm font-bold flex-shrink-0 mt-0.5
                           ${idx === 0 && urgente
                             ? 'bg-red-100 text-red-700'
-                            : 'bg-gray-100 text-gray-500'}`}>
+                            : 'bg-marinho-50 text-marinho-400'}`}>
           {idx + 1}
         </div>
 
         <div className="flex-1 min-w-0">
           {/* Linha 1: número + badges */}
           <div className="flex items-center gap-2 flex-wrap mb-1">
-            <span className="font-bold text-gray-900 text-base">#{sol.numero_proposta}</span>
+            <span className="font-bold text-marinho-900 text-base">#{sol.numero_proposta}</span>
             {sol.prioridade && <BadgePrioridade prioridade={sol.prioridade} />}
             {urgente && <Zap className="w-3.5 h-3.5 text-red-500" />}
           </div>
 
           {/* Linha 2: metadados */}
-          <div className="flex items-center gap-3 text-xs text-gray-500 flex-wrap">
+          <div className="flex items-center gap-3 text-xs text-marinho-400 flex-wrap">
             <span>📦 {LABELS_LOCAL_MATERIAL[sol.setor_destino] || sol.setor_destino}</span>
             <span>👤 {sol.vendedor_nome}</span>
             <span>{tempoRelativo(sol.created_at)}</span>
@@ -416,7 +416,7 @@ function CardSeparacao({ sol, idx, aba, onVerDetalhes, onPegar, onIniciar, onCon
                 <button
                   onClick={onIniciar}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold
-                              bg-blue-600 hover:bg-blue-700 text-white transition-colors"
+                              bg-marinho-600 hover:bg-marinho-700 text-white transition-colors"
                 >
                   <Play className="w-3.5 h-3.5" />
                   Iniciar Separação
@@ -451,7 +451,7 @@ function CardSeparacao({ sol, idx, aba, onVerDetalhes, onPegar, onIniciar, onCon
           <button
             onClick={onVerDetalhes}
             className="flex items-center gap-1 px-2 py-1 rounded text-xs
-                        text-gray-400 hover:text-marinho-600 transition-colors"
+                        text-marinho-300 hover:text-marinho-600 transition-colors"
           >
             Ver detalhes
             <ChevronRight className="w-3 h-3" />
@@ -465,7 +465,7 @@ function CardSeparacao({ sol, idx, aba, onVerDetalhes, onPegar, onIniciar, onCon
           <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           <span className="text-xs text-emerald-700 font-medium">Separação em andamento</span>
           {sol.timestamp_inicio_separacao && (
-            <span className="text-xs text-gray-400">
+            <span className="text-xs text-marinho-300">
               · iniciado às {formatarDataHora(sol.timestamp_inicio_separacao).split(' ')[1] || ''}
             </span>
           )}
@@ -483,18 +483,18 @@ function ModalConcluir({ numero, fotoPreview, salvando, erro, inputRef, onFoto, 
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b">
           <div>
-            <h2 className="font-bold text-gray-900">Concluir Separação</h2>
-            <p className="text-xs text-gray-500 mt-0.5">Pedido #{numero}</p>
+            <h2 className="font-bold text-marinho-900">Concluir Separação</h2>
+            <p className="text-xs text-marinho-400 mt-0.5">Pedido #{numero}</p>
           </div>
           <button onClick={onFechar}
-            className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors">
+            className="p-1.5 rounded-lg hover:bg-marinho-50 text-marinho-400 transition-colors">
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Corpo */}
         <div className="px-5 py-4 space-y-4">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-marinho-600">
             Tire uma foto do material separado para registrar a conclusão.
             <span className="text-red-500 font-medium"> A foto é obrigatória.</span>
           </p>
@@ -505,25 +505,25 @@ function ModalConcluir({ numero, fotoPreview, salvando, erro, inputRef, onFoto, 
               <img
                 src={fotoPreview}
                 alt="Preview"
-                className="w-full h-48 object-cover rounded-xl border border-gray-200"
+                className="w-full h-48 object-cover rounded-xl border border-marinho-100"
               />
               <button
                 onClick={() => { onFoto({ target: { files: [] } }); }}
                 className="absolute top-2 right-2 p-1.5 bg-white rounded-full shadow
                             hover:bg-red-50 transition-colors"
               >
-                <X className="w-3.5 h-3.5 text-gray-600" />
+                <X className="w-3.5 h-3.5 text-marinho-600" />
               </button>
             </div>
           ) : (
             <button
               onClick={() => inputRef.current?.click()}
-              className="w-full h-40 border-2 border-dashed border-gray-300 rounded-xl
+              className="w-full h-40 border-2 border-dashed border-marinho-200 rounded-xl
                           flex flex-col items-center justify-center gap-2
                           hover:border-marinho-400 hover:bg-marinho-50 transition-colors group"
             >
-              <Camera className="w-8 h-8 text-gray-300 group-hover:text-marinho-400 transition-colors" />
-              <span className="text-sm text-gray-400 group-hover:text-marinho-500">
+              <Camera className="w-8 h-8 text-marinho-200 group-hover:text-marinho-400 transition-colors" />
+              <span className="text-sm text-marinho-300 group-hover:text-marinho-500">
                 Clique para tirar ou escolher foto
               </span>
             </button>
@@ -552,8 +552,8 @@ function ModalConcluir({ numero, fotoPreview, salvando, erro, inputRef, onFoto, 
           <button
             onClick={onFechar}
             disabled={salvando}
-            className="flex-1 py-2.5 rounded-xl border border-gray-200 text-sm font-medium
-                        text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-50"
+            className="flex-1 py-2.5 rounded-xl border border-marinho-100 text-sm font-medium
+                        text-marinho-600 hover:bg-marinho-50 transition-colors disabled:opacity-50"
           >
             Cancelar
           </button>

@@ -67,21 +67,21 @@ function KpiCard({ label, valor, icone: Icone, cor, sub }) {
     verde:   'bg-green-50    border-green-200',
     amarelo: 'bg-yellow-50   border-yellow-200',
     vermelho:'bg-red-50      border-red-200',
-    cinza:   'bg-gray-50     border-gray-200',
+    cinza:   'bg-marinho-50     border-marinho-100',
   };
   const iconCor = {
     azul:    'text-marinho-600',
     verde:   'text-green-600',
     amarelo: 'text-yellow-600',
     vermelho:'text-red-600',
-    cinza:   'text-gray-500',
+    cinza:   'text-marinho-400',
   };
   return (
     <div className={`rounded-2xl border p-5 ${corMap[cor] || corMap.cinza}`}>
       <Icone className={`w-6 h-6 ${iconCor[cor] || iconCor.cinza} mb-3`} />
-      <p className="text-3xl font-bold text-gray-900 mb-1">{valor ?? '—'}</p>
-      <p className="text-sm font-medium text-gray-700">{label}</p>
-      {sub && <p className="text-xs text-gray-500 mt-0.5">{sub}</p>}
+      <p className="text-3xl font-bold text-marinho-900 mb-1">{valor ?? '—'}</p>
+      <p className="text-sm font-medium text-marinho-700">{label}</p>
+      {sub && <p className="text-xs text-marinho-400 mt-0.5">{sub}</p>}
     </div>
   );
 }
@@ -95,15 +95,15 @@ function BarraProgresso({ label, valor, total, cor }) {
     amarelo: 'bg-yellow-400',
     vermelho:'bg-red-500',
     rosa:    'bg-pink-500',
-    cinza:   'bg-gray-300',
+    cinza:   'bg-marinho-200',
   };
   return (
     <div className="space-y-1.5">
       <div className="flex justify-between text-sm">
-        <span className="text-gray-700 font-medium truncate pr-2">{label}</span>
-        <span className="text-gray-500 flex-shrink-0">{valor} ({pct}%)</span>
+        <span className="text-marinho-700 font-medium truncate pr-2">{label}</span>
+        <span className="text-marinho-400 flex-shrink-0">{valor} ({pct}%)</span>
       </div>
-      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+      <div className="h-2 bg-marinho-50 rounded-full overflow-hidden">
         <div
           className={`h-full rounded-full transition-all duration-500 ${corBarra[cor] || corBarra.cinza}`}
           style={{ width: `${pct}%` }}
@@ -255,11 +255,11 @@ export default function Relatorios() {
       {/* Cabeçalho */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-marinho-900 flex items-center gap-2">
             <BarChart2 className="w-6 h-6 text-marinho-600" />
             Relatórios
           </h1>
-          <p className="text-sm text-gray-500 mt-0.5">
+          <p className="text-sm text-marinho-400 mt-0.5">
             Visão geral do desempenho operacional
           </p>
         </div>
@@ -267,8 +267,8 @@ export default function Relatorios() {
           <button
             onClick={() => exportarCSV(solsFiltradas, periodo)}
             disabled={carregando || solsFiltradas.length === 0}
-            className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-700
-                        bg-white border border-gray-200 rounded-lg hover:bg-gray-50
+            className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-marinho-700
+                        bg-white border border-marinho-100 rounded-lg hover:bg-marinho-50
                         transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             title="Exportar como CSV"
           >
@@ -277,7 +277,7 @@ export default function Relatorios() {
           </button>
           <button
             onClick={buscar}
-            className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-lg text-marinho-400 hover:bg-marinho-50 transition-colors"
             title="Atualizar dados"
           >
             <RefreshCw className={`w-4 h-4 ${carregando ? 'animate-spin' : ''}`} />
@@ -287,8 +287,8 @@ export default function Relatorios() {
 
       {/* Filtro de período */}
       <div className="card-base p-3 flex items-center gap-2 flex-wrap">
-        <Calendar className="w-4 h-4 text-gray-400 flex-shrink-0" />
-        <span className="text-sm text-gray-500 font-medium mr-1">Período:</span>
+        <Calendar className="w-4 h-4 text-marinho-300 flex-shrink-0" />
+        <span className="text-sm text-marinho-400 font-medium mr-1">Período:</span>
         {PERIODOS.map(({ value, label }) => (
           <button
             key={value}
@@ -296,14 +296,14 @@ export default function Relatorios() {
             className={`px-3 py-1.5 text-sm rounded-lg transition-colors font-medium
               ${periodo === value
                 ? 'bg-marinho-600 text-white'
-                : 'text-gray-600 hover:bg-gray-100'
+                : 'text-marinho-600 hover:bg-marinho-50'
               }`}
           >
             {label}
           </button>
         ))}
         {periodo !== 'tudo' && (
-          <span className="ml-auto text-xs text-gray-400">
+          <span className="ml-auto text-xs text-marinho-300">
             {solsFiltradas.length} solicitaç{solsFiltradas.length !== 1 ? 'ões' : 'ão'}
           </span>
         )}
@@ -371,15 +371,15 @@ export default function Relatorios() {
 
           {totalSols === 0 ? (
             <div className="card-base p-14 text-center">
-              <BarChart2 className="w-14 h-14 text-gray-200 mx-auto mb-3" />
-              <p className="font-medium text-gray-500">Nenhuma solicitação no período selecionado.</p>
+              <BarChart2 className="w-14 h-14 text-marinho-100 mx-auto mb-3" />
+              <p className="font-medium text-marinho-400">Nenhuma solicitação no período selecionado.</p>
             </div>
           ) : (
             <>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Distribuição por status */}
                 <div className="card-base p-6">
-                  <h2 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <h2 className="text-base font-semibold text-marinho-900 mb-4 flex items-center gap-2">
                     <BarChart2 className="w-4 h-4 text-marinho-600" />
                     Distribuição por Status
                   </h2>
@@ -397,12 +397,12 @@ export default function Relatorios() {
 
                 {/* Distribuição por prioridade */}
                 <div className="card-base p-6">
-                  <h2 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <h2 className="text-base font-semibold text-marinho-900 mb-4 flex items-center gap-2">
                     <AlertTriangle className="w-4 h-4 text-marinho-600" />
                     Distribuição por Prioridade
                   </h2>
                   {Object.keys(porPrioridade).length === 0 ? (
-                    <p className="text-gray-400 text-sm">Sem prioridades atribuídas no período.</p>
+                    <p className="text-marinho-300 text-sm">Sem prioridades atribuídas no período.</p>
                   ) : (
                     <div className="space-y-3">
                       {Object.entries(LABELS_PRIORIDADE)
@@ -420,19 +420,19 @@ export default function Relatorios() {
 
                 {/* Top estoquistas */}
                 <div className="card-base p-6">
-                  <h2 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <h2 className="text-base font-semibold text-marinho-900 mb-4 flex items-center gap-2">
                     <Users className="w-4 h-4 text-marinho-600" />
                     Top Estoquistas
                   </h2>
                   {topEstoquistas.length === 0 ? (
-                    <p className="text-gray-400 text-sm">Nenhuma atribuição no período.</p>
+                    <p className="text-marinho-300 text-sm">Nenhuma atribuição no período.</p>
                   ) : (
                     <div className="space-y-3">
                       {topEstoquistas.map(([nome, qtd], idx) => (
                         <div key={nome} className="flex items-center gap-3">
                           <span className={`w-6 h-6 rounded-full flex items-center justify-center
                             text-xs font-bold flex-shrink-0
-                            ${idx === 0 ? 'bg-marinho-600 text-white' : 'bg-gray-100 text-gray-600'}`}>
+                            ${idx === 0 ? 'bg-marinho-600 text-white' : 'bg-marinho-50 text-marinho-600'}`}>
                             {idx + 1}
                           </span>
                           <div className="flex-1 min-w-0">
@@ -448,19 +448,19 @@ export default function Relatorios() {
 
                 {/* Top vendedores */}
                 <div className="card-base p-6">
-                  <h2 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <h2 className="text-base font-semibold text-marinho-900 mb-4 flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-marinho-600" />
                     Top Vendedores
                   </h2>
                   {topVendedores.length === 0 ? (
-                    <p className="text-gray-400 text-sm">Sem dados de vendedores no período.</p>
+                    <p className="text-marinho-300 text-sm">Sem dados de vendedores no período.</p>
                   ) : (
                     <div className="space-y-3">
                       {topVendedores.map(([nome, qtd], idx) => (
                         <div key={nome} className="flex items-center gap-3">
                           <span className={`w-6 h-6 rounded-full flex items-center justify-center
                             text-xs font-bold flex-shrink-0
-                            ${idx === 0 ? 'bg-green-600 text-white' : 'bg-gray-100 text-gray-600'}`}>
+                            ${idx === 0 ? 'bg-green-600 text-white' : 'bg-marinho-50 text-marinho-600'}`}>
                             {idx + 1}
                           </span>
                           <div className="flex-1 min-w-0">
@@ -478,60 +478,60 @@ export default function Relatorios() {
               {/* Ranking de separação por estoquista */}
               {ranking.length > 0 && (
                 <div className="card-base p-6">
-                  <h2 className="text-base font-semibold text-gray-900 mb-1 flex items-center gap-2">
+                  <h2 className="text-base font-semibold text-marinho-900 mb-1 flex items-center gap-2">
                     <Clock className="w-4 h-4 text-purple-600" />
                     Ranking de Separação — Tempo Médio
                   </h2>
-                  <p className="text-xs text-gray-400 mb-4">
+                  <p className="text-xs text-marinho-300 mb-4">
                     Meta: ≤ 30min por pedido · ordenado do mais rápido ao mais lento
                   </p>
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="border-b border-gray-100">
-                          <th className="text-left py-2 pr-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">#</th>
-                          <th className="text-left py-2 pr-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Colaborador</th>
-                          <th className="text-left py-2 pr-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Setor</th>
-                          <th className="text-right py-2 pr-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Pedidos</th>
-                          <th className="text-right py-2 pr-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Média</th>
-                          <th className="text-right py-2 pr-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">Mínimo</th>
-                          <th className="text-right py-2     text-xs font-semibold text-gray-500 uppercase tracking-wide">% Meta</th>
+                        <tr className="border-b border-marinho-100/60">
+                          <th className="text-left py-2 pr-4 text-xs font-semibold text-marinho-400 uppercase tracking-wide">#</th>
+                          <th className="text-left py-2 pr-4 text-xs font-semibold text-marinho-400 uppercase tracking-wide">Colaborador</th>
+                          <th className="text-left py-2 pr-4 text-xs font-semibold text-marinho-400 uppercase tracking-wide">Setor</th>
+                          <th className="text-right py-2 pr-4 text-xs font-semibold text-marinho-400 uppercase tracking-wide">Pedidos</th>
+                          <th className="text-right py-2 pr-4 text-xs font-semibold text-marinho-400 uppercase tracking-wide">Média</th>
+                          <th className="text-right py-2 pr-4 text-xs font-semibold text-marinho-400 uppercase tracking-wide">Mínimo</th>
+                          <th className="text-right py-2     text-xs font-semibold text-marinho-400 uppercase tracking-wide">% Meta</th>
                         </tr>
                       </thead>
                       <tbody>
                         {ranking.map((r, idx) => {
                           const dentroMeta = r.media_segundos <= 1800;
                           return (
-                            <tr key={r.id} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                            <tr key={r.id} className="border-b border-gray-50 hover:bg-marinho-50 transition-colors">
                               <td className="py-3 pr-4">
                                 <span className={`w-6 h-6 inline-flex items-center justify-center
                                   rounded-full text-xs font-bold
                                   ${idx === 0 ? 'bg-purple-600 text-white'
                                   : idx === 1 ? 'bg-purple-200 text-purple-800'
                                   : idx === 2 ? 'bg-purple-100 text-purple-700'
-                                  : 'bg-gray-100 text-gray-500'}`}>
+                                  : 'bg-marinho-50 text-marinho-400'}`}>
                                   {idx + 1}
                                 </span>
                               </td>
-                              <td className="py-3 pr-4 font-medium text-gray-900">{r.nome}</td>
+                              <td className="py-3 pr-4 font-medium text-marinho-900">{r.nome}</td>
                               <td className="py-3 pr-4">
                                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium
-                                  ${r.setor === 'galpao'  ? 'bg-blue-50 text-blue-600'
+                                  ${r.setor === 'galpao'  ? 'bg-marinho-50 text-marinho-600'
                                   : r.setor === 'loja'    ? 'bg-purple-50 text-purple-600'
-                                  :                          'bg-gray-50 text-gray-500'}`}>
+                                  :                          'bg-marinho-50 text-marinho-400'}`}>
                                   {r.setor}
                                 </span>
                               </td>
-                              <td className="py-3 pr-4 text-right text-gray-700">{r.total_pedidos}</td>
+                              <td className="py-3 pr-4 text-right text-marinho-700">{r.total_pedidos}</td>
                               <td className="py-3 pr-4 text-right">
                                 <span className={`font-semibold ${dentroMeta ? 'text-green-700' : 'text-orange-600'}`}>
                                   {formatarDur(r.media_segundos)}
                                 </span>
                               </td>
-                              <td className="py-3 pr-4 text-right text-gray-500 text-xs">{formatarDur(r.min_segundos)}</td>
+                              <td className="py-3 pr-4 text-right text-marinho-400 text-xs">{formatarDur(r.min_segundos)}</td>
                               <td className="py-3 text-right">
                                 <div className="flex items-center justify-end gap-2">
-                                  <div className="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                  <div className="w-16 h-1.5 bg-marinho-50 rounded-full overflow-hidden">
                                     <div
                                       className={`h-full rounded-full ${r.pct_meta >= 80 ? 'bg-green-500' : r.pct_meta >= 50 ? 'bg-yellow-400' : 'bg-red-400'}`}
                                       style={{ width: `${r.pct_meta}%` }}
@@ -555,18 +555,18 @@ export default function Relatorios() {
               {/* Distribuição por destino */}
               {Object.keys(porDestino).length > 0 && (
                 <div className="card-base p-6">
-                  <h2 className="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <h2 className="text-base font-semibold text-marinho-900 mb-4 flex items-center gap-2">
                     <Package className="w-4 h-4 text-marinho-600" />
                     Solicitações por Destino
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {Object.entries(porDestino).map(([destino, qtd]) => (
-                      <div key={destino} className="bg-gray-50 rounded-xl p-4 text-center">
-                        <p className="text-3xl font-bold text-gray-900 mb-1">{qtd}</p>
-                        <p className="text-sm text-gray-600 font-medium">
+                      <div key={destino} className="bg-marinho-50 rounded-xl p-4 text-center">
+                        <p className="text-3xl font-bold text-marinho-900 mb-1">{qtd}</p>
+                        <p className="text-sm text-marinho-600 font-medium">
                           {LABELS_LOCAL_MATERIAL[destino] || destino}
                         </p>
-                        <p className="text-xs text-gray-400 mt-0.5">
+                        <p className="text-xs text-marinho-300 mt-0.5">
                           {totalSols > 0 ? Math.round((qtd / totalSols) * 100) : 0}% do total
                         </p>
                       </div>

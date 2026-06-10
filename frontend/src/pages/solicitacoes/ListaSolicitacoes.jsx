@@ -16,7 +16,6 @@ import {
 import { solicitacoesApi }  from '../../services/api';
 import { usePageTitle } from '../../hooks/usePageTitle';
 import { useAuth }           from '../../context/AuthContext';
-import { Spinner }           from '../../components/ui/Spinner';
 import { BadgeStatus }       from '../../components/solicitacoes/BadgeStatus';
 import { BadgePrioridade }   from '../../components/solicitacoes/BadgePrioridade';
 import { CardSolicitacao }   from '../../components/solicitacoes/CardSolicitacao';
@@ -148,15 +147,15 @@ export default function ListaSolicitacoes() {
       {/* Cabeçalho */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{config.titulo}</h1>
-          <p className="text-sm text-gray-500 mt-0.5">
+          <h1 className="text-2xl font-bold text-marinho-900">{config.titulo}</h1>
+          <p className="text-sm text-marinho-400 mt-0.5">
             {total} solicitaç{total === 1 ? 'ão' : 'ões'} encontrada{total === 1 ? '' : 's'}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={executarBusca}
-            className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-lg text-marinho-400 hover:bg-marinho-50 transition-colors"
             title="Atualizar"
           >
             <RefreshCw className={`w-4 h-4 ${carregando ? 'animate-spin' : ''}`} />
@@ -179,7 +178,7 @@ export default function ListaSolicitacoes() {
         <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
           {/* Busca */}
           <div className="relative flex-1 min-w-[180px]">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-marinho-300" />
             <input
               type="text"
               placeholder="Buscar por proposta ou vendedor..."
@@ -203,7 +202,7 @@ export default function ListaSolicitacoes() {
               ))}
             </select>
             <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4
-                                     text-gray-400 pointer-events-none" />
+                                     text-marinho-300 pointer-events-none" />
           </div>
 
           {/* Prioridade */}
@@ -219,7 +218,7 @@ export default function ListaSolicitacoes() {
               ))}
             </select>
             <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4
-                                     text-gray-400 pointer-events-none" />
+                                     text-marinho-300 pointer-events-none" />
           </div>
 
           {/* Setor — só admins */}
@@ -236,33 +235,33 @@ export default function ListaSolicitacoes() {
                 ))}
               </select>
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4
-                                       text-gray-400 pointer-events-none" />
+                                       text-marinho-300 pointer-events-none" />
             </div>
           )}
         </div>
 
         {/* Linha de período + botão buscar */}
-        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-gray-100">
-          <Calendar className="w-4 h-4 text-gray-400 flex-shrink-0" />
+        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-marinho-100/60">
+          <Calendar className="w-4 h-4 text-marinho-300 flex-shrink-0" />
           {PERIODOS_RAPIDOS.map(({ label, dias }) => (
             <button
               key={label}
               onClick={() => aplicarPeriodo(dias)}
-              className="text-xs px-2.5 py-1 rounded-full border border-gray-200
-                         text-gray-600 hover:border-marinho-400 hover:text-marinho-700
+              className="text-xs px-2.5 py-1 rounded-full border border-marinho-100
+                         text-marinho-600 hover:border-marinho-400 hover:text-marinho-700
                          hover:bg-marinho-50 transition-colors"
             >
               {label}
             </button>
           ))}
-          <span className="text-gray-300 text-xs">|</span>
+          <span className="text-marinho-200 text-xs">|</span>
           <input
             type="date"
             value={filtros.data_inicio}
             onChange={(e) => handleFiltro('data_inicio', e.target.value)}
             className="input-base text-xs py-1.5 w-36"
           />
-          <span className="text-gray-400 text-xs">até</span>
+          <span className="text-marinho-300 text-xs">até</span>
           <input
             type="date"
             value={filtros.data_fim}
@@ -299,8 +298,8 @@ export default function ListaSolicitacoes() {
                 setFiltros({ status: '', prioridade: '', setor_destino: '', busca: '', data_inicio: '', data_fim: '' });
                 setGatilho((g) => g + 1);
               }}
-              className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700
-                          px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="flex items-center gap-1 text-sm text-marinho-400 hover:text-marinho-700
+                          px-3 py-2 rounded-lg hover:bg-marinho-50 transition-colors"
             >
               <X className="w-4 h-4" /> Limpar filtros
             </button>
@@ -319,14 +318,22 @@ export default function ListaSolicitacoes() {
 
       {/* Conteúdo */}
       {carregando ? (
-        <div className="flex justify-center py-16">
-          <Spinner />
+        /* Skeleton loading — mantém o layout estável enquanto carrega */
+        <div className="space-y-3">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="card-base p-4 flex items-center gap-4">
+              <div className="skeleton h-4 w-24" />
+              <div className="skeleton h-4 flex-1 max-w-[180px]" />
+              <div className="skeleton h-5 w-28 rounded-full hidden sm:block" />
+              <div className="skeleton h-4 w-20 ml-auto hidden md:block" />
+            </div>
+          ))}
         </div>
       ) : solicitacoes.length === 0 ? (
         <div className="card-base p-12 text-center">
-          <Package className="w-12 h-12 text-gray-200 mx-auto mb-3" />
-          <p className="text-gray-500 font-medium">Nenhuma solicitação encontrada</p>
-          <p className="text-sm text-gray-400 mt-1">
+          <Package className="w-12 h-12 text-marinho-100 mx-auto mb-3" />
+          <p className="text-marinho-400 font-medium">Nenhuma solicitação encontrada</p>
+          <p className="text-sm text-marinho-300 mt-1">
             Ajuste os filtros e clique em <strong>Buscar</strong>.
           </p>
           {role === 'vendedor' && (
@@ -352,48 +359,48 @@ export default function ListaSolicitacoes() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-100 bg-gray-50 text-left">
-                  <th className="px-4 py-3 text-gray-500 font-medium">Proposta</th>
+                <tr className="border-b border-marinho-100/60 bg-marinho-50 text-left">
+                  <th className="px-4 py-3 text-marinho-400 font-medium">Proposta</th>
                   {ehAdmin && (
-                    <th className="px-4 py-3 text-gray-500 font-medium">Vendedor</th>
+                    <th className="px-4 py-3 text-marinho-400 font-medium">Vendedor</th>
                   )}
-                  <th className="px-4 py-3 text-gray-500 font-medium">Setor</th>
-                  <th className="px-4 py-3 text-gray-500 font-medium">Prioridade</th>
-                  <th className="px-4 py-3 text-gray-500 font-medium">Status</th>
-                  <th className="px-4 py-3 text-gray-500 font-medium">Estoquista</th>
-                  <th className="px-4 py-3 text-gray-500 font-medium">Criado em</th>
+                  <th className="px-4 py-3 text-marinho-400 font-medium">Setor</th>
+                  <th className="px-4 py-3 text-marinho-400 font-medium">Prioridade</th>
+                  <th className="px-4 py-3 text-marinho-400 font-medium">Status</th>
+                  <th className="px-4 py-3 text-marinho-400 font-medium">Estoquista</th>
+                  <th className="px-4 py-3 text-marinho-400 font-medium">Criado em</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-50">
+              <tbody className="divide-y divide-marinho-50">
                 {solicitacoes.map((s) => (
                   <tr
                     key={s.id}
                     onClick={() => navigate(`/solicitacoes/${s.id}`)}
-                    className="hover:bg-blue-50 cursor-pointer transition-colors"
+                    className="hover:bg-marinho-50 cursor-pointer transition-colors"
                   >
                     <td className="px-4 py-3">
-                      <p className="font-semibold text-gray-900">#{s.numero_proposta}</p>
+                      <p className="font-semibold text-marinho-900">#{s.numero_proposta}</p>
                       {s.numero_orcamento && (
-                        <p className="text-xs text-gray-400">Orç: {s.numero_orcamento}</p>
+                        <p className="text-xs text-marinho-300">Orç: {s.numero_orcamento}</p>
                       )}
                     </td>
                     {ehAdmin && (
-                      <td className="px-4 py-3 text-gray-600">{s.vendedor_nome}</td>
+                      <td className="px-4 py-3 text-marinho-600">{s.vendedor_nome}</td>
                     )}
-                    <td className="px-4 py-3 text-gray-600 capitalize">
+                    <td className="px-4 py-3 text-marinho-600 capitalize">
                       {LABELS_SETOR[s.setor_destino]}
                     </td>
                     <td className="px-4 py-3">
                       <BadgePrioridade prioridade={s.prioridade} />
-                      {!s.prioridade && <span className="text-xs text-gray-400">—</span>}
+                      {!s.prioridade && <span className="text-xs text-marinho-300">—</span>}
                     </td>
                     <td className="px-4 py-3">
                       <BadgeStatus status={s.status} />
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
-                      {s.estoquista_nome || <span className="text-gray-300">—</span>}
+                    <td className="px-4 py-3 text-marinho-600">
+                      {s.estoquista_nome || <span className="text-marinho-200">—</span>}
                     </td>
-                    <td className="px-4 py-3 text-gray-400 text-xs">
+                    <td className="px-4 py-3 text-marinho-300 text-xs">
                       {formatarDataHora(s.created_at)}
                     </td>
                   </tr>
@@ -406,7 +413,7 @@ export default function ListaSolicitacoes() {
 
       {/* Paginação */}
       {totalPaginas > 1 && (
-        <div className="flex items-center justify-between text-sm text-gray-600">
+        <div className="flex items-center justify-between text-sm text-marinho-600">
           <span>
             Página {paginaAtual} de {totalPaginas}
             {' '}({total} registros)
@@ -415,16 +422,16 @@ export default function ListaSolicitacoes() {
             <button
               disabled={paginaAtual <= 1 || carregando}
               onClick={() => setPaginaAtual((p) => p - 1)}
-              className="px-3 py-1.5 rounded-lg border border-gray-200 disabled:opacity-40
-                          hover:bg-gray-50 transition-colors disabled:cursor-not-allowed"
+              className="px-3 py-1.5 rounded-lg border border-marinho-100 disabled:opacity-40
+                          hover:bg-marinho-50 transition-colors disabled:cursor-not-allowed"
             >
               ← Anterior
             </button>
             <button
               disabled={paginaAtual >= totalPaginas || carregando}
               onClick={() => setPaginaAtual((p) => p + 1)}
-              className="px-3 py-1.5 rounded-lg border border-gray-200 disabled:opacity-40
-                          hover:bg-gray-50 transition-colors disabled:cursor-not-allowed"
+              className="px-3 py-1.5 rounded-lg border border-marinho-100 disabled:opacity-40
+                          hover:bg-marinho-50 transition-colors disabled:cursor-not-allowed"
             >
               Próxima →
             </button>

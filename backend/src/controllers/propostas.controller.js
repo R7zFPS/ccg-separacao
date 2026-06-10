@@ -165,6 +165,17 @@ async function responder(req, res) {
     }
 
     if (decisao === 'aprovada') {
+      // CORREÇÃO: impede agendamento duplicado caso a solicitação já tenha um
+      // (ex.: gerente criou agendamento direto enquanto a proposta estava pendente)
+      const agendamentoExistente = db.prepare(
+        'SELECT id FROM agendamentos WHERE solicitacao_id = ?'
+      ).get(proposta.solicitacao_id);
+      if (agendamentoExistente) {
+        return res.status(409).json({
+          sucesso: false,
+          mensagem: 'Esta solicitação já possui um agendamento. Recuse a proposta ou edite o agendamento existente.',
+        });
+      }
       // ── Transação: UPDATE proposta + INSERT agendamento + UPDATE sol + historico ──
       db.transaction(() => {
         db.prepare(`

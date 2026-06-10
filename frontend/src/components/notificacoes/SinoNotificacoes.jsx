@@ -13,7 +13,7 @@ const CORES_TIPO = {
   sucesso: 'bg-green-100 text-green-700',
   alerta:  'bg-yellow-100 text-yellow-700',
   erro:    'bg-red-100 text-red-700',
-  info:    'bg-blue-100 text-blue-700',
+  info:    'bg-marinho-100 text-marinho-700',
 };
 
 export function SinoNotificacoes() {
@@ -49,8 +49,8 @@ export function SinoNotificacoes() {
       {/* Botão do sino */}
       <button
         onClick={() => setAberto(!aberto)}
-        className="relative p-2 rounded-lg text-gray-500 hover:text-gray-700
-                   hover:bg-gray-100 transition-colors"
+        className="relative p-2 rounded-lg text-marinho-400 hover:text-marinho-700
+                   hover:bg-marinho-50 transition-colors"
         aria-label={`Notificações${totalNaoLidas > 0 ? ` — ${totalNaoLidas} não lidas` : ''}`}
       >
         <Bell className="w-5 h-5" />
@@ -67,11 +67,11 @@ export function SinoNotificacoes() {
       {/* Dropdown */}
       {aberto && (
         <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-xl
-                        shadow-xl border border-gray-200 z-50 overflow-hidden">
+                        shadow-xl border border-marinho-100 z-50 overflow-hidden">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3
-                          border-b border-gray-100">
-            <h3 className="font-semibold text-gray-900 text-sm">
+                          border-b border-marinho-100/60">
+            <h3 className="font-semibold text-marinho-900 text-sm">
               Notificações
               {totalNaoLidas > 0 && (
                 <span className="ml-2 text-xs bg-red-100 text-red-700
@@ -83,8 +83,8 @@ export function SinoNotificacoes() {
             {totalNaoLidas > 0 && (
               <button
                 onClick={marcarTodasLidas}
-                className="flex items-center gap-1 text-xs text-blue-600
-                           hover:text-blue-800 transition-colors"
+                className="flex items-center gap-1 text-xs text-marinho-600
+                           hover:text-marinho-800 transition-colors"
                 title="Marcar todas como lidas"
               >
                 <CheckCheck className="w-3.5 h-3.5" />
@@ -94,11 +94,11 @@ export function SinoNotificacoes() {
           </div>
 
           {/* Lista (máx. 5 itens no dropdown — "ver todas" no rodapé) */}
-          <div className="max-h-80 overflow-y-auto divide-y divide-gray-50">
+          <div className="max-h-80 overflow-y-auto divide-y divide-marinho-50">
             {notificacoes.length === 0 ? (
               <div className="py-8 text-center">
-                <Bell className="w-8 h-8 text-gray-300 mx-auto mb-2" />
-                <p className="text-gray-500 text-sm">Nenhuma notificação</p>
+                <Bell className="w-8 h-8 text-marinho-200 mx-auto mb-2" />
+                <p className="text-marinho-400 text-sm">Nenhuma notificação</p>
               </div>
             ) : (
               notificacoes.slice(0, 6).map((notif) => (
@@ -109,25 +109,25 @@ export function SinoNotificacoes() {
                     setAberto(false);
                     if (notif.solicitacao_id) navigate(`/solicitacoes/${notif.solicitacao_id}`);
                   }}
-                  className={`w-full text-left px-4 py-3 hover:bg-gray-50
-                              transition-colors ${!notif.lida ? 'bg-blue-50/50' : ''}`}
+                  className={`w-full text-left px-4 py-3 hover:bg-marinho-50
+                              transition-colors ${!notif.lida ? 'bg-marinho-50/50' : ''}`}
                 >
                   <div className="flex items-start gap-2">
                     {/* Indicador de não lida */}
                     {!notif.lida && (
-                      <span className="mt-1.5 w-2 h-2 bg-blue-500 rounded-full
+                      <span className="mt-1.5 w-2 h-2 bg-marinho-500 rounded-full
                                         flex-shrink-0" />
                     )}
                     <div className={!notif.lida ? '' : 'ml-4'}>
                       <p className={`text-sm font-medium ${
-                        !notif.lida ? 'text-gray-900' : 'text-gray-600'
+                        !notif.lida ? 'text-marinho-900' : 'text-marinho-600'
                       }`}>
                         {notif.titulo}
                       </p>
-                      <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">
+                      <p className="text-xs text-marinho-400 mt-0.5 line-clamp-2">
                         {notif.mensagem}
                       </p>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-marinho-300 mt-1">
                         {tempoRelativo(notif.created_at)}
                       </p>
                     </div>
@@ -138,7 +138,7 @@ export function SinoNotificacoes() {
           </div>
 
           {/* Rodapé — "Ver todas" */}
-          <div className="border-t border-gray-100 px-4 py-2.5">
+          <div className="border-t border-marinho-100/60 px-4 py-2.5">
             <button
               onClick={() => { setAberto(false); navigate('/notificacoes'); }}
               className="w-full flex items-center justify-center gap-1.5 text-xs

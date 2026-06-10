@@ -159,11 +159,11 @@ export default function Historico() {
       {/* Cabeçalho */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-marinho-900 flex items-center gap-2">
             <Clock className="w-6 h-6 text-marinho-600" />
             Histórico
           </h1>
-          <p className="text-sm text-gray-500 mt-0.5">
+          <p className="text-sm text-marinho-400 mt-0.5">
             {total > 0
               ? `${total} solicitaç${total === 1 ? 'ão' : 'ões'} encontrada${total === 1 ? '' : 's'}`
               : 'Consulte o histórico de solicitações'}
@@ -173,7 +173,7 @@ export default function Historico() {
           {solicitacoes.length > 0 && (
             <button
               onClick={exportarCSV}
-              className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-lg text-marinho-400 hover:bg-marinho-50 transition-colors"
               title="Exportar CSV"
             >
               <Download className="w-4 h-4" />
@@ -181,7 +181,7 @@ export default function Historico() {
           )}
           <button
             onClick={executarBusca}
-            className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-lg text-marinho-400 hover:bg-marinho-50 transition-colors"
             title="Atualizar"
           >
             <RefreshCw className={`w-4 h-4 ${carregando ? 'animate-spin' : ''}`} />
@@ -194,7 +194,7 @@ export default function Historico() {
         {/* Linha 1: busca + status */}
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-marinho-300" />
             <input
               type="text"
               placeholder="Buscar por nº proposta, vendedor..."
@@ -219,7 +219,7 @@ export default function Historico() {
         <div className="flex flex-col sm:flex-row gap-3 items-end">
           <div className="flex items-center gap-2 flex-1">
             <div className="flex-1">
-              <label className="block text-xs text-gray-500 mb-1">De</label>
+              <label className="block text-xs text-marinho-400 mb-1">De</label>
               <input
                 type="date"
                 value={dataInicio}
@@ -227,9 +227,9 @@ export default function Historico() {
                 className="input-base"
               />
             </div>
-            <span className="text-gray-400 pt-5">—</span>
+            <span className="text-marinho-300 pt-5">—</span>
             <div className="flex-1">
-              <label className="block text-xs text-gray-500 mb-1">Até</label>
+              <label className="block text-xs text-marinho-400 mb-1">Até</label>
               <input
                 type="date"
                 value={dataFim}
@@ -257,8 +257,8 @@ export default function Historico() {
           {temFiltros && (
             <button
               onClick={resetarFiltros}
-              className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700
-                          px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0"
+              className="flex items-center gap-1.5 text-sm text-marinho-400 hover:text-marinho-700
+                          px-3 py-2 rounded-lg hover:bg-marinho-50 transition-colors flex-shrink-0"
             >
               <XCircle className="w-4 h-4" />
               Limpar
@@ -281,10 +281,10 @@ export default function Historico() {
         <div className="flex justify-center py-16"><Spinner /></div>
       ) : !erro && solicitacoes.length === 0 ? (
         <div className="card-base p-14 text-center">
-          <CheckCircle className="w-14 h-14 text-gray-200 mx-auto mb-3" />
-          <p className="font-medium text-gray-600">Nenhuma solicitação encontrada.</p>
+          <CheckCircle className="w-14 h-14 text-marinho-100 mx-auto mb-3" />
+          <p className="font-medium text-marinho-600">Nenhuma solicitação encontrada.</p>
           {temFiltros && (
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-sm text-marinho-300 mt-1">
               Tente ajustar os filtros ou{' '}
               <button onClick={resetarFiltros} className="text-marinho-600 hover:underline">
                 limpar a busca
@@ -292,7 +292,7 @@ export default function Historico() {
             </p>
           )}
           {!temFiltros && (
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-sm text-marinho-300 mt-1">
               Clique em <strong>Buscar</strong> para carregar os resultados.
             </p>
           )}
@@ -303,25 +303,25 @@ export default function Historico() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-gray-100 bg-gray-50">
-                    <th className="text-left px-4 py-3 text-gray-500 font-medium">Proposta</th>
-                    <th className="text-left px-4 py-3 text-gray-500 font-medium">Status</th>
-                    <th className="text-left px-4 py-3 text-gray-500 font-medium hidden md:table-cell">Prioridade</th>
-                    <th className="text-left px-4 py-3 text-gray-500 font-medium hidden sm:table-cell">Destino</th>
-                    <th className="text-left px-4 py-3 text-gray-500 font-medium hidden lg:table-cell">Vendedor</th>
-                    <th className="text-left px-4 py-3 text-gray-500 font-medium hidden lg:table-cell">Criado</th>
-                    <th className="text-right px-4 py-3 text-gray-500 font-medium"></th>
+                  <tr className="border-b border-marinho-100/60 bg-marinho-50">
+                    <th className="text-left px-4 py-3 text-marinho-400 font-medium">Proposta</th>
+                    <th className="text-left px-4 py-3 text-marinho-400 font-medium">Status</th>
+                    <th className="text-left px-4 py-3 text-marinho-400 font-medium hidden md:table-cell">Prioridade</th>
+                    <th className="text-left px-4 py-3 text-marinho-400 font-medium hidden sm:table-cell">Destino</th>
+                    <th className="text-left px-4 py-3 text-marinho-400 font-medium hidden lg:table-cell">Vendedor</th>
+                    <th className="text-left px-4 py-3 text-marinho-400 font-medium hidden lg:table-cell">Criado</th>
+                    <th className="text-right px-4 py-3 text-marinho-400 font-medium"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-50">
+                <tbody className="divide-y divide-marinho-50">
                   {solicitacoes.map((sol) => (
                     <tr
                       key={sol.id}
-                      className="hover:bg-gray-50 transition-colors cursor-pointer"
+                      className="hover:bg-marinho-50 transition-colors cursor-pointer"
                       onClick={() => navigate(`/solicitacoes/${sol.id}`)}
                     >
                       <td className="px-4 py-3">
-                        <span className="font-bold text-gray-900">#{sol.numero_proposta}</span>
+                        <span className="font-bold text-marinho-900">#{sol.numero_proposta}</span>
                       </td>
                       <td className="px-4 py-3">
                         <BadgeStatus status={sol.status} />
@@ -329,21 +329,21 @@ export default function Historico() {
                       <td className="px-4 py-3 hidden md:table-cell">
                         {sol.prioridade
                           ? <BadgePrioridade prioridade={sol.prioridade} />
-                          : <span className="text-gray-300">—</span>}
+                          : <span className="text-marinho-200">—</span>}
                       </td>
-                      <td className="px-4 py-3 text-gray-600 hidden sm:table-cell">
+                      <td className="px-4 py-3 text-marinho-600 hidden sm:table-cell">
                         {LABELS_LOCAL_MATERIAL[sol.setor_destino] || sol.setor_destino || '—'}
                       </td>
-                      <td className="px-4 py-3 text-gray-600 hidden lg:table-cell">
+                      <td className="px-4 py-3 text-marinho-600 hidden lg:table-cell">
                         {sol.vendedor_nome || '—'}
                       </td>
-                      <td className="px-4 py-3 text-gray-500 hidden lg:table-cell text-xs">
+                      <td className="px-4 py-3 text-marinho-400 hidden lg:table-cell text-xs">
                         <span title={formatarDataHora(sol.created_at)}>
                           {tempoRelativo(sol.created_at)}
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <ChevronRight className="w-4 h-4 text-gray-400 inline-block" />
+                        <ChevronRight className="w-4 h-4 text-marinho-300 inline-block" />
                       </td>
                     </tr>
                   ))}
@@ -354,7 +354,7 @@ export default function Historico() {
 
           {/* Paginação */}
           {totalPaginas > 1 && (
-            <div className="flex items-center justify-between text-sm text-gray-600">
+            <div className="flex items-center justify-between text-sm text-marinho-600">
               <span>
                 Página {paginaAtual} de {totalPaginas}
                 {' '}({total} registros)
@@ -363,16 +363,16 @@ export default function Historico() {
                 <button
                   disabled={paginaAtual <= 1}
                   onClick={() => setPaginaAtual((p) => p - 1)}
-                  className="px-3 py-1.5 rounded-lg border border-gray-200 disabled:opacity-40
-                              hover:bg-gray-50 transition-colors disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 rounded-lg border border-marinho-100 disabled:opacity-40
+                              hover:bg-marinho-50 transition-colors disabled:cursor-not-allowed"
                 >
                   ← Anterior
                 </button>
                 <button
                   disabled={paginaAtual >= totalPaginas}
                   onClick={() => setPaginaAtual((p) => p + 1)}
-                  className="px-3 py-1.5 rounded-lg border border-gray-200 disabled:opacity-40
-                              hover:bg-gray-50 transition-colors disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 rounded-lg border border-marinho-100 disabled:opacity-40
+                              hover:bg-marinho-50 transition-colors disabled:cursor-not-allowed"
                 >
                   Próxima →
                 </button>

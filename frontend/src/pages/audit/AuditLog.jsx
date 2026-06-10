@@ -18,7 +18,7 @@ import { usePageTitle }          from '../../hooks/usePageTitle';
 
 // ── Ícone por tipo de ação ──────────────────────────────────
 const ICONE_ACAO = {
-  mudanca_status:        <Clock className="w-4 h-4 text-blue-500" />,
+  mudanca_status:        <Clock className="w-4 h-4 text-marinho-500" />,
   atribuicao_estoquista: <User className="w-4 h-4 text-orange-500" />,
   proposta_criada:       <Send className="w-4 h-4 text-sky-500" />,
   proposta_aprovada:     <CheckCircle className="w-4 h-4 text-emerald-500" />,
@@ -27,7 +27,7 @@ const ICONE_ACAO = {
 
 // ── Cor do badge por tipo de ação ──────────────────────────
 const COR_ACAO = {
-  mudanca_status:        'bg-blue-50 text-blue-700',
+  mudanca_status:        'bg-marinho-50 text-marinho-700',
   atribuicao_estoquista: 'bg-orange-50 text-orange-700',
   proposta_criada:       'bg-sky-50 text-sky-700',
   proposta_aprovada:     'bg-emerald-50 text-emerald-700',
@@ -36,16 +36,16 @@ const COR_ACAO = {
 
 // ── Formata detalhe (objeto JSON) para exibição legível ──────
 function DetalheAcao({ acao, detalhe }) {
-  if (!detalhe) return <span className="text-gray-400">—</span>;
+  if (!detalhe) return <span className="text-marinho-300">—</span>;
 
   if (acao === 'mudanca_status') {
     return (
       <span>
-        <span className="text-gray-500">{detalhe.de}</span>
-        <span className="text-gray-300 mx-1">→</span>
-        <span className="font-medium text-gray-800">{detalhe.para}</span>
+        <span className="text-marinho-400">{detalhe.de}</span>
+        <span className="text-marinho-200 mx-1">→</span>
+        <span className="font-medium text-marinho-800">{detalhe.para}</span>
         {detalhe.obs && (
-          <span className="text-gray-400 italic"> · "{detalhe.obs}"</span>
+          <span className="text-marinho-300 italic"> · "{detalhe.obs}"</span>
         )}
         {detalhe.foto && (
           <span className="ml-1 text-xs text-purple-600 font-medium">📷 foto</span>
@@ -54,18 +54,18 @@ function DetalheAcao({ acao, detalhe }) {
     );
   }
   if (acao === 'atribuicao_estoquista') {
-    return <span className="text-gray-700">→ {detalhe.estoquista_nome}</span>;
+    return <span className="text-marinho-700">→ {detalhe.estoquista_nome}</span>;
   }
   if (acao === 'proposta_criada') {
-    return <span className="text-gray-700">data: {detalhe.data_sugerida}</span>;
+    return <span className="text-marinho-700">data: {detalhe.data_sugerida}</span>;
   }
   if (acao === 'proposta_aprovada') {
-    return <span className="text-gray-700">{detalhe.data_entrega} · {detalhe.endereco}</span>;
+    return <span className="text-marinho-700">{detalhe.data_entrega} · {detalhe.endereco}</span>;
   }
   if (acao === 'proposta_recusada') {
-    return <span className="text-gray-700">{detalhe.motivo || 'sem motivo'}</span>;
+    return <span className="text-marinho-700">{detalhe.motivo || 'sem motivo'}</span>;
   }
-  return <span className="text-gray-400 text-xs font-mono">{JSON.stringify(detalhe)}</span>;
+  return <span className="text-marinho-300 text-xs font-mono">{JSON.stringify(detalhe)}</span>;
 }
 
 // ── Exportar CSV ────────────────────────────────────────────
@@ -168,8 +168,8 @@ export default function AuditLog() {
         <div className="flex items-center gap-3">
           <Shield className="w-6 h-6 text-marinho-600" />
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Audit Log</h1>
-            <p className="text-sm text-gray-400">{total} registro{total !== 1 ? 's' : ''} encontrado{total !== 1 ? 's' : ''}</p>
+            <h1 className="text-xl font-bold text-marinho-900">Audit Log</h1>
+            <p className="text-sm text-marinho-300">{total} registro{total !== 1 ? 's' : ''} encontrado{total !== 1 ? 's' : ''}</p>
           </div>
         </div>
         <div className="flex gap-2">
@@ -195,10 +195,10 @@ export default function AuditLog() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {Object.entries(resumo.porAcao).map(([key, { total: t, label }]) => (
             <div key={key} className="card-base p-4 flex items-start gap-3">
-              <span className="mt-0.5">{ICONE_ACAO[key] || <Package className="w-4 h-4 text-gray-400" />}</span>
+              <span className="mt-0.5">{ICONE_ACAO[key] || <Package className="w-4 h-4 text-marinho-300" />}</span>
               <div className="min-w-0">
-                <p className="text-2xl font-bold text-gray-900">{t}</p>
-                <p className="text-xs text-gray-500 leading-tight">{label}</p>
+                <p className="text-2xl font-bold text-marinho-900">{t}</p>
+                <p className="text-xs text-marinho-400 leading-tight">{label}</p>
               </div>
             </div>
           ))}
@@ -208,7 +208,7 @@ export default function AuditLog() {
       {/* Atividade últimos 7 dias */}
       {resumo?.ultimos7?.length > 0 && (
         <div className="card-base p-5">
-          <h2 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+          <h2 className="text-sm font-semibold text-marinho-700 mb-3 flex items-center gap-2">
             <Clock className="w-4 h-4 text-marinho-600" />
             Atividade — últimos 7 dias
           </h2>
@@ -217,12 +217,12 @@ export default function AuditLog() {
               const max = Math.max(...resumo.ultimos7.map((d) => d.total), 1);
               return resumo.ultimos7.map((d) => (
                 <div key={d.dia} className="flex-1 flex flex-col items-center gap-1">
-                  <span className="text-xs text-gray-500">{d.total}</span>
+                  <span className="text-xs text-marinho-400">{d.total}</span>
                   <div
                     className="w-full bg-marinho-500 rounded-t"
                     style={{ height: `${Math.round((d.total / max) * 56)}px`, minHeight: '4px' }}
                   />
-                  <span className="text-xs text-gray-400">{d.dia.slice(5)}</span>
+                  <span className="text-xs text-marinho-300">{d.dia.slice(5)}</span>
                 </div>
               ));
             })()}
@@ -233,8 +233,8 @@ export default function AuditLog() {
       {/* Filtros */}
       <div className="card-base p-4">
         <div className="flex items-center gap-2 mb-3">
-          <Filter className="w-4 h-4 text-gray-500" />
-          <span className="text-sm font-semibold text-gray-700">Filtros</span>
+          <Filter className="w-4 h-4 text-marinho-400" />
+          <span className="text-sm font-semibold text-marinho-700">Filtros</span>
           {temFiltroAtivo && (
             <button
               onClick={limparFiltros}
@@ -302,7 +302,7 @@ export default function AuditLog() {
         {carregando ? (
           <div className="flex justify-center py-12"><Spinner /></div>
         ) : acoes.length === 0 ? (
-          <div className="text-center py-12 text-gray-400">
+          <div className="text-center py-12 text-marinho-300">
             <Shield className="w-10 h-10 mx-auto mb-3 opacity-30" />
             <p className="text-sm">Nenhuma ação registrada{temFiltroAtivo ? ' com estes filtros' : ''}.</p>
           </div>
@@ -310,29 +310,29 @@ export default function AuditLog() {
           <>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead className="bg-gray-50 border-b border-gray-100">
+                <thead className="bg-marinho-50 border-b border-marinho-100/60">
                   <tr>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Data/Hora</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Usuário</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Ação</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Detalhe</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Solicitação</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">IP</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-marinho-400 uppercase tracking-wide">Data/Hora</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-marinho-400 uppercase tracking-wide">Usuário</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-marinho-400 uppercase tracking-wide">Ação</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-marinho-400 uppercase tracking-wide">Detalhe</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-marinho-400 uppercase tracking-wide">Solicitação</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-marinho-400 uppercase tracking-wide">IP</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-50">
+                <tbody className="divide-y divide-marinho-50">
                   {acoes.map((a) => (
-                    <tr key={a.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">
+                    <tr key={a.id} className="hover:bg-marinho-50 transition-colors">
+                      <td className="px-4 py-3 text-marinho-400 text-xs whitespace-nowrap">
                         {formatarDataHora(a.created_at)}
                       </td>
                       <td className="px-4 py-3">
-                        <p className="font-medium text-gray-900 text-xs">{a.usuario_nome}</p>
-                        <p className="text-gray-400 text-xs">{a.usuario_role}</p>
+                        <p className="font-medium text-marinho-900 text-xs">{a.usuario_nome}</p>
+                        <p className="text-marinho-300 text-xs">{a.usuario_role}</p>
                       </td>
                       <td className="px-4 py-3">
                         <span className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium
-                          ${COR_ACAO[a.acao] || 'bg-gray-50 text-gray-600'}`}>
+                          ${COR_ACAO[a.acao] || 'bg-marinho-50 text-marinho-600'}`}>
                           {ICONE_ACAO[a.acao]}
                           {a.acao_label}
                         </span>
@@ -343,7 +343,7 @@ export default function AuditLog() {
                       <td className="px-4 py-3 text-xs text-marinho-600 font-medium">
                         {a.solicitacao_numero ? `#${a.solicitacao_numero}` : '—'}
                       </td>
-                      <td className="px-4 py-3 text-xs text-gray-400 font-mono">
+                      <td className="px-4 py-3 text-xs text-marinho-300 font-mono">
                         {a.ip || '—'}
                       </td>
                     </tr>
@@ -354,15 +354,15 @@ export default function AuditLog() {
 
             {/* Paginação */}
             {totalPags > 1 && (
-              <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100">
-                <p className="text-xs text-gray-500">
+              <div className="flex items-center justify-between px-4 py-3 border-t border-marinho-100/60">
+                <p className="text-xs text-marinho-400">
                   Página {filtros.pagina} de {totalPags} · {total} registros
                 </p>
                 <div className="flex gap-1">
                   <button
                     onClick={() => irPagina(filtros.pagina - 1)}
                     disabled={filtros.pagina <= 1}
-                    className="p-1.5 rounded hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="p-1.5 rounded hover:bg-marinho-50 disabled:opacity-30 disabled:cursor-not-allowed"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
@@ -381,7 +381,7 @@ export default function AuditLog() {
                         className={`w-8 h-8 rounded text-xs font-medium transition-colors
                           ${p === filtros.pagina
                             ? 'bg-marinho-600 text-white'
-                            : 'hover:bg-gray-100 text-gray-600'}`}
+                            : 'hover:bg-marinho-50 text-marinho-600'}`}
                       >
                         {p}
                       </button>
@@ -390,7 +390,7 @@ export default function AuditLog() {
                   <button
                     onClick={() => irPagina(filtros.pagina + 1)}
                     disabled={filtros.pagina >= totalPags}
-                    className="p-1.5 rounded hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="p-1.5 rounded hover:bg-marinho-50 disabled:opacity-30 disabled:cursor-not-allowed"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>

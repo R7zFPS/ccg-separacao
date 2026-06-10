@@ -46,8 +46,8 @@ function DocLink({ url, label }) {
       href={resolveFileUrl(url)}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center gap-1 text-xs text-blue-600
-                  hover:text-blue-800 bg-blue-50 px-2 py-1 rounded"
+      className="flex items-center gap-1 text-xs text-marinho-600
+                  hover:text-marinho-800 bg-marinho-50 px-2 py-1 rounded"
     >
       <FileText className="w-3 h-3" />
       {label}
@@ -141,36 +141,36 @@ export default function Motorista() {
       {/* Cabeçalho */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <Truck className="w-6 h-6 text-blue-600" />
+          <h1 className="text-2xl font-bold text-marinho-900 flex items-center gap-2">
+            <Truck className="w-6 h-6 text-marinho-600" />
             Minhas Entregas
           </h1>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-marinho-400">
             Olá, {usuario?.nome?.split(' ')[0]}! — {new Date().toLocaleDateString('pt-BR', {
               weekday: 'long', day: 'numeric', month: 'long'
             })}
           </p>
         </div>
         <button onClick={buscar}
-          className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors">
+          className="p-2 rounded-lg text-marinho-400 hover:bg-marinho-50 transition-colors">
           <RefreshCw className={`w-4 h-4 ${carregando ? 'animate-spin' : ''}`} />
         </button>
       </div>
 
       {/* Abas */}
-      <div className="flex border-b border-gray-200">
+      <div className="flex border-b border-marinho-100">
         <button
           onClick={() => setAba('pendentes')}
           className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium
                        border-b-2 transition-colors -mb-px
                        ${aba === 'pendentes'
-                         ? 'border-blue-600 text-blue-600'
-                         : 'border-transparent text-gray-500'}`}
+                         ? 'border-marinho-600 text-marinho-600'
+                         : 'border-transparent text-marinho-400'}`}
         >
           <Truck className="w-4 h-4" />
           Para Entregar
           {entregas.length > 0 && (
-            <span className="ml-1 px-1.5 py-0.5 bg-blue-600 text-white text-xs rounded-full">
+            <span className="ml-1 px-1.5 py-0.5 bg-marinho-600 text-white text-xs rounded-full">
               {entregas.length}
             </span>
           )}
@@ -180,8 +180,8 @@ export default function Motorista() {
           className={`flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium
                        border-b-2 transition-colors -mb-px
                        ${aba === 'historico'
-                         ? 'border-blue-600 text-blue-600'
-                         : 'border-transparent text-gray-500'}`}
+                         ? 'border-marinho-600 text-marinho-600'
+                         : 'border-transparent text-marinho-400'}`}
         >
           <History className="w-4 h-4" />
           Histórico
@@ -213,8 +213,8 @@ export default function Motorista() {
         entregas.length === 0 ? (
           <div className="card-base p-12 text-center">
             <CheckCircle className="w-14 h-14 text-green-200 mx-auto mb-3" />
-            <p className="text-gray-500 font-medium">Nenhuma entrega pendente!</p>
-            <p className="text-gray-400 text-sm mt-1">Todas as rotas do dia foram concluídas.</p>
+            <p className="text-marinho-400 font-medium">Nenhuma entrega pendente!</p>
+            <p className="text-marinho-300 text-sm mt-1">Todas as rotas do dia foram concluídas.</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -223,12 +223,12 @@ export default function Motorista() {
               return (
                 <div key={e.id} className="card-base overflow-hidden">
                   {/* Header do card */}
-                  <div className="p-4 bg-blue-50 border-b border-blue-100">
+                  <div className="p-4 bg-marinho-50 border-b border-marinho-100">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-bold text-gray-900">#{e.numero_proposta}</p>
+                        <p className="font-bold text-marinho-900">#{e.numero_proposta}</p>
                         {e.numero_orcamento && (
-                          <p className="text-xs text-gray-500">Orç: {e.numero_orcamento}</p>
+                          <p className="text-xs text-marinho-400">Orç: {e.numero_orcamento}</p>
                         )}
                       </div>
                       <span className={`px-2.5 py-1 rounded-full text-xs font-semibold
@@ -243,8 +243,8 @@ export default function Motorista() {
                   <div className="p-4 space-y-3">
                     {/* Data */}
                     <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-blue-500 flex-shrink-0" />
-                      <p className="text-sm font-medium text-gray-900">
+                      <Clock className="w-4 h-4 text-marinho-500 flex-shrink-0" />
+                      <p className="text-sm font-medium text-marinho-900">
                         {formatarData(e.data_entrega)}
                       </p>
                     </div>
@@ -253,7 +253,7 @@ export default function Motorista() {
                     <div className="flex items-start gap-2">
                       <MapPin className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm text-gray-700 mb-2">{e.endereco_completo}</p>
+                        <p className="text-sm text-marinho-700 mb-2">{e.endereco_completo}</p>
                         {/* Links de navegação — Antônio escolhe o app */}
                         <div className="flex gap-2 flex-wrap">
                           <a
@@ -292,15 +292,15 @@ export default function Motorista() {
                     </div>
 
                     {e.obs_agendamento && (
-                      <p className="text-xs text-gray-500 italic bg-gray-50 rounded px-2 py-1">
+                      <p className="text-xs text-marinho-400 italic bg-marinho-50 rounded px-2 py-1">
                         Obs: {e.obs_agendamento}
                       </p>
                     )}
 
                     {/* Formulário de confirmação */}
                     {confirmando === e.id ? (
-                      <div className="space-y-3 pt-2 border-t border-gray-100">
-                        <p className="text-sm font-medium text-gray-700">Confirmar entrega</p>
+                      <div className="space-y-3 pt-2 border-t border-marinho-100/60">
+                        <p className="text-sm font-medium text-marinho-700">Confirmar entrega</p>
 
                         {/* Foto OBRIGATÓRIA */}
                         <div>
@@ -352,7 +352,7 @@ export default function Motorista() {
                             onClick={() => confirmarEntrega(e.id)}
                             disabled={salvando || !foto}
                             className="flex-1 flex items-center justify-center gap-2 py-2.5
-                                        bg-green-600 hover:bg-green-700 disabled:bg-gray-300
+                                        bg-green-600 hover:bg-green-700 disabled:bg-marinho-100
                                         disabled:cursor-not-allowed text-white rounded-lg
                                         text-sm font-semibold transition-colors"
                           >
@@ -361,8 +361,8 @@ export default function Motorista() {
                           </button>
                           <button
                             onClick={() => { setConfirmando(null); setFoto(null); setObs(''); setErroAcao(''); }}
-                            className="px-4 py-2 text-sm text-gray-600 bg-gray-100
-                                        rounded-lg hover:bg-gray-200 transition-colors"
+                            className="px-4 py-2 text-sm text-marinho-600 bg-marinho-50
+                                        rounded-lg hover:bg-marinho-100 transition-colors"
                           >
                             Cancelar
                           </button>
@@ -389,25 +389,25 @@ export default function Motorista() {
         /* ── Histórico ───────────────────────────────── */
         historico.length === 0 ? (
           <div className="card-base p-12 text-center">
-            <Package className="w-12 h-12 text-gray-200 mx-auto mb-3" />
-            <p className="text-gray-500">Nenhuma entrega realizada ainda.</p>
+            <Package className="w-12 h-12 text-marinho-100 mx-auto mb-3" />
+            <p className="text-marinho-400">Nenhuma entrega realizada ainda.</p>
           </div>
         ) : (
           <div className="space-y-3">
             {historico.map((e) => (
               <div key={e.id} className="card-base p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="font-semibold text-gray-900">#{e.numero_proposta}</p>
+                  <p className="font-semibold text-marinho-900">#{e.numero_proposta}</p>
                   <span className="px-2.5 py-0.5 bg-emerald-100 text-emerald-700
                                     rounded-full text-xs font-medium">
                     Entregue
                   </span>
                 </div>
-                <div className="flex items-start gap-2 text-sm text-gray-600">
-                  <MapPin className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                <div className="flex items-start gap-2 text-sm text-marinho-600">
+                  <MapPin className="w-4 h-4 text-marinho-300 mt-0.5 flex-shrink-0" />
                   <p>{e.endereco_completo}</p>
                 </div>
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-xs text-marinho-300 mt-1">
                   {e.entregue_em
                     ? `Entregue ${tempoRelativo(e.entregue_em)}`
                     : formatarData(e.data_entrega)}

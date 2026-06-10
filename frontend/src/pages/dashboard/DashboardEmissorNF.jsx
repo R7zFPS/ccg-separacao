@@ -50,12 +50,12 @@ export default function DashboardEmissorNF() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-marinho-900">
             Olá, {usuario?.nome?.split(' ')[0]}!
           </h1>
-          <p className="text-sm text-gray-500 mt-1">Emissão de Notas Fiscais</p>
+          <p className="text-sm text-marinho-400 mt-1">Emissão de Notas Fiscais</p>
         </div>
-        <button onClick={buscar} className="p-2 rounded-lg text-gray-500 hover:bg-gray-100">
+        <button onClick={buscar} className="p-2 rounded-lg text-marinho-400 hover:bg-marinho-50">
           <RefreshCw className={`w-4 h-4 ${carregando ? 'animate-spin' : ''}`} />
         </button>
       </div>
@@ -90,13 +90,13 @@ export default function DashboardEmissorNF() {
         <div className="grid grid-cols-2 gap-4">
           <div className="card-base p-5 border-l-4 border-amber-400">
             <FileText className="w-5 h-5 text-amber-500 mb-2" />
-            <p className="text-2xl font-bold text-gray-900">{aguardando}</p>
-            <p className="text-xs text-gray-500">Aguardando emissão</p>
+            <p className="text-2xl font-bold text-marinho-900">{aguardando}</p>
+            <p className="text-xs text-marinho-400">Aguardando emissão</p>
           </div>
           <div className="card-base p-5 border-l-4 border-indigo-400">
             <CheckCircle className="w-5 h-5 text-indigo-500 mb-2" />
-            <p className="text-2xl font-bold text-gray-900">{emEmissao}</p>
-            <p className="text-xs text-gray-500">Em emissão</p>
+            <p className="text-2xl font-bold text-marinho-900">{emEmissao}</p>
+            <p className="text-xs text-marinho-400">Em emissão</p>
           </div>
         </div>
       ))}
@@ -104,7 +104,7 @@ export default function DashboardEmissorNF() {
       {/* Lista recente */}
       {lista.length > 0 && (
         <div className="space-y-3">
-          <h2 className="text-sm font-semibold text-gray-700">Fila de NF</h2>
+          <h2 className="text-sm font-semibold text-marinho-700">Fila de NF</h2>
           {lista.slice(0, 5).map(s => (
             <button
               key={s.id}
@@ -113,19 +113,19 @@ export default function DashboardEmissorNF() {
                           hover:shadow-md transition-shadow"
             >
               <div>
-                <p className="font-semibold text-gray-900">#{s.numero_proposta}</p>
-                <p className="text-xs text-gray-400 mt-0.5">{tempoRelativo(s.updated_at)}</p>
+                <p className="font-semibold text-marinho-900">#{s.numero_proposta}</p>
+                <p className="text-xs text-marinho-300 mt-0.5">{tempoRelativo(s.updated_at)}</p>
               </div>
               <div className="flex items-center gap-2">
                 <BadgeStatus status={s.status} />
-                <ArrowRight className="w-4 h-4 text-gray-400" />
+                <ArrowRight className="w-4 h-4 text-marinho-300" />
               </div>
             </button>
           ))}
           {lista.length > 5 && (
             <button
               onClick={() => navigate('/solicitacoes')}
-              className="w-full text-sm text-blue-600 hover:text-blue-800 py-2"
+              className="w-full text-sm text-marinho-600 hover:text-marinho-800 py-2"
             >
               Ver todas ({lista.length})
             </button>

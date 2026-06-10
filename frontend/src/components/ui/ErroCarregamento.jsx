@@ -22,11 +22,11 @@ export function ErroCarregamento({
         <AlertTriangle className="w-8 h-8 text-red-500" />
       </div>
 
-      <h3 className="text-base font-semibold text-gray-800 mb-1">
+      <h3 className="text-base font-semibold text-marinho-800 mb-1">
         Falha ao carregar
       </h3>
 
-      <p className="text-sm text-gray-500 max-w-xs mb-6">
+      <p className="text-sm text-marinho-400 max-w-xs mb-6">
         {mensagem}
       </p>
 
@@ -35,7 +35,7 @@ export function ErroCarregamento({
           onClick={onTentar}
           disabled={tentando}
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl
-                     bg-blue-600 hover:bg-blue-700 text-white text-sm
+                     bg-marinho-600 hover:bg-marinho-700 text-white text-sm
                      font-semibold disabled:opacity-60 transition-colors"
         >
           {tentando

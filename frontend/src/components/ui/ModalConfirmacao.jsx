@@ -27,9 +27,9 @@ const VARIANTES = {
     botao:   'bg-amber-500 hover:bg-amber-600 focus:ring-amber-400',
   },
   normal: {
-    icone:   <AlertTriangle className="w-6 h-6 text-blue-600"   />,
-    bg:      'bg-blue-100',
-    botao:   'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500',
+    icone:   <AlertTriangle className="w-6 h-6 text-marinho-600"   />,
+    bg:      'bg-marinho-100',
+    botao:   'bg-marinho-600 hover:bg-marinho-700 focus:ring-marinho-400',
   },
 };
 
@@ -82,8 +82,8 @@ export function ModalConfirmacao({
         {/* Botão fechar */}
         <button
           onClick={onCancelar}
-          className="absolute top-3 right-3 p-1.5 rounded-lg text-gray-400
-                     hover:text-gray-600 hover:bg-gray-100 transition-colors"
+          className="absolute top-3 right-3 p-1.5 rounded-lg text-marinho-300
+                     hover:text-marinho-600 hover:bg-marinho-50 transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
@@ -97,12 +97,12 @@ export function ModalConfirmacao({
 
           {/* Título */}
           <h3 id="modal-titulo"
-              className="text-lg font-bold text-gray-900 mb-2">
+              className="text-lg font-bold text-marinho-900 mb-2">
             {titulo}
           </h3>
 
           {/* Mensagem */}
-          <p className="text-sm text-gray-600 leading-relaxed">
+          <p className="text-sm text-marinho-600 leading-relaxed">
             {mensagem}
           </p>
         </div>
@@ -112,9 +112,9 @@ export function ModalConfirmacao({
           <button
             onClick={onCancelar}
             disabled={carregando}
-            className="flex-1 py-2.5 rounded-xl border border-gray-200
-                       text-sm font-semibold text-gray-700
-                       hover:bg-gray-50 disabled:opacity-50
+            className="flex-1 py-2.5 rounded-xl border border-marinho-100
+                       text-sm font-semibold text-marinho-700
+                       hover:bg-marinho-50 disabled:opacity-50
                        transition-colors"
           >
             Cancelar

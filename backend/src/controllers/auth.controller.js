@@ -136,6 +136,9 @@ function refresh(req, res) {
       usuario_login:  registro.usuario_login,
       email:          registro.email,
       role:           registro.role,
+      // CORREÇÃO: roles_extra precisa ir junto, senão o novo access token
+      // perde os perfis adicionais (multi-perfil) após o refresh
+      roles_extra:    registro.roles_extra,
       setor:          registro.setor,
       primeiro_acesso: registro.primeiro_acesso,
     };

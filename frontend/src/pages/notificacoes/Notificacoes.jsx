@@ -28,7 +28,7 @@ const CORES_TIPO = {
   sucesso: { badge: 'bg-green-100 text-green-700', dot: 'bg-green-500' },
   alerta:  { badge: 'bg-yellow-100 text-yellow-700', dot: 'bg-yellow-500' },
   erro:    { badge: 'bg-red-100 text-red-700', dot: 'bg-red-500' },
-  info:    { badge: 'bg-blue-100 text-blue-700', dot: 'bg-blue-500' },
+  info:    { badge: 'bg-marinho-100 text-marinho-700', dot: 'bg-marinho-500' },
 };
 
 const POR_PAGINA = 30;
@@ -102,11 +102,11 @@ export default function Notificacoes() {
       {/* Cabeçalho */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-marinho-900 flex items-center gap-2">
             <Bell className="w-6 h-6 text-marinho-600" />
             Notificações
           </h1>
-          <p className="text-sm text-gray-500 mt-0.5">
+          <p className="text-sm text-marinho-400 mt-0.5">
             {naoLidas > 0
               ? `${naoLidas} não lida${naoLidas !== 1 ? 's' : ''}`
               : 'Todas em dia'}
@@ -118,7 +118,7 @@ export default function Notificacoes() {
             <button
               onClick={handleMarcarTodasLidas}
               className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium
-                         text-blue-600 hover:text-blue-800 hover:bg-blue-50
+                         text-marinho-600 hover:text-marinho-800 hover:bg-marinho-50
                          rounded-lg transition-colors"
             >
               <CheckCheck className="w-4 h-4" />
@@ -127,7 +127,7 @@ export default function Notificacoes() {
           )}
           <button
             onClick={buscar}
-            className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-lg text-marinho-400 hover:bg-marinho-50 transition-colors"
             title="Atualizar"
           >
             <RefreshCw className={`w-4 h-4 ${carregando ? 'animate-spin' : ''}`} />
@@ -137,7 +137,7 @@ export default function Notificacoes() {
 
       {/* Filtros */}
       <div className="card-base p-3 flex items-center gap-2 flex-wrap">
-        <Filter className="w-4 h-4 text-gray-400 flex-shrink-0" />
+        <Filter className="w-4 h-4 text-marinho-300 flex-shrink-0" />
         {FILTROS.map(({ value, label }) => (
           <button
             key={value}
@@ -145,7 +145,7 @@ export default function Notificacoes() {
             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors
               ${filtro === value
                 ? 'bg-marinho-600 text-white'
-                : 'text-gray-600 hover:bg-gray-100'}`}
+                : 'text-marinho-600 hover:bg-marinho-50'}`}
           >
             {label}
           </button>
@@ -166,8 +166,8 @@ export default function Notificacoes() {
         <div className="flex justify-center py-16"><Spinner /></div>
       ) : !erro && lista.length === 0 ? (
         <div className="card-base p-14 text-center">
-          <CheckCircle className="w-14 h-14 text-gray-200 mx-auto mb-3" />
-          <p className="font-medium text-gray-600">
+          <CheckCircle className="w-14 h-14 text-marinho-100 mx-auto mb-3" />
+          <p className="font-medium text-marinho-600">
             {filtro === 'nao_lidas'
               ? 'Nenhuma notificação não lida.'
               : filtro === 'lidas'
@@ -177,7 +177,7 @@ export default function Notificacoes() {
         </div>
       ) : !erro ? (
         <>
-          <div className="card-base overflow-hidden divide-y divide-gray-50">
+          <div className="card-base overflow-hidden divide-y divide-marinho-50">
             {lista.map((notif) => {
               const cores  = CORES_TIPO[notif.tipo] || CORES_TIPO.info;
               const naolida = !notif.lida;
@@ -187,14 +187,14 @@ export default function Notificacoes() {
                   key={notif.id}
                   onClick={() => handleClicarNotif(notif)}
                   className={`w-full text-left px-5 py-4 flex items-start gap-3
-                               hover:bg-gray-50 transition-colors group
-                               ${naolida ? 'bg-blue-50/40' : ''}`}
+                               hover:bg-marinho-50 transition-colors group
+                               ${naolida ? 'bg-marinho-50/40' : ''}`}
                 >
                   {/* Indicador de lida/não-lida */}
                   <div className="flex-shrink-0 mt-1">
                     {naolida
                       ? <span className={`block w-2.5 h-2.5 rounded-full ${cores.dot}`} />
-                      : <span className="block w-2.5 h-2.5 rounded-full bg-gray-200" />
+                      : <span className="block w-2.5 h-2.5 rounded-full bg-marinho-100" />
                     }
                   </div>
 
@@ -202,7 +202,7 @@ export default function Notificacoes() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <p className={`text-sm font-medium leading-snug
-                        ${naolida ? 'text-gray-900' : 'text-gray-600'}`}>
+                        ${naolida ? 'text-marinho-900' : 'text-marinho-600'}`}>
                         {notif.titulo}
                       </p>
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium
@@ -212,14 +212,14 @@ export default function Notificacoes() {
                     </div>
 
                     {notif.mensagem && (
-                      <p className="text-sm text-gray-500 mt-0.5 line-clamp-2">
+                      <p className="text-sm text-marinho-400 mt-0.5 line-clamp-2">
                         {notif.mensagem}
                       </p>
                     )}
 
                     <div className="flex items-center justify-between mt-1.5">
                       <span
-                        className="text-xs text-gray-400"
+                        className="text-xs text-marinho-300"
                         title={formatarDataHora(notif.created_at)}
                       >
                         {tempoRelativo(notif.created_at)}
@@ -237,8 +237,8 @@ export default function Notificacoes() {
                   {naolida && (
                     <button
                       onClick={(e) => { e.stopPropagation(); handleMarcarLida(notif.id); }}
-                      className="flex-shrink-0 p-1 rounded text-gray-300 hover:text-blue-500
-                                  hover:bg-blue-50 transition-colors mt-0.5"
+                      className="flex-shrink-0 p-1 rounded text-marinho-200 hover:text-marinho-500
+                                  hover:bg-marinho-50 transition-colors mt-0.5"
                       title="Marcar como lida"
                     >
                       <CheckCircle className="w-4 h-4" />
@@ -251,7 +251,7 @@ export default function Notificacoes() {
 
           {/* Paginação */}
           {totalPaginas > 1 && (
-            <div className="flex items-center justify-between text-sm text-gray-600">
+            <div className="flex items-center justify-between text-sm text-marinho-600">
               <span>
                 Página {pagina} de {totalPaginas} ({total} registros)
               </span>
@@ -259,16 +259,16 @@ export default function Notificacoes() {
                 <button
                   disabled={pagina <= 1}
                   onClick={() => setPagina((p) => p - 1)}
-                  className="px-3 py-1.5 rounded-lg border border-gray-200 disabled:opacity-40
-                              hover:bg-gray-50 transition-colors disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 rounded-lg border border-marinho-100 disabled:opacity-40
+                              hover:bg-marinho-50 transition-colors disabled:cursor-not-allowed"
                 >
                   ← Anterior
                 </button>
                 <button
                   disabled={pagina >= totalPaginas}
                   onClick={() => setPagina((p) => p + 1)}
-                  className="px-3 py-1.5 rounded-lg border border-gray-200 disabled:opacity-40
-                              hover:bg-gray-50 transition-colors disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 rounded-lg border border-marinho-100 disabled:opacity-40
+                              hover:bg-marinho-50 transition-colors disabled:cursor-not-allowed"
                 >
                   Próxima →
                 </button>

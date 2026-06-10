@@ -112,11 +112,11 @@ export default function Usuarios() {
       {/* Cabeçalho */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <Shield className="w-6 h-6 text-blue-600" />
+          <h1 className="text-2xl font-bold text-marinho-900 flex items-center gap-2">
+            <Shield className="w-6 h-6 text-marinho-600" />
             Usuários
           </h1>
-          <p className="text-gray-500 mt-1">
+          <p className="text-marinho-400 mt-1">
             Gerencie os usuários e seus perfis de acesso
           </p>
         </div>
@@ -129,7 +129,7 @@ export default function Usuarios() {
       {/* Filtros */}
       <div className="card-base p-4 flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-marinho-300" />
           <input
             type="text"
             placeholder="Buscar por nome ou usuário..."
@@ -165,26 +165,26 @@ export default function Usuarios() {
           </div>
         ) : usuariosFiltrados.length === 0 ? (
           <div className="text-center py-12">
-            <Shield className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-            <p className="text-gray-500">Nenhum usuário encontrado.</p>
+            <Shield className="w-10 h-10 text-marinho-200 mx-auto mb-3" />
+            <p className="text-marinho-400">Nenhum usuário encontrado.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-100 bg-gray-50">
-                  <th className="text-left px-4 py-3 text-gray-500 font-medium">Nome</th>
-                  <th className="text-left px-4 py-3 text-gray-500 font-medium">Usuário / Login</th>
-                  <th className="text-left px-4 py-3 text-gray-500 font-medium">Perfil</th>
-                  <th className="text-left px-4 py-3 text-gray-500 font-medium">Setor</th>
-                  <th className="text-left px-4 py-3 text-gray-500 font-medium">Status</th>
-                  <th className="text-left px-4 py-3 text-gray-500 font-medium">Criado em</th>
-                  <th className="text-right px-4 py-3 text-gray-500 font-medium">Ações</th>
+                <tr className="border-b border-marinho-100/60 bg-marinho-50">
+                  <th className="text-left px-4 py-3 text-marinho-400 font-medium">Nome</th>
+                  <th className="text-left px-4 py-3 text-marinho-400 font-medium">Usuário / Login</th>
+                  <th className="text-left px-4 py-3 text-marinho-400 font-medium">Perfil</th>
+                  <th className="text-left px-4 py-3 text-marinho-400 font-medium">Setor</th>
+                  <th className="text-left px-4 py-3 text-marinho-400 font-medium">Status</th>
+                  <th className="text-left px-4 py-3 text-marinho-400 font-medium">Criado em</th>
+                  <th className="text-right px-4 py-3 text-marinho-400 font-medium">Ações</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-50">
+              <tbody className="divide-y divide-marinho-50">
                 {usuariosFiltrados.map((usuario) => (
-                  <tr key={usuario.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={usuario.id} className="hover:bg-marinho-50 transition-colors">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         {/* Mini avatar */}
@@ -203,13 +203,13 @@ export default function Usuarios() {
                             </span>
                           )}
                         </div>
-                        <span className="font-medium text-gray-900">{usuario.nome}</span>
+                        <span className="font-medium text-marinho-900">{usuario.nome}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-marinho-600">
                       <span className="font-mono text-sm">{usuario.usuario_login}</span>
                       {usuario.email && (
-                        <span className="block text-xs text-gray-400">{usuario.email}</span>
+                        <span className="block text-xs text-marinho-300">{usuario.email}</span>
                       )}
                     </td>
                     <td className="px-4 py-3">
@@ -221,14 +221,14 @@ export default function Usuarios() {
                         {/* Roles extras */}
                         {Array.isArray(usuario.roles_extra) &&
                           usuario.roles_extra.map((r) => (
-                            <span key={r} className="badge-status bg-gray-100 text-gray-600 text-xs">
+                            <span key={r} className="badge-status bg-marinho-50 text-marinho-600 text-xs">
                               +{LABELS_ROLE[r] || r}
                             </span>
                           ))
                         }
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-marinho-600">
                       {LABELS_SETOR[usuario.setor] || usuario.setor}
                     </td>
                     <td className="px-4 py-3">
@@ -236,7 +236,7 @@ export default function Usuarios() {
                         <span className={`badge-status ${
                           usuario.ativo
                             ? 'bg-green-100 text-green-700'
-                            : 'bg-gray-100 text-gray-500'
+                            : 'bg-marinho-50 text-marinho-400'
                         }`}>
                           {usuario.ativo ? 'Ativo' : 'Inativo'}
                         </span>
@@ -252,15 +252,15 @@ export default function Usuarios() {
                         ) : null}
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-gray-500">
+                    <td className="px-4 py-3 text-marinho-400">
                       {formatarData(usuario.created_at)}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-1">
                         <button
                           onClick={() => abrirEdicao(usuario)}
-                          className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600
-                                      hover:bg-blue-50 transition-colors"
+                          className="p-1.5 rounded-lg text-marinho-300 hover:text-marinho-600
+                                      hover:bg-marinho-50 transition-colors"
                           title="Editar"
                         >
                           <Edit2 className="w-4 h-4" />
@@ -269,8 +269,8 @@ export default function Usuarios() {
                           onClick={() => pedirConfirmacaoDesativar(usuario)}
                           className={`p-1.5 rounded-lg transition-colors ${
                             usuario.ativo
-                              ? 'text-gray-400 hover:text-red-600 hover:bg-red-50'
-                              : 'text-gray-400 hover:text-green-600 hover:bg-green-50'
+                              ? 'text-marinho-300 hover:text-red-600 hover:bg-red-50'
+                              : 'text-marinho-300 hover:text-green-600 hover:bg-green-50'
                           }`}
                           title={usuario.ativo ? 'Desativar' : 'Ativar'}
                         >
