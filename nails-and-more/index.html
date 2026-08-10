@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nails &amp; More Salon · Agendamentos</title>
+  <meta name="description" content="Agende seu horário no Nails & More Salon — mãos, pés, cílios, spa e cabelo." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%236B2544'/><circle cx='50' cy='50' r='14' fill='none' stroke='%23FAF3F2' stroke-width='4'/><path d='M50 6 C60 22 60 36 50 46 C40 36 40 22 50 6Z' fill='none' stroke='%23FAF3F2' stroke-width='3'/></svg>" />
+</head>
+<body>
+
+  <!-- ======= CABEÇALHO ======= -->
+  <header class="topo">
+    <a class="marca" href="#" data-nav="home" aria-label="Nails & More Salon — início">
+      <span class="marca-flor" aria-hidden="true"></span>
+      <span class="marca-texto">
+        <span class="marca-nails">nails</span>
+        <span class="marca-more">&amp; more <i>salon</i></span>
+      </span>
+    </a>
+    <nav class="topo-nav">
+      <button class="link-discreto" data-nav="admin" type="button">Área do salão</button>
+    </nav>
+  </header>
+
+  <main id="app">
+
+    <!-- ======= INÍCIO ======= -->
+    <section class="view" id="view-home">
+      <div class="hero">
+        <div class="hero-flor" aria-hidden="true"></div>
+        <p class="hero-frase">beleza, cuidado <span class="amp">&amp;</span> experiência</p>
+        <h1>Agende seu<br />momento</h1>
+        <p class="hero-sub">Mãos &amp; pés, nail design, olhar, spa e cabelo — escolha seus serviços, o horário e pronto: seu lugar fica reservado.</p>
+        <button class="btn btn-principal btn-grande" data-nav="agendar" type="button">Agendar horário</button>
+        <ul class="hero-infos">
+          <li><strong>Seg a Sáb</strong> 10h – 22h</li>
+          <li><strong>Domingo</strong> 13h – 21h</li>
+          <li><strong>Rio de Janeiro</strong> @nailsandmorerj</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ======= AGENDAMENTO (WIZARD) ======= -->
+    <section class="view oculto" id="view-agendar">
+      <ol class="passos" aria-label="Etapas do agendamento">
+        <li data-passo="1" class="ativo"><span>1</span>Serviços</li>
+        <li data-passo="2"><span>2</span>Horário</li>
+        <li data-passo="3"><span>3</span>Seus dados</li>
+        <li data-passo="4"><span>4</span>Pagamento</li>
+      </ol>
+
+      <!-- Passo 1: serviços -->
+      <div class="passo-painel" id="passo-1">
+        <h2 class="titulo-passo">O que vamos cuidar hoje?</h2>
+        <p class="sub-passo">Toque nos serviços para adicionar — pode escolher mais de um.</p>
+        <div id="lista-categorias"></div>
+        <p class="nota-menu">* Cutilagem com esmaltação tradicional. Cabelos longos, extralongos e mega hair: consultar valor com o profissional.</p>
+      </div>
+
+      <!-- Passo 2: data e horário -->
+      <div class="passo-painel oculto" id="passo-2">
+        <h2 class="titulo-passo">Quando fica bom para você?</h2>
+        <div class="campo">
+          <label for="campo-unidade">Unidade</label>
+          <select id="campo-unidade">
+            <option value="Shopping Tijuca">Shopping Tijuca</option>
+            <option value="NorteShopping">NorteShopping</option>
+            <option value="Shopping Metropolitano">Shopping Metropolitano</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label for="campo-data">Dia</label>
+          <input type="date" id="campo-data" />
+        </div>
+        <div class="campo">
+          <label id="rotulo-horarios">Horário</label>
+          <div id="grade-horarios" class="grade-horarios" role="listbox" aria-labelledby="rotulo-horarios"></div>
+          <p class="dica-horario" id="dica-horario">Escolha um dia para ver os horários disponíveis.</p>
+        </div>
+      </div>
+
+      <!-- Passo 3: dados -->
+      <div class="passo-painel oculto" id="passo-3">
+        <h2 class="titulo-passo">Quem vamos receber?</h2>
+        <div class="campo">
+          <label for="campo-nome">Nome completo</label>
+          <input type="text" id="campo-nome" autocomplete="name" placeholder="Seu nome" />
+        </div>
+        <div class="campo">
+          <label for="campo-telefone">Telefone / WhatsApp</label>
+          <input type="tel" id="campo-telefone" autocomplete="tel" inputmode="numeric" placeholder="(21) 99999-9999" />
+        </div>
+        <div class="campo">
+          <label for="campo-obs">Alguma observação? <em>(opcional)</em></label>
+          <textarea id="campo-obs" rows="3" placeholder="Ex.: prefiro atendimento com a mesma profissional da última vez"></textarea>
+        </div>
+      </div>
+
+      <!-- Passo 4: pagamento -->
+      <div class="passo-painel oculto" id="passo-4">
+        <h2 class="titulo-passo">Como prefere pagar?</h2>
+
+        <fieldset class="grupo-opcoes">
+          <legend>Quando pagar</legend>
+          <div class="opcoes-linha" id="opcoes-quando">
+            <label class="opcao">
+              <input type="radio" name="quando" value="na_hora" checked />
+              <span class="opcao-caixa">
+                <strong>Pagar na hora</strong>
+                <small>No salão, no dia do atendimento</small>
+              </span>
+            </label>
+            <label class="opcao">
+              <input type="radio" name="quando" value="antecipado" />
+              <span class="opcao-caixa">
+                <strong>Pagar antes</strong>
+                <small>Garanta seu horário com antecedência</small>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="grupo-opcoes">
+          <legend>Forma de pagamento</legend>
+          <div class="opcoes-linha formas" id="opcoes-forma">
+            <label class="opcao"><input type="radio" name="forma" value="pix" checked /><span class="opcao-caixa"><strong>Pix</strong></span></label>
+            <label class="opcao"><input type="radio" name="forma" value="credito" /><span class="opcao-caixa"><strong>Crédito</strong></span></label>
+            <label class="opcao"><input type="radio" name="forma" value="debito" /><span class="opcao-caixa"><strong>Débito</strong></span></label>
+            <label class="opcao" id="opcao-dinheiro"><input type="radio" name="forma" value="dinheiro" /><span class="opcao-caixa"><strong>Dinheiro</strong></span></label>
+          </div>
+          <p class="aviso-pagamento oculto" id="aviso-antecipado">Após confirmar, o salão envia pelo WhatsApp as instruções para concluir o pagamento antecipado.</p>
+        </fieldset>
+
+        <div class="resumo" id="resumo-final"></div>
+      </div>
+
+      <!-- barra inferior -->
+      <div class="barra-acao">
+        <button class="btn btn-fantasma" id="btn-voltar" type="button">Voltar</button>
+        <div class="barra-total" id="barra-total" aria-live="polite"></div>
+        <button class="btn btn-principal" id="btn-avancar" type="button">Continuar</button>
+      </div>
+    </section>
+
+    <!-- ======= SUCESSO ======= -->
+    <section class="view oculto" id="view-sucesso">
+      <div class="sucesso">
+        <div class="flor-bloom" aria-hidden="true"></div>
+        <h2>Horário reservado!</h2>
+        <p class="sucesso-sub">Te esperamos com tudo pronto. Um resumo do seu agendamento:</p>
+        <div class="cartao-resumo" id="cartao-sucesso"></div>
+        <div class="sucesso-acoes">
+          <a class="btn btn-principal" id="btn-whats-sucesso" target="_blank" rel="noopener">Enviar resumo no WhatsApp</a>
+          <button class="btn btn-fantasma" data-nav="home" type="button">Voltar ao início</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= ADMIN: PIN ======= -->
+    <section class="view oculto" id="view-admin-pin">
+      <div class="pin-caixa">
+        <div class="hero-flor pequena" aria-hidden="true"></div>
+        <h2>Área do salão</h2>
+        <p>Digite o PIN de acesso para abrir a central de agendamentos.</p>
+        <form id="form-pin">
+          <input type="password" id="campo-pin" inputmode="numeric" maxlength="6" placeholder="••••" aria-label="PIN de acesso" />
+          <p class="erro-pin oculto" id="erro-pin">PIN incorreto. Tente novamente.</p>
+          <button class="btn btn-principal" type="submit">Entrar</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ======= ADMIN: CENTRAL ======= -->
+    <section class="view oculto" id="view-admin">
+      <div class="admin-cabeca">
+        <div>
+          <h2>Central de Agendamentos</h2>
+          <p class="admin-sub">Tudo o que as clientes reservaram, em um só lugar.</p>
+        </div>
+        <div class="admin-acoes-topo">
+          <button class="btn btn-fantasma" id="btn-exportar" type="button">Exportar CSV</button>
+          <button class="link-discreto" id="btn-sair-admin" type="button">Sair</button>
+        </div>
+      </div>
+
+      <div class="painel-stats" id="painel-stats"></div>
+
+      <div class="filtros">
+        <input type="search" id="filtro-busca" placeholder="Buscar por nome ou telefone" aria-label="Buscar por nome ou telefone" />
+        <input type="date" id="filtro-data" aria-label="Filtrar por dia" />
+        <select id="filtro-status" aria-label="Filtrar por status">
+          <option value="">Todos os status</option>
+          <option value="pendente">Aguardando confirmação</option>
+          <option value="confirmado">Confirmados</option>
+          <option value="concluido">Concluídos</option>
+          <option value="cancelado">Cancelados</option>
+        </select>
+        <button class="link-discreto" id="btn-limpar-filtros" type="button">Limpar</button>
+      </div>
+
+      <div id="lista-agendamentos"></div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p><strong>Nails &amp; More Salon</strong> · Rio de Janeiro · Shopping Tijuca · NorteShopping · Shopping Metropolitano</p>
+    <p>Instagram <a href="https://www.instagram.com/nailsandmorerj/" target="_blank" rel="noopener">@nailsandmorerj</a></p>
+  </footer>
+
+  <div class="toast oculto" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
