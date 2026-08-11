@@ -1,7 +1,11 @@
 /* ============================================================
    Nails & More Salon — app de agendamentos
    Preços transcritos do cardápio oficial do salão.
-   Os dados ficam no localStorage do navegador (chave nm_agendamentos).
+
+   Modo online: fala com a API (/api/*, Netlify Functions + Blobs),
+   então os agendamentos feitos em qualquer celular chegam à
+   Central do salão. Se a API não existir (abrir o index.html
+   direto do arquivo, por exemplo), cai no modo local (localStorage).
    ============================================================ */
 
 'use strict';
@@ -102,9 +106,24 @@ const LABEL_QUANDO = { na_hora: 'Pagar na hora', antecipado: 'Pagamento antecipa
 const LABEL_STATUS = { pendente: 'Aguardando confirmação', confirmado: 'Confirmado', concluido: 'Concluído', cancelado: 'Cancelado' };
 
 const CHAVE_DADOS = 'nm_agendamentos';
-const CHAVE_SESSAO_ADMIN = 'nm_admin';
-const PIN_ADMIN = '2016'; // ano de fundação do salão
+const CHAVE_PIN_SESSAO = 'nm_admin_pin';
+const PIN_LOCAL = '2016'; // usado só no modo local; online quem valida é o servidor
 const VAGAS_POR_HORARIO = 3; // profissionais atendendo em paralelo por unidade
+
+// ---------- modo online ----------
+const api = { online: false };
+
+async function detectarAPI() {
+  if (location.protocol === 'file:') return;
+  try {
+    const r = await fetch('/api/ping');
+    api.online = r.ok;
+  } catch {
+    api.online = false;
+  }
+}
+
+function pinSessao() { return sessionStorage.getItem(CHAVE_PIN_SESSAO) || ''; }
 
 // ---------- estado ----------
 const estado = {
@@ -118,7 +137,11 @@ const estado = {
   obs: '',
   quando: 'na_hora',
   forma: 'pix',
+  ocupacao: {}, // hora -> quantidade de agendamentos no dia/unidade escolhidos
 };
+
+let listaCache = [];       // última lista carregada na central
+let pollAdmin = null;      // atualização automática da central
 
 // ---------- utilidades ----------
 const $ = (sel) => document.querySelector(sel);
@@ -158,13 +181,13 @@ function toast(msg) {
   toastTimer = setTimeout(() => el.classList.add('oculto'), 3200);
 }
 
-// ---------- armazenamento ----------
-function carregarAgendamentos() {
+// ---------- armazenamento local (modo demo/offline) ----------
+function carregarLocal() {
   try { return JSON.parse(localStorage.getItem(CHAVE_DADOS)) || []; }
   catch { return []; }
 }
 
-function salvarAgendamentos(lista) {
+function salvarLocal(lista) {
   localStorage.setItem(CHAVE_DADOS, JSON.stringify(lista));
 }
 
@@ -173,12 +196,18 @@ function mostrarView(id) {
   $$('.view').forEach((v) => v.classList.add('oculto'));
   $(`#view-${id}`).classList.remove('oculto');
   window.scrollTo({ top: 0 });
+
+  // a central se atualiza sozinha enquanto estiver aberta
+  clearInterval(pollAdmin);
+  if (id === 'admin') {
+    pollAdmin = setInterval(() => atualizarDadosAdmin(true), 25000);
+  }
 }
 
 function navegar(destino) {
   if (destino === 'admin') {
-    if (sessionStorage.getItem(CHAVE_SESSAO_ADMIN) === 'ok') {
-      renderizarAdmin();
+    if (pinSessao()) {
+      atualizarDadosAdmin();
       mostrarView('admin');
     } else {
       mostrarView('admin-pin');
@@ -253,10 +282,23 @@ function gerarHorarios(dataISO) {
   return horarios;
 }
 
-function vagasOcupadas(dataISO, hora, unidade) {
-  return carregarAgendamentos().filter(
-    (ag) => ag.data === dataISO && ag.hora === hora && ag.unidade === unidade && ag.status !== 'cancelado'
-  ).length;
+async function carregarOcupacao() {
+  estado.ocupacao = {};
+  if (!estado.data) return;
+  if (api.online) {
+    try {
+      const r = await fetch(`/api/disponibilidade?data=${estado.data}&unidade=${encodeURIComponent(estado.unidade)}`);
+      if (r.ok) estado.ocupacao = (await r.json()).ocupacao || {};
+    } catch {
+      toast('Sem conexão — tente de novo em instantes.');
+    }
+  } else {
+    for (const ag of carregarLocal()) {
+      if (ag.data === estado.data && ag.unidade === estado.unidade && ag.status !== 'cancelado') {
+        estado.ocupacao[ag.hora] = (estado.ocupacao[ag.hora] || 0) + 1;
+      }
+    }
+  }
 }
 
 function renderizarHorarios() {
@@ -279,7 +321,7 @@ function renderizarHorarios() {
     btn.textContent = hora;
     const [h, min] = hora.split(':').map(Number);
     const jaPassou = ehHoje && (h * 60 + min) <= (agora.getHours() * 60 + agora.getMinutes());
-    const lotado = vagasOcupadas(estado.data, hora, estado.unidade) >= VAGAS_POR_HORARIO;
+    const lotado = (estado.ocupacao[hora] || 0) >= VAGAS_POR_HORARIO;
     if (jaPassou || lotado) {
       btn.disabled = true;
       btn.title = lotado ? 'Horário lotado' : 'Horário já passou';
@@ -297,6 +339,11 @@ function renderizarHorarios() {
 
   dica.textContent = algumLivre ? '' : 'Nenhum horário livre neste dia — tente outra data.';
   dica.classList.toggle('oculto', algumLivre);
+}
+
+async function recarregarHorarios() {
+  await carregarOcupacao();
+  renderizarHorarios();
 }
 
 // ---------- passo 4: pagamento ----------
@@ -346,7 +393,7 @@ function irParaPasso(n) {
     li.classList.toggle('ativo', num === n);
     li.classList.toggle('feito', num < n);
   });
-  if (n === 2) renderizarHorarios();
+  if (n === 2) recarregarHorarios();
   if (n === 4) { atualizarOpcoesPagamento(); renderizarResumoFinal(); }
   atualizarBarra();
   window.scrollTo({ top: 0 });
@@ -392,41 +439,75 @@ function avancar() {
   confirmarAgendamento();
 }
 
-function confirmarAgendamento() {
-  // revalida tudo antes de gravar
-  for (let n = 1; n <= 3; n++) {
-    if (!validarPasso(n)) { irParaPasso(n); return; }
-  }
-  if (vagasOcupadas(estado.data, estado.hora, estado.unidade) >= VAGAS_POR_HORARIO) {
-    toast('Esse horário acabou de lotar — escolha outro, por favor.');
-    irParaPasso(2);
-    return;
-  }
-
-  const agendamento = {
-    id: `ag-${Date.now()}-${Math.floor(Math.random() * 1e4)}`,
-    criadoEm: new Date().toISOString(),
+function montarAgendamento() {
+  return {
     nome: estado.nome.trim(),
     telefone: estado.telefone,
     unidade: estado.unidade,
     data: estado.data,
     hora: estado.hora,
     servicos: servicosSelecionados().map((s) => ({ nome: s.nome, preco: s.preco, aPartirDe: !!s.aPartirDe })),
-    total: totalSelecionado(),
     obs: estado.obs.trim(),
-    pagamento: {
-      quando: estado.quando,
-      forma: estado.forma,
-      status: 'pendente', // o salão marca como pago na central
-    },
-    status: 'pendente',
+    pagamento: { quando: estado.quando, forma: estado.forma },
   };
+}
 
-  const lista = carregarAgendamentos();
-  lista.push(agendamento);
-  salvarAgendamentos(lista);
-  renderizarSucesso(agendamento);
-  mostrarView('sucesso');
+async function confirmarAgendamento() {
+  // revalida tudo antes de gravar
+  for (let n = 1; n <= 3; n++) {
+    if (!validarPasso(n)) { irParaPasso(n); return; }
+  }
+
+  const btn = $('#btn-avancar');
+  btn.disabled = true;
+
+  try {
+    if (api.online) {
+      const r = await fetch('/api/agendamentos', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(montarAgendamento()),
+      });
+      const corpo = await r.json().catch(() => ({}));
+      if (r.status === 409) {
+        toast(corpo.erro || 'Esse horário acabou de lotar — escolha outro, por favor.');
+        irParaPasso(2);
+        return;
+      }
+      if (!r.ok) {
+        toast(corpo.erro || 'Não foi possível agendar agora. Tente de novo.');
+        return;
+      }
+      renderizarSucesso(corpo.agendamento);
+      mostrarView('sucesso');
+      return;
+    }
+
+    // modo local (demo)
+    await carregarOcupacao();
+    if ((estado.ocupacao[estado.hora] || 0) >= VAGAS_POR_HORARIO) {
+      toast('Esse horário acabou de lotar — escolha outro, por favor.');
+      irParaPasso(2);
+      return;
+    }
+    const agendamento = {
+      id: `ag-${Date.now()}-${Math.floor(Math.random() * 1e4)}`,
+      criadoEm: new Date().toISOString(),
+      ...montarAgendamento(),
+      total: totalSelecionado(),
+      status: 'pendente',
+    };
+    agendamento.pagamento.status = 'pendente';
+    const lista = carregarLocal();
+    lista.push(agendamento);
+    salvarLocal(lista);
+    renderizarSucesso(agendamento);
+    mostrarView('sucesso');
+  } catch {
+    toast('Sem conexão — verifique a internet e tente de novo.');
+  } finally {
+    btn.disabled = false;
+  }
 }
 
 // ---------- sucesso ----------
@@ -473,10 +554,29 @@ function renderizarSucesso(ag) {
 }
 
 // ---------- central do salão ----------
-function agendamentosOrdenados() {
-  return carregarAgendamentos().sort((a, b) =>
+async function obterLista() {
+  if (api.online) {
+    const r = await fetch('/api/agendamentos', { headers: { 'x-pin': pinSessao() } });
+    if (r.status === 401) {
+      sessionStorage.removeItem(CHAVE_PIN_SESSAO);
+      mostrarView('admin-pin');
+      throw new Error('pin');
+    }
+    if (!r.ok) throw new Error('http');
+    return (await r.json()).agendamentos || [];
+  }
+  return carregarLocal().sort((a, b) =>
     (a.data + a.hora).localeCompare(b.data + b.hora) || a.criadoEm.localeCompare(b.criadoEm)
   );
+}
+
+async function atualizarDadosAdmin(silencioso = false) {
+  try {
+    listaCache = await obterLista();
+    renderizarListaAdmin();
+  } catch (e) {
+    if (e.message !== 'pin' && !silencioso) toast('Não foi possível carregar os agendamentos. Verifique a conexão.');
+  }
 }
 
 function renderizarStats(lista) {
@@ -492,15 +592,14 @@ function renderizarStats(lista) {
     <div class="stat"><b>${aReceber.length}</b><span>pagamentos em aberto</span></div>`;
 }
 
-function renderizarAdmin() {
-  const todas = agendamentosOrdenados();
-  renderizarStats(todas);
+function renderizarListaAdmin() {
+  renderizarStats(listaCache);
 
   const busca = $('#filtro-busca').value.trim().toLowerCase();
   const dataFiltro = $('#filtro-data').value;
   const statusFiltro = $('#filtro-status').value;
 
-  const filtradas = todas.filter((ag) => {
+  const filtradas = listaCache.filter((ag) => {
     if (busca && !ag.nome.toLowerCase().includes(busca) && !somenteDigitos(ag.telefone).includes(somenteDigitos(busca))) return false;
     if (dataFiltro && ag.data !== dataFiltro) return false;
     if (statusFiltro && ag.status !== statusFiltro) return false;
@@ -511,12 +610,12 @@ function renderizarAdmin() {
   raiz.innerHTML = '';
 
   if (filtradas.length === 0) {
-    const temDados = todas.length > 0;
+    const temDados = listaCache.length > 0;
     raiz.innerHTML = `
       <div class="vazio">
         <div class="hero-flor" aria-hidden="true"></div>
-        <p>${temDados ? 'Nenhum agendamento com esses filtros.' : 'Ainda não há agendamentos por aqui.'}</p>
-        ${temDados ? '' : '<button class="btn btn-fantasma" id="btn-exemplos" type="button">Carregar dados de exemplo</button>'}
+        <p>${temDados ? 'Nenhum agendamento com esses filtros.' : 'Ainda não há agendamentos por aqui. Assim que uma cliente agendar, aparece nesta central.'}</p>
+        ${temDados || api.online ? '' : '<button class="btn btn-fantasma" id="btn-exemplos" type="button">Carregar dados de exemplo</button>'}
       </div>`;
     const btnEx = $('#btn-exemplos');
     if (btnEx) btnEx.addEventListener('click', carregarExemplos);
@@ -596,31 +695,49 @@ function renderizarAdmin() {
   }
 }
 
-function mudarStatus(id, novo) {
-  const lista = carregarAgendamentos();
+async function aplicarMudanca(id, corpo, aoLocal) {
+  if (api.online) {
+    try {
+      const r = await fetch(`/api/agendamentos/${id}`, {
+        method: 'PATCH',
+        headers: { 'content-type': 'application/json', 'x-pin': pinSessao() },
+        body: JSON.stringify(corpo),
+      });
+      if (!r.ok) { toast('Não foi possível salvar. Tente de novo.'); return null; }
+      const ag = (await r.json()).agendamento;
+      await atualizarDadosAdmin(true);
+      return ag;
+    } catch {
+      toast('Sem conexão — tente de novo.');
+      return null;
+    }
+  }
+  const lista = carregarLocal();
   const ag = lista.find((a) => a.id === id);
-  if (!ag) return;
-  ag.status = novo;
-  salvarAgendamentos(lista);
-  renderizarAdmin();
-  toast(`Agendamento de ${ag.nome.split(' ')[0]}: ${LABEL_STATUS[novo].toLowerCase()}.`);
+  if (!ag) return null;
+  aoLocal(ag);
+  salvarLocal(lista);
+  listaCache = lista;
+  renderizarListaAdmin();
+  return ag;
 }
 
-function marcarPago(id, pago) {
-  const lista = carregarAgendamentos();
-  const ag = lista.find((a) => a.id === id);
-  if (!ag) return;
-  ag.pagamento.status = pago ? 'pago' : 'pendente';
-  salvarAgendamentos(lista);
-  renderizarAdmin();
-  toast(pago ? `Pagamento de ${ag.nome.split(' ')[0]} registrado (${LABEL_FORMA[ag.pagamento.forma]}).` : 'Pagamento desfeito.');
+async function mudarStatus(id, novo) {
+  const ag = await aplicarMudanca(id, { status: novo }, (a) => { a.status = novo; });
+  if (ag) toast(`Agendamento de ${ag.nome.split(' ')[0]}: ${LABEL_STATUS[novo].toLowerCase()}.`);
+}
+
+async function marcarPago(id, pago) {
+  const ag = await aplicarMudanca(id, { pagamentoStatus: pago ? 'pago' : 'pendente' }, (a) => {
+    a.pagamento.status = pago ? 'pago' : 'pendente';
+  });
+  if (ag) toast(pago ? `Pagamento de ${ag.nome.split(' ')[0]} registrado (${LABEL_FORMA[ag.pagamento.forma]}).` : 'Pagamento desfeito.');
 }
 
 function exportarCSV() {
-  const lista = agendamentosOrdenados();
-  if (lista.length === 0) { toast('Nada para exportar ainda.'); return; }
+  if (listaCache.length === 0) { toast('Nada para exportar ainda.'); return; }
   const cab = ['Data', 'Hora', 'Unidade', 'Cliente', 'Telefone', 'Serviços', 'Total (R$)', 'Quando paga', 'Forma', 'Pagamento', 'Status', 'Observações'];
-  const linhas = lista.map((ag) => [
+  const linhas = listaCache.map((ag) => [
     ag.data, ag.hora, ag.unidade, ag.nome, ag.telefone,
     ag.servicos.map((s) => s.nome).join(' + '),
     String(ag.total).replace('.', ','),
@@ -673,8 +790,8 @@ function carregarExemplos() {
     total: ex.servicos.reduce((s, x) => s + x.preco, 0),
     ...ex,
   }));
-  salvarAgendamentos([...carregarAgendamentos(), ...exemplos]);
-  renderizarAdmin();
+  salvarLocal([...carregarLocal(), ...exemplos]);
+  atualizarDadosAdmin();
   toast('Dados de exemplo carregados.');
 }
 
@@ -697,14 +814,14 @@ function ligarEventos() {
   campoData.addEventListener('change', () => {
     estado.data = campoData.value;
     estado.hora = '';
-    renderizarHorarios();
+    recarregarHorarios();
     atualizarBarra();
   });
 
   $('#campo-unidade').addEventListener('change', (ev) => {
     estado.unidade = ev.target.value;
     estado.hora = '';
-    renderizarHorarios();
+    recarregarHorarios();
   });
 
   $('#campo-nome').addEventListener('input', (ev) => { estado.nome = ev.target.value; });
@@ -724,13 +841,30 @@ function ligarEventos() {
     estado.forma = ev.target.value;
   });
 
-  $('#form-pin').addEventListener('submit', (ev) => {
+  $('#form-pin').addEventListener('submit', async (ev) => {
     ev.preventDefault();
-    if ($('#campo-pin').value === PIN_ADMIN) {
-      sessionStorage.setItem(CHAVE_SESSAO_ADMIN, 'ok');
+    const pin = $('#campo-pin').value;
+    let valido = false;
+
+    if (api.online) {
+      try {
+        const r = await fetch('/api/agendamentos', { headers: { 'x-pin': pin } });
+        valido = r.ok;
+        if (valido) listaCache = (await r.json()).agendamentos || [];
+      } catch {
+        toast('Sem conexão — tente de novo.');
+        return;
+      }
+    } else {
+      valido = pin === PIN_LOCAL;
+    }
+
+    if (valido) {
+      sessionStorage.setItem(CHAVE_PIN_SESSAO, pin);
       $('#erro-pin').classList.add('oculto');
-      renderizarAdmin();
+      renderizarListaAdmin();
       mostrarView('admin');
+      if (!api.online) atualizarDadosAdmin(true);
     } else {
       $('#erro-pin').classList.remove('oculto');
       $('#campo-pin').value = '';
@@ -739,19 +873,19 @@ function ligarEventos() {
   });
 
   $('#btn-sair-admin').addEventListener('click', () => {
-    sessionStorage.removeItem(CHAVE_SESSAO_ADMIN);
+    sessionStorage.removeItem(CHAVE_PIN_SESSAO);
     mostrarView('home');
   });
 
   $('#btn-exportar').addEventListener('click', exportarCSV);
   ['#filtro-busca', '#filtro-data', '#filtro-status'].forEach((sel) =>
-    $(sel).addEventListener('input', renderizarAdmin)
+    $(sel).addEventListener('input', renderizarListaAdmin)
   );
   $('#btn-limpar-filtros').addEventListener('click', () => {
     $('#filtro-busca').value = '';
     $('#filtro-data').value = '';
     $('#filtro-status').value = '';
-    renderizarAdmin();
+    renderizarListaAdmin();
   });
 }
 
@@ -760,3 +894,4 @@ renderizarCardapio();
 ligarEventos();
 atualizarBarra();
 mostrarView('home');
+detectarAPI();

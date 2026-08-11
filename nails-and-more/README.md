@@ -19,16 +19,26 @@ Aplicativo web de agendamentos para o **Nails & More Salon** (Rio de Janeiro · 
 
 ## Como usar
 
-É um app estático — não precisa de servidor nem instalação:
+**App publicado (com banco de dados online):** https://nails-and-more-agenda.netlify.app
 
-- **Testar agora:** abra `index.html` no navegador.
-- **Publicar:** suba a pasta `nails-and-more/` em qualquer hospedagem estática (Netlify, Vercel, GitHub Pages, Render Static Site).
+O app roda no Netlify com uma API serverless (`netlify/functions/api.mjs`) e banco **Netlify Blobs** — os agendamentos feitos em qualquer celular chegam à Central do salão, que se atualiza sozinha a cada 25 segundos.
 
-## Onde ficam os dados
+### Rotas da API
 
-Os agendamentos ficam salvos no navegador (localStorage). Isso significa que a central mostra os agendamentos feitos **no mesmo navegador/dispositivo** — ideal para testar o fluxo e para uso em um tablet/computador único na recepção.
+| Rota | Método | Acesso | Função |
+|---|---|---|---|
+| `/api/ping` | GET | público | o front detecta se está no modo online |
+| `/api/disponibilidade?data=&unidade=` | GET | público | ocupação por horário (3 vagas por meia hora/unidade) |
+| `/api/agendamentos` | POST | público | cria agendamento (validação + checagem de lotação no servidor) |
+| `/api/agendamentos` | GET | PIN (header `x-pin`) | lista completa para a central |
+| `/api/agendamentos/:id` | PATCH | PIN (header `x-pin`) | atualiza status e/ou pagamento |
 
-Para que os agendamentos feitos no celular das clientes cheguem à central do salão em tempo real, o próximo passo é ligar o app a um backend (por exemplo o mesmo padrão Node + SQLite já usado neste repositório, ou Firebase/Supabase). A estrutura de dados já está pronta para isso (`app.js`, objeto `agendamento`).
+O PIN da central é validado no servidor — padrão `2016`, trocável pela variável de ambiente `ADMIN_PIN` no painel do Netlify (sem mexer no código).
+
+### Rodar/publicar de novo
+
+- **Local (demo):** abra `index.html` no navegador — sem API o app cai automaticamente no modo local (localStorage), útil para testar o fluxo.
+- **Deploy:** `npx netlify-cli deploy --prod` dentro de `nails-and-more/` (site `nails-and-more-agenda`), ou conecte a pasta ao Netlify pelo painel.
 
 ## Identidade visual
 

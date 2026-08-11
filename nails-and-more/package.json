@@ -1,0 +1,9 @@
+{
+  "name": "nails-and-more-agenda",
+  "private": true,
+  "version": "1.0.0",
+  "description": "App de agendamentos do Nails & More Salon",
+  "dependencies": {
+    "@netlify/blobs": "^10.0.9"
+  }
+}
