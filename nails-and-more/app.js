@@ -115,7 +115,7 @@ const CATEGORIAS_TRABALHO = CATEGORIAS.filter((c) => c.id !== 'combos');
 const LABEL_FORMA = { pix: 'Pix', credito: 'Cartão de crédito', debito: 'Cartão de débito', dinheiro: 'Dinheiro' };
 const LABEL_QUANDO = { na_hora: 'Pagar na hora', antecipado: 'Pagamento antecipado' };
 const LABEL_STATUS = { pendente: 'Aguardando confirmação', confirmado: 'Confirmado', concluido: 'Concluído', cancelado: 'Cancelado' };
-const UNIDADES = ['Shopping Tijuca', 'NorteShopping', 'Shopping Metropolitano'];
+const UNIDADES = ['Shopping Tijuca', 'NorteShopping', 'Shopping Metropolitano', 'Shopping Via Parque'];
 
 const CHAVE_DADOS = 'nm_agendamentos';
 const CHAVE_EQUIPE = 'nm_equipe';

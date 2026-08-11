@@ -6,7 +6,7 @@
 
 import { getStore, getDeployStore } from '@netlify/blobs';
 
-const UNIDADES = ['Shopping Tijuca', 'NorteShopping', 'Shopping Metropolitano'];
+const UNIDADES = ['Shopping Tijuca', 'NorteShopping', 'Shopping Metropolitano', 'Shopping Via Parque'];
 const QUANDO = ['na_hora', 'antecipado'];
 const FORMAS = ['pix', 'credito', 'debito', 'dinheiro'];
 const STATUS = ['pendente', 'confirmado', 'concluido', 'cancelado'];
