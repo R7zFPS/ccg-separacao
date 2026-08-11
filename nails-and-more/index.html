@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nails &amp; More Salon · Agendamentos</title>
   <meta name="description" content="Agende seu horário no Nails & More Salon — mãos, pés, cílios, spa e cabelo." />
+  <meta name="theme-color" content="#6B2544" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -37,6 +40,9 @@
         <h1>Agende seu<br />momento</h1>
         <p class="hero-sub">Mãos &amp; pés, nail design, olhar, spa e cabelo — escolha seus serviços, o horário e pronto: seu lugar fica reservado.</p>
         <button class="btn btn-principal btn-grande" data-nav="agendar" type="button">Agendar horário</button>
+        <p class="oculto" id="rebook-wrap">
+          <button class="btn btn-fantasma" id="btn-rebook" type="button">Repetir meu último atendimento</button>
+        </p>
         <ul class="hero-infos">
           <li><strong>Seg a Sáb</strong> 10h – 22h</li>
           <li><strong>Domingo</strong> 13h – 21h</li>
@@ -73,6 +79,10 @@
             <option value="Shopping Metropolitano">Shopping Metropolitano</option>
           </select>
         </div>
+        <div class="campo oculto" id="campo-prof-wrap">
+          <label for="campo-profissional">Com quem?</label>
+          <select id="campo-profissional"></select>
+        </div>
         <div class="campo">
           <label for="campo-data">Dia</label>
           <input type="date" id="campo-data" />
@@ -81,6 +91,7 @@
           <label id="rotulo-horarios">Horário</label>
           <div id="grade-horarios" class="grade-horarios" role="listbox" aria-labelledby="rotulo-horarios"></div>
           <p class="dica-horario" id="dica-horario">Escolha um dia para ver os horários disponíveis.</p>
+          <p class="dica-horario" id="info-duracao"></p>
         </div>
       </div>
 
@@ -104,6 +115,11 @@
       <!-- Passo 4: pagamento -->
       <div class="passo-painel oculto" id="passo-4">
         <h2 class="titulo-passo">Como prefere pagar?</h2>
+
+        <div class="upsell oculto" id="upsell">
+          <p class="upsell-titulo">Aproveite e adicione ✨</p>
+          <div class="upsell-lista" id="upsell-lista"></div>
+        </div>
 
         <fieldset class="grupo-opcoes">
           <legend>Quando pagar</legend>
@@ -154,6 +170,17 @@
         <h2>Horário reservado!</h2>
         <p class="sucesso-sub">Te esperamos com tudo pronto. Um resumo do seu agendamento:</p>
         <div class="cartao-resumo" id="cartao-sucesso"></div>
+        <div class="pix-box oculto" id="pix-box">
+          <h3>Pague agora com Pix</h3>
+          <img id="pix-qr" alt="QR Code do Pix" class="oculto" />
+          <p class="pix-instrucao">Escaneie o QR Code ou copie o código abaixo no app do seu banco:</p>
+          <div class="pix-copia">
+            <input type="text" id="pix-codigo" readonly aria-label="Código Pix copia e cola" />
+            <button class="btn-mini solido" id="btn-copiar-pix" type="button">Copiar</button>
+          </div>
+          <p class="pix-instrucao">Assim que o banco confirmar, o pagamento aparece como recebido na central do salão.</p>
+        </div>
+        <p class="fidelidade-msg" id="fidelidade-msg"></p>
         <div class="sucesso-acoes">
           <a class="btn btn-principal" id="btn-whats-sucesso" target="_blank" rel="noopener">Enviar resumo no WhatsApp</a>
           <button class="btn btn-fantasma" data-nav="home" type="button">Voltar ao início</button>
@@ -183,27 +210,116 @@
           <p class="admin-sub">Tudo o que as clientes reservaram, em um só lugar.</p>
         </div>
         <div class="admin-acoes-topo">
+          <button class="btn-mini" id="btn-avisos" type="button">🔔 Ativar avisos</button>
           <button class="btn btn-fantasma" id="btn-exportar" type="button">Exportar CSV</button>
           <button class="link-discreto" id="btn-sair-admin" type="button">Sair</button>
         </div>
       </div>
 
-      <div class="painel-stats" id="painel-stats"></div>
+      <nav class="abas" aria-label="Seções da central">
+        <button type="button" class="aba ativo" data-aba="agendamentos">Agendamentos</button>
+        <button type="button" class="aba" data-aba="relatorios">Relatórios</button>
+        <button type="button" class="aba" data-aba="equipe">Equipe</button>
+        <button type="button" class="aba" data-aba="bloqueios">Bloqueios</button>
+      </nav>
 
-      <div class="filtros">
-        <input type="search" id="filtro-busca" placeholder="Buscar por nome ou telefone" aria-label="Buscar por nome ou telefone" />
-        <input type="date" id="filtro-data" aria-label="Filtrar por dia" />
-        <select id="filtro-status" aria-label="Filtrar por status">
-          <option value="">Todos os status</option>
-          <option value="pendente">Aguardando confirmação</option>
-          <option value="confirmado">Confirmados</option>
-          <option value="concluido">Concluídos</option>
-          <option value="cancelado">Cancelados</option>
-        </select>
-        <button class="link-discreto" id="btn-limpar-filtros" type="button">Limpar</button>
+      <!-- aba: agendamentos -->
+      <div id="aba-agendamentos">
+        <div class="painel-stats" id="painel-stats"></div>
+
+        <div class="filtros">
+          <input type="search" id="filtro-busca" placeholder="Buscar por nome ou telefone" aria-label="Buscar por nome ou telefone" />
+          <input type="date" id="filtro-data" aria-label="Filtrar por dia" />
+          <select id="filtro-status" aria-label="Filtrar por status">
+            <option value="">Todos os status</option>
+            <option value="pendente">Aguardando confirmação</option>
+            <option value="confirmado">Confirmados</option>
+            <option value="concluido">Concluídos</option>
+            <option value="cancelado">Cancelados</option>
+          </select>
+          <button class="link-discreto" id="btn-limpar-filtros" type="button">Limpar</button>
+        </div>
+
+        <div id="lista-agendamentos"></div>
       </div>
 
-      <div id="lista-agendamentos"></div>
+      <!-- aba: relatórios -->
+      <div id="aba-relatorios" class="oculto">
+        <div class="filtros">
+          <select id="rel-periodo" aria-label="Período do relatório">
+            <option value="7">Últimos 7 dias</option>
+            <option value="30" selected>Últimos 30 dias</option>
+            <option value="90">Últimos 90 dias</option>
+            <option value="0">Tudo</option>
+          </select>
+        </div>
+        <div id="rel-conteudo"></div>
+      </div>
+
+      <!-- aba: equipe -->
+      <div id="aba-equipe" class="oculto">
+        <div class="cartao-form">
+          <h3>Adicionar profissional</h3>
+          <div class="campo">
+            <label for="eq-nome">Nome</label>
+            <input type="text" id="eq-nome" placeholder="Nome da profissional" />
+          </div>
+          <div class="campo">
+            <label>Atende nas unidades</label>
+            <div class="chips" id="eq-unidades"></div>
+          </div>
+          <div class="campo">
+            <label>Faz quais serviços</label>
+            <div class="chips" id="eq-categorias"></div>
+          </div>
+          <button class="btn btn-principal" id="btn-add-prof" type="button">Adicionar à equipe</button>
+        </div>
+        <p class="dica-horario">Com a equipe cadastrada, a agenda passa a ser por profissional: cada uma atende uma cliente por vez, e a cliente pode escolher com quem quer ser atendida.</p>
+        <div id="lista-equipe"></div>
+      </div>
+
+      <!-- aba: bloqueios -->
+      <div id="aba-bloqueios" class="oculto">
+        <div class="cartao-form">
+          <h3>Bloquear horário</h3>
+          <div class="form-linha">
+            <div class="campo">
+              <label for="bl-unidade">Unidade</label>
+              <select id="bl-unidade">
+                <option value="Shopping Tijuca">Shopping Tijuca</option>
+                <option value="NorteShopping">NorteShopping</option>
+                <option value="Shopping Metropolitano">Shopping Metropolitano</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label for="bl-data">Dia</label>
+              <input type="date" id="bl-data" />
+            </div>
+          </div>
+          <div class="form-linha">
+            <div class="campo">
+              <label for="bl-inicio">Das</label>
+              <select id="bl-inicio"></select>
+            </div>
+            <div class="campo">
+              <label for="bl-fim">Até</label>
+              <select id="bl-fim"></select>
+            </div>
+          </div>
+          <div class="form-linha">
+            <div class="campo">
+              <label for="bl-prof">Profissional <em>(opcional — vazio bloqueia a unidade toda)</em></label>
+              <select id="bl-prof"><option value="">Unidade inteira</option></select>
+            </div>
+            <div class="campo">
+              <label for="bl-motivo">Motivo <em>(opcional)</em></label>
+              <input type="text" id="bl-motivo" placeholder="Folga, feriado, manutenção…" />
+            </div>
+          </div>
+          <button class="btn btn-principal" id="btn-add-bloqueio" type="button">Bloquear</button>
+        </div>
+        <div id="lista-bloqueios"></div>
+      </div>
     </section>
   </main>
 

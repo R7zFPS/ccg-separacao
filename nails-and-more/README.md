@@ -23,17 +23,36 @@ Aplicativo web de agendamentos para o **Nails & More Salon** (Rio de Janeiro · 
 
 O app roda no Netlify com uma API serverless (`netlify/functions/api.mjs`) e banco **Netlify Blobs** — os agendamentos feitos em qualquer celular chegam à Central do salão, que se atualiza sozinha a cada 25 segundos.
 
+### Recursos
+
+- **Agenda inteligente** — duração por serviço; com equipe cadastrada, cada profissional atende uma cliente por vez e a cliente escolhe "com quem"; sem equipe, 3 vagas por meia hora. Bloqueios de horário (folga, feriado) pela central.
+- **Combos com desconto** ("Combos & Pacotes" no cardápio — preços sugeridos, ajuste em `app.js`) e **upsell** de adicionais na etapa de pagamento.
+- **Fidelidade** — a cada 10 atendimentos concluídos, um brinde; selos aparecem para a cliente e na central.
+- **Central com 4 abas** — Agendamentos (com sino + notificação de novo agendamento), Relatórios (faturamento por unidade/profissional, serviços mais pedidos, top clientes, taxa de comparecimento), Equipe e Bloqueios.
+- **Pós-atendimento** — botão "Pedir avaliação" (WhatsApp + link do Google) ao concluir.
+- **Repetir último atendimento** — a cliente refaz a última reserva em dois toques.
+- **PWA** — instalável na tela do celular (manifest + service worker + ícones).
+
 ### Rotas da API
 
 | Rota | Método | Acesso | Função |
 |---|---|---|---|
-| `/api/ping` | GET | público | o front detecta se está no modo online |
-| `/api/disponibilidade?data=&unidade=` | GET | público | ocupação por horário (3 vagas por meia hora/unidade) |
-| `/api/agendamentos` | POST | público | cria agendamento (validação + checagem de lotação no servidor) |
-| `/api/agendamentos` | GET | PIN (header `x-pin`) | lista completa para a central |
-| `/api/agendamentos/:id` | PATCH | PIN (header `x-pin`) | atualiza status e/ou pagamento |
+| `/api/ping` | GET | público | o front detecta o modo online (e se o Pix está ativo) |
+| `/api/contexto?unidade=` | GET | público | equipe da unidade (escolha de profissional) |
+| `/api/disponibilidade?data=&unidade=&dur=&profissional=` | GET | público | horários de início livres para a duração pedida |
+| `/api/agendamentos` | POST | público | cria agendamento (validação, lotação e atribuição de profissional no servidor) |
+| `/api/agendamentos` | GET | PIN (header `x-pin`) | lista completa + selos de fidelidade |
+| `/api/agendamentos/:id` | PATCH | PIN | atualiza status e/ou pagamento |
+| `/api/equipe` | GET/PUT | PIN | profissionais |
+| `/api/bloqueios` | GET/PUT | PIN | bloqueios de agenda |
+| `/api/webhooks/mercadopago` | POST | webhook | confirma Pix pago automaticamente |
 
 O PIN da central é validado no servidor — padrão `2016`, trocável pela variável de ambiente `ADMIN_PIN` no painel do Netlify (sem mexer no código).
+
+### Integrações que ligam sozinhas (variáveis de ambiente no painel do Netlify)
+
+- **Pix na tela (Mercado Pago)** — defina `MP_ACCESS_TOKEN` (token de produção da conta Mercado Pago do salão). Quem escolher "pagar antes + Pix" recebe QR Code e copia-e-cola na confirmação; o webhook `/api/webhooks/mercadopago` (cadastre a URL nas notificações do Mercado Pago) marca o pagamento como recebido sozinho.
+- **Lembrete automático de WhatsApp** — defina `ZAPI_SEND_TEXT_URL` e `ZAPI_CLIENT_TOKEN` (conta Z-API). Todo dia às 9h (Brasília) a função `lembretes` avisa as clientes do dia seguinte ("responda SIM para confirmar"). Sem as variáveis, nada é enviado.
 
 ### Rodar/publicar de novo
 
